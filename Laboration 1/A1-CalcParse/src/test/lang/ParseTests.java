@@ -39,4 +39,8 @@ public class ParseTests {
 	@Test public void error3() {
 		Util.testSyntaxError(TEST_DIRECTORY, "error3.in");
 	}
+
+	@Test public void myexample() {
+		Util.testValidSyntax(TEST_DIRECTORY, "myexample.in");
+	}
 }
