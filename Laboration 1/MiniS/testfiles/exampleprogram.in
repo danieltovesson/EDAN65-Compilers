@@ -1,0 +1,3 @@
+hej = 0
+for test = 1 < 3 { hej = 6 }
+if hej = 6 { hej = 7 }

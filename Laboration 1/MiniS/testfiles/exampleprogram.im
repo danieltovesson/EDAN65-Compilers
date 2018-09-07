@@ -1,3 +1,0 @@
-hej = 0
-for test = 1 until 3 do hej = 6 od
-if hej = 6 then hej = 7 fi
