@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import RDP;
-import RDP.SyntaxError;
+import lang.ast.LangParser;
+import lang.ast.LangParser.SyntaxError;
 import lang.ast.LangScanner;
 
 public class RecursiveDescentCompiler {
@@ -30,9 +30,7 @@ public class RecursiveDescentCompiler {
 		try {
 			rdp.parse(scanner);
 			System.out.println("Valid syntax");
-		} catch (SyntaxError | beaver.Parser.Exception e) {
-			System.err.println("Syntax error: " + e.getMessage());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
   }
