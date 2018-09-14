@@ -1,0 +1,5 @@
+let value = 5.0 in
+  let i = 20.0 in
+    2.0 * i * value
+  end
+end
