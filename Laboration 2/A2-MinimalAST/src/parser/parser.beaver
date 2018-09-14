@@ -9,10 +9,21 @@
 	}
 :};
 
-%terminals ID;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, NUMERAL, ID;
 
 %typeof program = "Program";
+%typeof functions = "Functions";
+%typeof functionList = "List";
+%typeof id = "Id";
 
 %goal program;
 
-program = ID.id {: return new Program(id); :} ;
+program = functionList.a {: return new Program(a); :} ;
+
+functions = NUMERAL id.a LPARA RPARA LBRACKET RBRACKET {: return new Functions(a); :} ;
+
+functionList =
+							functions.a {: return new List().add(a); :}
+							| functionList.a functions.b {: return new a.add(b); :} ;
+
+id = ID.a {: return new Id(a); :} ;
