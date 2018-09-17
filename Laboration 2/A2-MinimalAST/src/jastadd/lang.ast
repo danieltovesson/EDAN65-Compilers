@@ -8,9 +8,13 @@ Declaration:Stmt ::= name:IdDecl;
 Assignment:Stmt ::= name:IdUse value:Expr;
 
 abstract Expr;
-abstract Factor : Expr;
+abstract BinExpr:Expr ::= left:Expr right:Expr;
+abstract Sum:BinExpr;
+abstract Term:BinExpr;
+abstract Factor:Expr;
 
-Nbr : Factor ::= <INTEGER>;
-IdUse : Factor ::= <ID>;
+Add:Sum;
+Nbr:Factor ::= <INTEGER>;
+IdUse:Factor ::= <ID>;
 Id ::= <ID>;
 IdDecl ::= <ID>;

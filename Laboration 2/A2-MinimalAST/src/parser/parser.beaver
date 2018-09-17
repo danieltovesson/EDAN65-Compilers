@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, PLUS, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof functions = "Functions";
@@ -22,7 +22,8 @@
 %typeof assignment = "Assignment";
 
 %typeof expr = "Expr";
-%typeof factor = "Factor";
+%typeof factor = "Expr";
+%typeof sum = "Expr";
 %typeof nbr = "Nbr";
 %typeof id = "Id";
 %typeof idDecl = "IdDecl";
@@ -53,8 +54,12 @@ declaration = INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
 assignment = idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
 
-expr = factor;
+expr = factor | sum;
 factor = nbr | idUse;
+
+sum = sum.a PLUS term.b {: return new Add(a, b); :} ;
+
+term = factor;
 
 nbr = INTEGER.a {: return new Nbr(a); :} ;
 
