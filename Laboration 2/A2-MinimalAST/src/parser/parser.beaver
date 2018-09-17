@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, NUMERAL, ID;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, INT, ID;
 
 %typeof program = "Program";
 %typeof functions = "Functions";
@@ -20,7 +20,7 @@
 
 program = functionList.a {: return new Program(a); :} ;
 
-functions = NUMERAL id.a LPARA RPARA LBRACKET RBRACKET {: return new Functions(a); :} ;
+functions = INT id.a LPARA RPARA LBRACKET RBRACKET {: return new Functions(a); :} ;
 
 functionList =
 							functions.a {: return new List().add(a); :}
