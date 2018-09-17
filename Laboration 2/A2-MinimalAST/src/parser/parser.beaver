@@ -24,6 +24,6 @@ functions = NUMERAL id.a LPARA RPARA LBRACKET RBRACKET {: return new Functions(a
 
 functionList =
 							functions.a {: return new List().add(a); :}
-							| functionList.a functions.b {: return new a.add(b); :} ;
+							| functionList.a functions.b {: return a.add(b); :} ;
 
 id = ID.a {: return new Id(a); :} ;
