@@ -4,9 +4,12 @@ Functions ::= name:Id [codeBlock:Stmt];
 
 abstract Stmt;
 Declaration:Stmt ::= name:IdDecl;
-Assignment:Stmt ::= name:IdUse value:Nbr;
+Assignment:Stmt ::= name:IdUse value:Expr;
 
-Nbr ::= <INTEGER>;
+abstract Expr;
+abstract Factor : Expr;
+
+Nbr : Factor ::= <INTEGER>;
+IdUse : Factor ::= <ID>;
 Id ::= <ID>;
 IdDecl ::= <ID>;
-IdUse ::= <ID>;

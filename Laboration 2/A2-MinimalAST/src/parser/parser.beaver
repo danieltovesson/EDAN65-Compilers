@@ -20,6 +20,8 @@
 %typeof declaration = "Declaration";
 %typeof assignment = "Assignment";
 
+%typeof expr = "Expr";
+%typeof factor = "Factor";
 %typeof nbr = "Nbr";
 %typeof id = "Id";
 %typeof idDecl = "IdDecl";
@@ -45,7 +47,10 @@ stmtList =
 
 declaration = INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
-assignment = idUse.a ASSIGN nbr.b SEMI {: return new Assignment(a, b); :} ;
+assignment = idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+
+expr = factor;
+factor = nbr | idUse;
 
 nbr = INTEGER.a {: return new Nbr(a); :} ;
 
