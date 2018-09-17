@@ -1,6 +1,7 @@
 Program ::= Functions*;
 
-Functions ::= name:Id [codeBlock:Stmt];
+Functions ::= name:Id codeBlock:Block;
+Block ::= [Stmt];
 
 abstract Stmt;
 Declaration:Stmt ::= name:IdDecl;

@@ -1,0 +1,17 @@
+Program
+  List
+    Functions
+      Id ID="a"
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="x"
+            Declaration
+              IdDecl ID="y"
+            Assignment
+              IdUse ID="x"
+              Nbr INTEGER="5"
+            Assignment
+              IdUse ID="y"
+              IdUse ID="x"

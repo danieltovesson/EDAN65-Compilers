@@ -2,5 +2,9 @@ Program
   List
     Functions
       Id ID="a"
+      Block
+        Opt
     Functions
       Id ID="b"
+      Block
+        Opt

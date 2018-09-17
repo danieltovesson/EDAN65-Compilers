@@ -15,6 +15,7 @@
 %typeof functions = "Functions";
 %typeof functionList = "List";
 %typeof stmtList = "List";
+%typeof block = "Block";
 
 %typeof stmt = "Stmt";
 %typeof declaration = "Declaration";
@@ -31,7 +32,7 @@
 
 program = functionList.a {: return new Program(a); :} ;
 
-functions = INT id.a LPARA RPARA LBRACKET stmtList.b RBRACKET {: return new Functions(a, new Opt(b)); :} ;
+functions = INT id.a LPARA RPARA block.b {: return new Functions(a, b); :} ;
 
 functionList =
 							functions.a {: return new List().add(a); :}
@@ -44,6 +45,9 @@ stmt =
 stmtList =
 							stmt.a {: return new List().add(a); :}
 							| stmtList.a stmt.b {: return a.add(b); :} ;
+
+block =				LBRACKET RBRACKET {: return new	Block(); :}
+							| LBRACKET stmtList.a RBRACKET {: return new Block(new Opt(a)); :} ;
 
 declaration = INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
