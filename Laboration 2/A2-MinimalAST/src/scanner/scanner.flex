@@ -29,8 +29,7 @@ import lang.ast.LangParser.SyntaxError;
 // macros
 WhiteSpace = [ ] | \t | \f | \n | \r
 ID = [a-zA-Z0-9]+
-IDDECL = [0-9]+
-IDUSE = [a-zA-Z]+
+INTEGER = [0-9]+
 
 %%
 
@@ -42,11 +41,11 @@ IDUSE = [a-zA-Z]+
 "}"           { return sym(Terminals.RBRACKET); }
 "("           { return sym(Terminals.LPARA); }
 ")"           { return sym(Terminals.RPARA); }
-";"           { return sum(Terminals.SEMI); }
+"="           { return sym(Terminals.ASSIGN); }
+";"           { return sym(Terminals.SEMI); }
 "int"         { return sym(Terminals.INT); }
+{INTEGER}     { return sym(Terminals.INTEGER); }
 {ID}          { return sym(Terminals.ID); }
-{IDDECL}      { return sym(Terminals.IDDECL); }
-{IDUSE}       { return sym(Terminals.IDUSE); }
 <<EOF>>       { return sym(Terminals.EOF); }
 
 /* error fallback */

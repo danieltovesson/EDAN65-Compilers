@@ -1,4 +1,12 @@
 Program ::= Functions*;
 
-Functions ::= name:Id;
+Functions ::= name:Id [codeBlock:Stmt];
+
+abstract Stmt;
+Declaration:Stmt ::= name:IdDecl;
+Assignment:Stmt ::= name:IdUse value:Nbr;
+
+Nbr ::= <INTEGER>;
 Id ::= <ID>;
+IdDecl ::= <ID>;
+IdUse ::= <ID>;

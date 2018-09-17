@@ -9,21 +9,48 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, SEMI, INT, ID, IDDECL, IDUSE;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof functions = "Functions";
 %typeof functionList = "List";
+%typeof stmtList = "List";
+
+%typeof stmt = "Stmt";
+%typeof declaration = "Declaration";
+%typeof assignment = "Assignment";
+
+%typeof nbr = "Nbr";
 %typeof id = "Id";
+%typeof idDecl = "IdDecl";
+%typeof idUse = "IdUse";
 
 %goal program;
 
 program = functionList.a {: return new Program(a); :} ;
 
-functions = INT id.a LPARA RPARA LBRACKET RBRACKET {: return new Functions(a); :} ;
+functions = INT id.a LPARA RPARA LBRACKET stmtList.b RBRACKET {: return new Functions(a, new Opt(b)); :} ;
 
 functionList =
 							functions.a {: return new List().add(a); :}
 							| functionList.a functions.b {: return a.add(b); :} ;
 
+stmt =
+							declaration
+							| assignment ;
+
+stmtList =
+							stmt.a {: return new List().add(a); :}
+							| stmtList.a stmt.b {: return a.add(b); :} ;
+
+declaration = INT idDecl.a SEMI {: return new Declaration(a); :} ;
+
+assignment = idUse.a ASSIGN nbr.b SEMI {: return new Assignment(a, b); :} ;
+
+nbr = INTEGER.a {: return new Nbr(a); :} ;
+
 id = ID.a {: return new Id(a); :} ;
+
+idDecl = ID.a {: return new IdDecl(a); :} ;
+
+idUse = ID.a {: return new IdUse(a); :} ;
