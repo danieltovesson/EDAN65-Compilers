@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, INT, ID;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, SEMI, INT, ID, IDDECL, IDUSE;
 
 %typeof program = "Program";
 %typeof functions = "Functions";
