@@ -19,3 +19,13 @@ Program
             Declaration
               IdDecl ID="c"
               Opt
+            Declaration
+              IdDecl ID="d"
+              Opt
+                Add
+                  FuncCall
+                    Id ID="read"
+                    Opt
+                  FuncCall
+                    Id ID="read"
+                    Opt
