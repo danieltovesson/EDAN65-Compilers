@@ -19,7 +19,7 @@ abstract BinExpr:Expr ::= left:Expr right:Expr;
 abstract Prod:BinExpr;
 abstract Sum:BinExpr;
 
-FuncCall:Expr ::= name:Id [expr:Expr];
+FuncCall:Term ::= name:Id [expr:Expr];
 
 Mul:Prod;
 Div:Prod;

@@ -108,11 +108,11 @@ expr = 					prod
 								| greaterEqual
 								| notEqual
 								| equal
-								| funcCall
 								;
 
 term = 					intValue
 								| idUse
+								| funcCall
 								;
 
 factor = 				term;
