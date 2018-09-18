@@ -10,6 +10,7 @@ Assignment:Stmt ::= name:IdUse value:Expr;
 WhileStmt:Stmt ::= condition:Expr codeBlock:Block;
 IfStmt:Stmt ::= condition:Expr codeBlock:Block [else:Block];
 Return:Stmt ::= return:Expr;
+Print:Stmt ::= print:Expr;
 
 abstract Expr;
 abstract Term:Expr;

@@ -58,6 +58,7 @@ COMMENT = "//".*
 ";"           { return sym(Terminals.SEMI); }
 ","           { return sym(Terminals.COMMA); }
 "return"      { return sym(Terminals.RETURN); }
+"print"       { return sym(Terminals.PRINT); }
 "while"       { return sym(Terminals.WHILE); }
 "else"        { return sym(Terminals.ELSE); }
 "int"         { return sym(Terminals.INT); }
