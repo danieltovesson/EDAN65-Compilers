@@ -8,6 +8,7 @@ Program
           List
             Declaration
               IdDecl ID="a"
+              Opt
             Assignment
               IdUse ID="a"
               IntValue INTEGER="1"

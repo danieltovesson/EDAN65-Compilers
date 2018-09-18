@@ -1,13 +1,40 @@
-int a() {
-  int a;
-  a = 2;
-  return a;
-}
-int b() {
-  return 2;
-}
-int b() {
-  int a;
-  a = 2;
-  return a + 2;
-}
+Program
+  List
+    Function
+      Id ID="a"
+      Opt
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+              Opt
+            Assignment
+              IdUse ID="a"
+              IntValue INTEGER="2"
+            Return
+              IdUse ID="a"
+    Function
+      Id ID="b"
+      Opt
+      Block
+        Opt
+          List
+            Return
+              IntValue INTEGER="2"
+    Function
+      Id ID="b"
+      Opt
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+              Opt
+            Assignment
+              IdUse ID="a"
+              IntValue INTEGER="2"
+            Return
+              Add
+                IdUse ID="a"
+                IntValue INTEGER="2"

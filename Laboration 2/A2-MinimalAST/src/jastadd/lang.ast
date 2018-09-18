@@ -5,7 +5,7 @@ Block ::= [Stmt];
 Function ::= name:Id [parameter:IdDecl] codeBlock:Block;
 
 abstract Stmt;
-Declaration:Stmt ::= name:IdDecl;
+Declaration:Stmt ::= name:IdDecl [assignment:Expr];
 Assignment:Stmt ::= name:IdUse value:Expr;
 WhileStmt:Stmt ::= condition:Expr codeBlock:Block;
 IfStmt:Stmt ::= condition:Expr codeBlock:Block [else:Block];

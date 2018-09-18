@@ -8,8 +8,10 @@ Program
           List
             Declaration
               IdDecl ID="a"
+              Opt
             Declaration
               IdDecl ID="b"
+              Opt
             Assignment
               IdUse ID="b"
               Div

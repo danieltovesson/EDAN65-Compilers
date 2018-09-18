@@ -79,7 +79,9 @@ stmt =					declaration
 								| print
 								;
 
-declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
+declaration = 	INT idDecl.a SEMI {: return new Declaration(a, new Opt()); :}
+								| INT idDecl.a ASSIGN expr.b SEMI {: return new Declaration(a, new Opt(b)); :}
+								;
 
 assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
 
