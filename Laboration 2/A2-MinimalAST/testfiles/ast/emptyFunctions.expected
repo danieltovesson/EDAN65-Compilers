@@ -1,10 +1,10 @@
 Program
   List
-    Functions
+    Function
       Id ID="a"
       Block
         Opt
-    Functions
+    Function
       Id ID="b"
       Block
         Opt

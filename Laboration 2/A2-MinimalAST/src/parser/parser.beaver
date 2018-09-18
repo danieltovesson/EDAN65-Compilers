@@ -60,15 +60,13 @@ stmtList =
 								| stmtList.a stmt.b {: return a.add(b); :}
 								;
 
-expr = 					sum;
+expr = 					sum | factor;
 
-term = 					factor;
+term = 					intValue | idUse;
 
-factor = 				intValue | idUse;
+factor = 				term;
 
-sum = 					sum.a PLUS term.b {: return new Add(a, b); :}
- 								| term
-								;
+sum = 					term.a PLUS term.b {: return new Add(a, b); :} ;
 
 id = 						ID.a {: return new Id(a); :} ;
 

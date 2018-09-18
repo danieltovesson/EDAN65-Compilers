@@ -1,6 +1,6 @@
 Program
   List
-    Functions
+    Function
       Id ID="a"
       Block
         Opt
@@ -11,7 +11,7 @@ Program
               IdDecl ID="y"
             Assignment
               IdUse ID="x"
-              Nbr INTEGER="5"
+              IntValue INTEGER="5"
             Assignment
               IdUse ID="y"
               IdUse ID="x"

@@ -1,0 +1,21 @@
+Program
+  List
+    Function
+      Id ID="a"
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+            Declaration
+              IdDecl ID="b"
+            Assignment
+              IdUse ID="b"
+              Add
+                IntValue INTEGER="2"
+                IntValue INTEGER="2"
+            Assignment
+              IdUse ID="a"
+              Add
+                IdUse ID="b"
+                IntValue INTEGER="2"
