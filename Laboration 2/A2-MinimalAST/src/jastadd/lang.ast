@@ -1,6 +1,6 @@
-Program ::= Functions*;
+Program ::= Function*;
 
-Functions ::= name:Id codeBlock:Block;
+Function ::= name:Id codeBlock:Block;
 Block ::= [Stmt];
 
 abstract Stmt;
@@ -8,13 +8,14 @@ Declaration:Stmt ::= name:IdDecl;
 Assignment:Stmt ::= name:IdUse value:Expr;
 
 abstract Expr;
+abstract Term:Expr;
+abstract Factor:Expr;
 abstract BinExpr:Expr ::= left:Expr right:Expr;
 abstract Sum:BinExpr;
-abstract Term:BinExpr;
-abstract Factor:Expr;
 
 Add:Sum;
-Nbr:Factor ::= <INTEGER>;
-IdUse:Factor ::= <ID>;
+
 Id ::= <ID>;
 IdDecl ::= <ID>;
+IdUse:Factor ::= <ID>;
+IntValue:Factor ::= <INTEGER>;
