@@ -1,11 +1,13 @@
 Program ::= Function*;
 
-Function ::= name:Id codeBlock:Block;
 Block ::= [Stmt];
+
+Function ::= name:Id codeBlock:Block;
 
 abstract Stmt;
 Declaration:Stmt ::= name:IdDecl;
 Assignment:Stmt ::= name:IdUse value:Expr;
+IfStmt:Stmt ::= condition:Expr codeBlock:Block;
 
 abstract Expr;
 abstract Term:Expr;
@@ -19,6 +21,8 @@ Div:Prod;
 Mod:Prod;
 Add:Sum;
 Sub:Sum;
+
+Equal:BinExpr;
 
 Id ::= <ID>;
 IdDecl ::= <ID>;

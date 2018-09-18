@@ -41,6 +41,7 @@ INTEGER = [0-9]+
 "}"           { return sym(Terminals.RBRACKET); }
 "("           { return sym(Terminals.LPARA); }
 ")"           { return sym(Terminals.RPARA); }
+"=="          { return sym(Terminals.EQUAL); }
 "="           { return sym(Terminals.ASSIGN); }
 "*"           { return sym(Terminals.MUL); }
 "/"           { return sym(Terminals.DIV); }
@@ -49,6 +50,7 @@ INTEGER = [0-9]+
 "-"           { return sym(Terminals.MINUS); }
 ";"           { return sym(Terminals.SEMI); }
 "int"         { return sym(Terminals.INT); }
+"if"          { return sym(Terminals.IF); }
 {INTEGER}     { return sym(Terminals.INTEGER); }
 {ID}          { return sym(Terminals.ID); }
 <<EOF>>       { return sym(Terminals.EOF); }

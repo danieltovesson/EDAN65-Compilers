@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -19,13 +19,16 @@
 %typeof stmt = "Stmt";
 %typeof declaration = "Declaration";
 %typeof assignment = "Assignment";
+%typeof ifStmt = "IfStmt";
 %typeof stmtList = "List";
 
 %typeof expr = "Expr";
 %typeof term = "Expr";
 %typeof factor = "Expr";
-%typeof sum = "Expr";
 %typeof prod = "Expr";
+%typeof sum = "Expr";
+
+%typeof equal = "Expr";
 
 %typeof id = "Id";
 %typeof idDecl = "IdDecl";
@@ -50,11 +53,14 @@ functionList =
 stmt =
 								declaration
 								| assignment
+								| ifStmt
 								;
 
 declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
 assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+
+ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b); :} ;
 
 stmtList =
 								stmt.a {: return new List().add(a); :}
@@ -64,6 +70,7 @@ stmtList =
 expr = 					prod
 								| sum
 								| factor
+								| equal
 								;
 
 term = 					intValue
@@ -80,6 +87,8 @@ prod = 					term.a MUL term.b {: return new Mul(a, b); :}
 sum = 					term.a PLUS term.b {: return new Add(a, b); :}
 								| term.a MINUS term.b {: return new Sub(a, b); :}
 								;
+
+equal =					term.a EQUAL term.b {: return new Equal(a, b); :} ;
 
 id = 						ID.a {: return new Id(a); :} ;
 
