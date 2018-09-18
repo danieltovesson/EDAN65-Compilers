@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, IF, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -70,6 +70,11 @@ stmtList =
 expr = 					prod
 								| sum
 								| factor
+								| lesser
+								| greater
+								| lesserEqual
+								| greaterEqual
+								| notEqual
 								| equal
 								;
 
@@ -87,6 +92,16 @@ prod = 					term.a MUL term.b {: return new Mul(a, b); :}
 sum = 					term.a PLUS term.b {: return new Add(a, b); :}
 								| term.a MINUS term.b {: return new Sub(a, b); :}
 								;
+
+lesser =				term.a LESSER term.b {: return new Lesser(a, b); :} ;
+
+greater =				term.a GREATER term.b {: return new Greater(a, b); :} ;
+
+lesserEqual =		term.a LESSEREQUAL term.b {: return new LesserEqual(a, b); :} ;
+
+greaterEqual =	term.a GREATEREQUAL term.b {: return new GreaterEqual(a, b); :} ;
+
+notEqual =			term.a NOTEQUAL term.b {: return new NotEqual(a, b); :} ;
 
 equal =					term.a EQUAL term.b {: return new Equal(a, b); :} ;
 

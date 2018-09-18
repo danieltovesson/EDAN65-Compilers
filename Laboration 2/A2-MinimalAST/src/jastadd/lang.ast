@@ -22,6 +22,11 @@ Mod:Prod;
 Add:Sum;
 Sub:Sum;
 
+Lesser:BinExpr;
+Greater:BinExpr;
+LesserEqual:BinExpr;
+GreaterEqual:BinExpr;
+NotEqual:BinExpr;
 Equal:BinExpr;
 
 Id ::= <ID>;

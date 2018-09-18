@@ -41,6 +41,11 @@ INTEGER = [0-9]+
 "}"           { return sym(Terminals.RBRACKET); }
 "("           { return sym(Terminals.LPARA); }
 ")"           { return sym(Terminals.RPARA); }
+"<"           { return sym(Terminals.LESSER); }
+">"           { return sym(Terminals.GREATER); }
+"<="          { return sym(Terminals.LESSEREQUAL); }
+">="          { return sym(Terminals.GREATEREQUAL); }
+"!="          { return sym(Terminals.NOTEQUAL); }
 "=="          { return sym(Terminals.EQUAL); }
 "="           { return sym(Terminals.ASSIGN); }
 "*"           { return sym(Terminals.MUL); }
