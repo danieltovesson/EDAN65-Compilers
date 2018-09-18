@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, DIV, PLUS, MINUS, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -74,6 +74,7 @@ factor = 				term;
 
 prod = 					term.a MUL term.b {: return new Mul(a, b); :}
 								| term.a DIV term.b {: return new Div(a, b); :}
+								| term.a MOD term.b {: return new Mod(a, b); :}
 								;
 
 sum = 					term.a PLUS term.b {: return new Add(a, b); :}

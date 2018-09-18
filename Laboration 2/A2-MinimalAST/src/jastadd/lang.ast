@@ -16,6 +16,7 @@ abstract Sum:BinExpr;
 
 Mul:Prod;
 Div:Prod;
+Mod:Prod;
 Add:Sum;
 Sub:Sum;
 

@@ -44,6 +44,7 @@ INTEGER = [0-9]+
 "="           { return sym(Terminals.ASSIGN); }
 "*"           { return sym(Terminals.MUL); }
 "/"           { return sym(Terminals.DIV); }
+"%"           { return sym(Terminals.MOD); }
 "+"           { return sym(Terminals.PLUS); }
 "-"           { return sym(Terminals.MINUS); }
 ";"           { return sym(Terminals.SEMI); }
