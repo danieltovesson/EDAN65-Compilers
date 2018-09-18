@@ -12,10 +12,9 @@ abstract Term:Expr;
 abstract Factor:Expr;
 abstract BinExpr:Expr ::= left:Expr right:Expr;
 abstract Sum:BinExpr;
-
 Add:Sum;
 
 Id ::= <ID>;
 IdDecl ::= <ID>;
-IdUse:Factor ::= <ID>;
-IntValue:Factor ::= <INTEGER>;
+IdUse:Expr ::= <ID>;
+IntValue:Expr ::= <INTEGER>;
