@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, PLUS, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, PLUS, MINUS, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -66,7 +66,9 @@ term = 					intValue | idUse;
 
 factor = 				term;
 
-sum = 					term.a PLUS term.b {: return new Add(a, b); :} ;
+sum = 					term.a PLUS term.b {: return new Add(a, b); :}
+								| term.a MINUS term.b {: return new Sub(a, b); :}
+								;
 
 id = 						ID.a {: return new Id(a); :} ;
 

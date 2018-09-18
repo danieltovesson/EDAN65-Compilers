@@ -43,6 +43,7 @@ INTEGER = [0-9]+
 ")"           { return sym(Terminals.RPARA); }
 "="           { return sym(Terminals.ASSIGN); }
 "+"           { return sym(Terminals.PLUS); }
+"-"           { return sym(Terminals.MINUS); }
 ";"           { return sym(Terminals.SEMI); }
 "int"         { return sym(Terminals.INT); }
 {INTEGER}     { return sym(Terminals.INTEGER); }

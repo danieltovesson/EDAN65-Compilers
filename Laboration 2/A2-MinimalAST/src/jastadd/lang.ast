@@ -13,6 +13,7 @@ abstract Factor:Expr;
 abstract BinExpr:Expr ::= left:Expr right:Expr;
 abstract Sum:BinExpr;
 Add:Sum;
+Sub:Sum;
 
 Id ::= <ID>;
 IdDecl ::= <ID>;
