@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, INT, IF, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, WHILE, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -19,6 +19,7 @@
 %typeof stmt = "Stmt";
 %typeof declaration = "Declaration";
 %typeof assignment = "Assignment";
+%typeof whileStmt = "WhileStmt";
 %typeof ifStmt = "IfStmt";
 %typeof stmtList = "List";
 
@@ -53,12 +54,15 @@ functionList =
 stmt =
 								declaration
 								| assignment
+								| whileStmt
 								| ifStmt
 								;
 
 declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
 assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+
+whileStmt =			WHILE LPARA expr.a RPARA block.b {: return new WhileStmt(a, b); :} ;
 
 ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b); :} ;
 
