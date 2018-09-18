@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, WHILE, INT, IF, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, WHILE, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -30,7 +30,14 @@
 %typeof prod = "Expr";
 %typeof sum = "Expr";
 
+%typeof lesser = "Expr";
+%typeof greater = "Expr";
+%typeof lesserEqual = "Expr";
+%typeof greaterEqual = "Expr";
+%typeof notEqual = "Expr";
 %typeof equal = "Expr";
+
+%typeof return = "Expr";
 
 %typeof id = "Id";
 %typeof idDecl = "IdDecl";
@@ -61,6 +68,7 @@ stmt =					declaration
 								| assignment
 								| whileStmt
 								| ifStmt
+								| return
 								;
 
 declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
@@ -70,6 +78,8 @@ assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
 whileStmt =			WHILE LPARA expr.a RPARA block.b {: return new WhileStmt(a, b); :} ;
 
 ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b); :} ;
+
+return = 				RETURN expr.a SEMI {: return new Return(a); :} ;
 
 stmtList =			stmt.a {: return new List().add(a); :}
 								| stmtList.a stmt.b {: return a.add(b); :}

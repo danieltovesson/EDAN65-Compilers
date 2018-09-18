@@ -55,6 +55,7 @@ INTEGER = [0-9]+
 "-"           { return sym(Terminals.MINUS); }
 ";"           { return sym(Terminals.SEMI); }
 ","           { return sym(Terminals.COMMA); }
+"return"      { return sym(Terminals.RETURN); }
 "while"       { return sym(Terminals.WHILE); }
 "int"         { return sym(Terminals.INT); }
 "if"          { return sym(Terminals.IF); }

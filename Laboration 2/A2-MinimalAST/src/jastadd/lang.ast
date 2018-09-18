@@ -9,6 +9,7 @@ Declaration:Stmt ::= name:IdDecl;
 Assignment:Stmt ::= name:IdUse value:Expr;
 WhileStmt:Stmt ::= condition:Expr codeBlock:Block;
 IfStmt:Stmt ::= condition:Expr codeBlock:Block;
+Return:Stmt ::= return:Expr;
 
 abstract Expr;
 abstract Term:Expr;
