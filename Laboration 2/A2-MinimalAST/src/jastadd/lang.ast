@@ -2,7 +2,7 @@ Program ::= Function*;
 
 Block ::= [Stmt];
 
-Function ::= name:Id codeBlock:Block;
+Function ::= name:Id [parameter:IdDecl] codeBlock:Block;
 
 abstract Stmt;
 Declaration:Stmt ::= name:IdDecl;
