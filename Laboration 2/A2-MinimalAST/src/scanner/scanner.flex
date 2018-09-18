@@ -30,11 +30,13 @@ import lang.ast.LangParser.SyntaxError;
 WhiteSpace = [ ] | \t | \f | \n | \r
 ID = [a-zA-Z0-9]+
 INTEGER = [0-9]+
+COMMENT = "//".*
 
 %%
 
 // discard whitespace information
 {WhiteSpace}  { }
+{COMMENT}     { }
 
 // token definitions
 "{"           { return sym(Terminals.LBRACKET); }
