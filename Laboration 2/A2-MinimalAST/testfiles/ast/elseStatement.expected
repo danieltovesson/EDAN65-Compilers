@@ -22,3 +22,9 @@ Program
                       IdUse ID="a"
                       IntValue INTEGER="3"
               Opt
+                Block
+                  Opt
+                    List
+                      Assignment
+                        IdUse ID="a"
+                        IntValue INTEGER="2"

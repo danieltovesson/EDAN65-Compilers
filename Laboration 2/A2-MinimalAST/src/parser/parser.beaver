@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, WHILE, INT, IF, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, WHILE, ELSE, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -77,7 +77,9 @@ assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
 
 whileStmt =			WHILE LPARA expr.a RPARA block.b {: return new WhileStmt(a, b); :} ;
 
-ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b); :} ;
+ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b, new Opt()); :}
+								| IF LPARA expr.a RPARA block.b ELSE block.c {: return new IfStmt(a, b, new Opt(c)); :}
+								;
 
 return = 				RETURN expr.a SEMI {: return new Return(a); :} ;
 

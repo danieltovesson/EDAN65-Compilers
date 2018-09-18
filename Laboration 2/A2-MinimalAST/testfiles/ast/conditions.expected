@@ -21,6 +21,7 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt
             IfStmt
               Greater
                 IdUse ID="a"
@@ -31,6 +32,7 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt
             IfStmt
               LesserEqual
                 IdUse ID="a"
@@ -41,6 +43,7 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt
             IfStmt
               GreaterEqual
                 IdUse ID="a"
@@ -51,6 +54,7 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt
             IfStmt
               NotEqual
                 IdUse ID="a"
@@ -61,6 +65,7 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt
             IfStmt
               Equal
                 IdUse ID="a"
@@ -71,3 +76,4 @@ Program
                     Assignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
+              Opt

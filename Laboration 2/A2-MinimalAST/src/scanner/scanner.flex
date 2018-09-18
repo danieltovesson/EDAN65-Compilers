@@ -57,6 +57,7 @@ INTEGER = [0-9]+
 ","           { return sym(Terminals.COMMA); }
 "return"      { return sym(Terminals.RETURN); }
 "while"       { return sym(Terminals.WHILE); }
+"else"        { return sym(Terminals.ELSE); }
 "int"         { return sym(Terminals.INT); }
 "if"          { return sym(Terminals.IF); }
 {INTEGER}     { return sym(Terminals.INTEGER); }
