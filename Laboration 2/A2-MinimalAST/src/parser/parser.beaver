@@ -54,10 +54,12 @@ declaration = INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
 assignment = idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
 
-expr = factor | sum;
+expr = sum;
+
 factor = nbr | idUse;
 
-sum = sum.a PLUS term.b {: return new Add(a, b); :} ;
+sum = sum.a PLUS term.b {: return new Add(a, b); :}
+ 			| term;
 
 term = factor;
 
