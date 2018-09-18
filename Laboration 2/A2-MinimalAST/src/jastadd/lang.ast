@@ -11,7 +11,10 @@ abstract Expr;
 abstract Term:Expr;
 abstract Factor:Expr;
 abstract BinExpr:Expr ::= left:Expr right:Expr;
+abstract Prod:BinExpr;
 abstract Sum:BinExpr;
+
+Mul:Prod;
 Add:Sum;
 Sub:Sum;
 

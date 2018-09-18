@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, PLUS, MINUS, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, PLUS, MINUS, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -25,6 +25,7 @@
 %typeof term = "Expr";
 %typeof factor = "Expr";
 %typeof sum = "Expr";
+%typeof prod = "Expr";
 
 %typeof id = "Id";
 %typeof idDecl = "IdDecl";
@@ -60,11 +61,18 @@ stmtList =
 								| stmtList.a stmt.b {: return a.add(b); :}
 								;
 
-expr = 					sum | factor;
+expr = 					prod
+								| sum
+								| factor
+								;
 
-term = 					intValue | idUse;
+term = 					intValue
+								| idUse
+								;
 
 factor = 				term;
+
+prod = 					term.a MUL term.b {: return new Mul(a, b); :} ;
 
 sum = 					term.a PLUS term.b {: return new Add(a, b); :}
 								| term.a MINUS term.b {: return new Sub(a, b); :}
