@@ -15,6 +15,7 @@ abstract Prod:BinExpr;
 abstract Sum:BinExpr;
 
 Mul:Prod;
+Div:Prod;
 Add:Sum;
 Sub:Sum;
 

@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, PLUS, MINUS, SEMI, INT, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, ASSIGN, MUL, DIV, PLUS, MINUS, SEMI, INT, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -72,7 +72,9 @@ term = 					intValue
 
 factor = 				term;
 
-prod = 					term.a MUL term.b {: return new Mul(a, b); :} ;
+prod = 					term.a MUL term.b {: return new Mul(a, b); :}
+								| term.a DIV term.b {: return new Div(a, b); :}
+								;
 
 sum = 					term.a PLUS term.b {: return new Add(a, b); :}
 								| term.a MINUS term.b {: return new Sub(a, b); :}
