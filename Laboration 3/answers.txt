@@ -1,0 +1,19 @@
+Visitor framework
+1. It is a fallback for when the class is not recognized or implemented
+2. Because it is a combination of expression
+3. The method might not recognize the class it is correctly, that is how Java works
+
+CheckInteractiveVisitor
+1. askNode.accept(new Visitor(), data);
+2. You can use other patterns like the Strategy patter
+3. Yes, it will traverse through all children nodes without changing its data
+4. Add a count variable in the Visitor class and methods to return it
+
+PrettyPrint
+1. Program program = (Program) parser.parse(scanner);
+   program.prettyPrint(System.out);
+
+NameAnalysis
+1. Use visitors to confirm the type of the symbol
+2. Do a try/catch around respective checkNames() method
+3. Using the push() method. Why would you want a pop()?
