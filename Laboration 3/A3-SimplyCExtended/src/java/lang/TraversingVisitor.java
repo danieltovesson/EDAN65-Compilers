@@ -97,13 +97,4 @@ public abstract class TraversingVisitor implements lang.ast.Visitor {
 	public Object visit(IdUse node, Object data) {
 		return visitChildren(node, data);
 	}
-	public Object visit(Let node, Object data) {
-		return visitChildren(node, data);
-	}
-	public Object visit(Binding node, Object data) {
-		return visitChildren(node, data);
-	}
-	public Object visit(Ask node, Object data) {
-		return visitChildren(node, data);
-	}
 }
