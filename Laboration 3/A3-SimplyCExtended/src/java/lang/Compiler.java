@@ -19,7 +19,7 @@ public class Compiler {
 	 * @param args
 	 */
 
-    public static Object DrAST_root_node; //Enable debugging with DrAST
+  public static Object DrAST_root_node; //Enable debugging with DrAST
 
 	public static void main(String[] args) {
 		try {
@@ -36,7 +36,6 @@ public class Compiler {
 			LangParser parser = new LangParser();
 			Program program = (Program) parser.parse(scanner);
       DrAST_root_node = program; // Enable debugging with DrAST
-      System.out.println(CountIdentifiers.result(program));
 			System.out.println(program.dumpTree());
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
