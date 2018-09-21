@@ -11,12 +11,14 @@ class CountIdentifiers extends TraversingVisitor {
   }
 
   public Object visit(IfStmt node, Object data) {
-	   count++;
-     return null;
+    super.visit(node, data);
+	  count++;
+    return null;
 	}
 
   public Object visit(WhileStmt node, Object data) {
-	   count++;
-     return null;
+    super.visit(node, data);
+	  count++;
+    return null;
 	}
 }
