@@ -1,7 +1,8 @@
 Visitor framework
 1. It is a fallback for when the class is not recognized or implemented
 2. Because it is a combination of expression
-3. The method might not recognize the class it is correctly, that is how Java works
+3. The method might not recognize the class it is correctly, that is how Java
+   works
 
 CheckInteractiveVisitor
 1. askNode.accept(new Visitor(), data);
@@ -17,3 +18,11 @@ NameAnalysis
 1. Use visitors to confirm the type of the symbol
 2. Do a try/catch around respective checkNames() method
 3. Using the push() method. Why would you want a pop()?
+
+Implement MSN analysis for SimpliC
+1. It would be preferable to use the data parameter as it can be used as a
+   dictionary with all the nodes as keys and the count as value. The cons for
+   this is that it can be hard to keep track of. Pros of using state variables
+   is that is is easy to keep track of but it would require lots of state
+   variables. Also new methods would be needed to return the values
+2. It would be easier to use state variables

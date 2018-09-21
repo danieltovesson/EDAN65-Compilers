@@ -18,9 +18,9 @@ public class Compiler {
 	 * Entry point
 	 * @param args
 	 */
-    
+
     public static Object DrAST_root_node; //Enable debugging with DrAST
-    
+
 	public static void main(String[] args) {
 		try {
 			if (args.length != 1) {
@@ -35,7 +35,7 @@ public class Compiler {
 			LangScanner scanner = new LangScanner(new FileReader(filename));
 			LangParser parser = new LangParser();
 			Program program = (Program) parser.parse(scanner);
-            DrAST_root_node = program; //Enable debugging with DrAST
+      DrAST_root_node = program; // Enable debugging with DrAST
 			System.out.println(program.dumpTree());
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
@@ -52,4 +52,3 @@ public class Compiler {
 		System.err.println("  where FILE is the file to be parsed");
 	}
 }
-
