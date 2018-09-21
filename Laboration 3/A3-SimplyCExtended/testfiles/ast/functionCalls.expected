@@ -1,0 +1,24 @@
+Program
+  List
+    Function
+      Id ID="a"
+      List
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+              Opt
+            Declaration
+              IdDecl ID="b"
+              Opt
+            Assignment
+              IdUse ID="a"
+              FuncCall
+                Id ID="read"
+                Opt
+            Assignment
+              IdUse ID="b"
+              FuncCall
+                Id ID="read"
+                Opt
