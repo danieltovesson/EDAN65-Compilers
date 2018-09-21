@@ -9,7 +9,13 @@ class CountIdentifiers extends TraversingVisitor {
     root.accept(new CountIdentifiers(), null);
     return count;
   }
-  public Object visit(Mul node, Object data) {
+
+  public Object visit(IfStmt node, Object data) {
+	   count++;
+     return null;
+	}
+
+  public Object visit(WhileStmt node, Object data) {
 	   count++;
      return null;
 	}
