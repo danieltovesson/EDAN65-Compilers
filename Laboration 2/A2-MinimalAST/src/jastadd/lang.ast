@@ -2,7 +2,7 @@ Program ::= Function*;
 
 Block ::= [Stmt];
 
-Function ::= name:Id [parameter:IdDecl] codeBlock:Block;
+Function ::= name:Id parameter:IdDecl* codeBlock:Block;
 
 abstract Stmt;
 Declaration:Stmt ::= name:IdDecl [assignment:Expr];
@@ -13,19 +13,15 @@ Return:Stmt ::= return:Expr;
 Print:Stmt ::= print:Expr;
 
 abstract Expr;
-abstract Term:Expr;
-abstract Factor:Expr;
 abstract BinExpr:Expr ::= left:Expr right:Expr;
-abstract Prod:BinExpr;
-abstract Sum:BinExpr;
 
-FuncCall:Term ::= name:Id [expr:Expr];
+FuncCall:Expr ::= name:Id [expr:Expr];
 
-Mul:Prod;
-Div:Prod;
-Mod:Prod;
-Add:Sum;
-Sub:Sum;
+Mul:BinExpr;
+Div:BinExpr;
+Mod:BinExpr;
+Add:BinExpr;
+Sub:BinExpr;
 
 Lesser:BinExpr;
 Greater:BinExpr;

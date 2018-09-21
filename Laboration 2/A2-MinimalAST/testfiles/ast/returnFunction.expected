@@ -2,7 +2,7 @@ Program
   List
     Function
       Id ID="a"
-      Opt
+      List
       Block
         Opt
           List
@@ -16,7 +16,7 @@ Program
               IdUse ID="a"
     Function
       Id ID="b"
-      Opt
+      List
       Block
         Opt
           List
@@ -24,7 +24,7 @@ Program
               IntValue INTEGER="2"
     Function
       Id ID="b"
-      Opt
+      List
       Block
         Opt
           List

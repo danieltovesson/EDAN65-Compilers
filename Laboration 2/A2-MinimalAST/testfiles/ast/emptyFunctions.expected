@@ -2,11 +2,11 @@ Program
   List
     Function
       Id ID="a"
-      Opt
+      List
       Block
         Opt
     Function
       Id ID="b"
-      Opt
+      List
       Block
         Opt

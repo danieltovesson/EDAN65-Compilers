@@ -51,8 +51,8 @@
 
 program = 			functionList.a {: return new Program(a); :} ;
 
-function = 			INT id.a LPARA RPARA block.b {: return new Function(a, new Opt(), b); :}
-								| INT id.a LPARA parameterList.b RPARA block.c {: return new Function(a, new Opt(b), c); :}
+function = 			INT id.a LPARA RPARA block.b {: return new Function(a, new List(), b); :}
+								| INT id.a LPARA parameterList.b RPARA block.c {: return new Function(a, b, c); :}
 								;
 
 block =					LBRACKET RBRACKET {: return new	Block(); :}

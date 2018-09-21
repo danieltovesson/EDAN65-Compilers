@@ -2,10 +2,9 @@ Program
   List
     Function
       Id ID="gcd1"
-      Opt
-        List
-          IdDecl ID="a"
-          IdDecl ID="b"
+      List
+        IdDecl ID="a"
+        IdDecl ID="b"
       Block
         Opt
           List
@@ -41,10 +40,9 @@ Program
               IdUse ID="a"
     Function
       Id ID="gcd2"
-      Opt
-        List
-          IdDecl ID="a"
-          IdDecl ID="b"
+      List
+        IdDecl ID="a"
+        IdDecl ID="b"
       Block
         Opt
           List
@@ -69,7 +67,7 @@ Program
                       IdUse ID="b"
     Function
       Id ID="main"
-      Opt
+      List
       Block
         Opt
           List
