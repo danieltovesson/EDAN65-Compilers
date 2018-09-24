@@ -30,15 +30,17 @@ aspect PrettyPrint {
 			}
 			getParameter(i).prettyPrint(out, ind);
 		}
-		out.print(") {");
-		getCodeBlock().prettyPrint(out, ind);
-		out.println(ind + "}");
+		out.print(")");
+		getCodeBlock().prettyPrint(out, ind + "  ");
+		out.println(ind);
 	}
 
 	public void Block.prettyPrint(PrintStream out, String ind) {
+		out.println(" {");
 		for (int i = 0; i < getNumChild(); ++i) {
 			getChild(i).prettyPrint(out, ind);
 		}
+		out.print("}");
 	}
 
 	public void Declaration.prettyPrint(PrintStream out, String ind) {
