@@ -1,21 +1,21 @@
 Program ::= Function*;
 
-Block ::= [Stmt];
+Block ::= [Statement:Stmt];
 
-Function ::= name:Id parameter:IdDecl* codeBlock:Block;
+Function ::= Name:Id Parameter:IdDecl* CodeBlock:Block;
 
 abstract Stmt;
-Declaration:Stmt ::= name:IdDecl [assignment:Expr];
-Assignment:Stmt ::= name:IdUse value:Expr;
-WhileStmt:Stmt ::= condition:Expr codeBlock:Block;
-IfStmt:Stmt ::= condition:Expr codeBlock:Block [else:Block];
-Return:Stmt ::= return:Expr;
-Print:Stmt ::= print:Expr;
+Declaration:Stmt ::= Name:IdDecl [Assignment:Expr];
+Assignment:Stmt ::= Name:IdUse Value:Expr;
+WhileStmt:Stmt ::= Condition:Expr CodeBlock:Block;
+IfStmt:Stmt ::= Condition:Expr CodeBlock:Block [Else:Block];
+Return:Stmt ::= Return:Expr;
+Print:Stmt ::= Print:Expr;
 
 abstract Expr;
-abstract BinExpr:Expr ::= left:Expr right:Expr;
+abstract BinExpr:Expr ::= Left:Expr Right:Expr;
 
-FuncCall:Expr ::= name:Id [expr:Expr];
+FuncCall:Expr ::= Name:Id [Expr:Expr];
 
 Mul:BinExpr;
 Div:BinExpr;

@@ -27,13 +27,13 @@ public class TestPrettyPrinting {
 
 	@Test public void runTest() throws Exception {
 		try (ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			PrintStream outStream = new PrintStream(bytes)) {
-		  Program program = (Program) Util.parse(new File(TEST_DIRECTORY, filename));
+		PrintStream outStream = new PrintStream(bytes)) {
+			Program program = (Program) Util.parse(new File(TEST_DIRECTORY, filename));
 			program.prettyPrint(outStream);
-      String actual = bytes.toString();
+    	String actual = bytes.toString();
 			Util.compareOutput(actual,
-				  new File(TEST_DIRECTORY, Util.changeExtension(filename, ".out")),
-				  new File(TEST_DIRECTORY, Util.changeExtension(filename, ".expected")));
+				new File(TEST_DIRECTORY, Util.changeExtension(filename, ".out")),
+				new File(TEST_DIRECTORY, Util.changeExtension(filename, ".expected")));
 		}
 	}
 
