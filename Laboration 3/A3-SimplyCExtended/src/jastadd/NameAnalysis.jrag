@@ -69,7 +69,8 @@ aspect NameAnalysis {
 	}
 
 	public void Function.checkNames(PrintStream err, SymbolTable symbols) {
-		getName().checkNames(err, symbols.push());
+		getName().checkNames(err, symbols);
+		symbols = symbols.push();
 		for (IdDecl id : getParameterList()) {
 			id.checkNames(err, symbols);
 		}
@@ -83,22 +84,15 @@ aspect NameAnalysis {
 	}
 
 	public void WhileStmt.checkNames(PrintStream err, SymbolTable symbols) {
-		getCondition().checkNames(err, symbols.push());
-		getCodeBlock().checkNames(err, symbols);
+		getCondition().checkNames(err, symbols);
+		getCodeBlock().checkNames(err, symbols.push());
 	}
 
 	public void IfStmt.checkNames(PrintStream err, SymbolTable symbols) {
-		getCondition().checkNames(err, symbols.push());
-		getCodeBlock().checkNames(err, symbols);
+		getCondition().checkNames(err, symbols);
+		getCodeBlock().checkNames(err, symbols.push());
 		if (hasElse()) {
-			getElse().checkNames(err, symbols);
-		}
-	}
-
-	public void FuncCall.checkNames(PrintStream err, SymbolTable symbols) {
-		getName().checkNames(err, symbols.push());
-		for(Expr e : getExprList()) {
-			e.checkNames(err, symbols);
+			getElse().checkNames(err, symbols.push());
 		}
 	}
 
