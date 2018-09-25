@@ -15,7 +15,7 @@ Print:Stmt ::= Print:Expr;
 abstract Expr;
 abstract BinExpr:Expr ::= Left:Expr Right:Expr;
 
-FuncCall:Expr ::= Name:Id [Expr:Expr];
+FuncCall:Expr ::= Name:Id Expr:Expr*;
 
 Mul:BinExpr;
 Div:BinExpr;

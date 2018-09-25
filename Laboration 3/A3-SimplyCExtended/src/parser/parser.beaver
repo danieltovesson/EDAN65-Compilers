@@ -126,8 +126,8 @@ sum = 					term.a PLUS term.b {: return new Add(a, b); :}
 								| term.a MINUS term.b {: return new Sub(a, b); :}
 								;
 
-funcCall =			id.a LPARA RPARA {: return new FuncCall(a, new Opt()); :}
- 								| id.a LPARA exprList.b RPARA {: return new FuncCall(a, new Opt(b)); :}
+funcCall =			id.a LPARA RPARA {: return new FuncCall(a, new List()); :}
+ 								| id.a LPARA exprList.b RPARA {: return new FuncCall(a, b); :}
 								;
 
 lesser =				term.a LESSER term.b {: return new Lesser(a, b); :} ;

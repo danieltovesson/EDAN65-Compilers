@@ -97,7 +97,16 @@ aspect PrettyPrint {
 
 	public void FuncCall.prettyPrint(PrintStream out, String ind) {
 		getName().prettyPrint(out, ind);
-		out.print("()");
+		out.print("(");
+		if (hasExpr()) {
+			for (int i = 0; i < getNumExpr(); ++i) {
+				getExpr(i).prettyPrint(out, ind);
+				if (i != (getNumExpr() - 1)) {
+					out.print(", ");
+				}
+			}
+		}
+		out.print(")");
 	}
 
 	public void Mul.prettyPrint(PrintStream out, String ind) {
