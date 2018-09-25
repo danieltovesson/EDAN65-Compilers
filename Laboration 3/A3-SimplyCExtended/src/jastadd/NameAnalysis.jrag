@@ -68,6 +68,40 @@ aspect NameAnalysis {
 		}
 	}
 
+	public void Function.checkNames(PrintStream err, SymbolTable symbols) {
+		getName().checkNames(err, symbols.push());
+		for (IdDecl id : getParameterList()) {
+			id.checkNames(err, symbols);
+		}
+		getCodeBlock().checkNames(err, symbols);
+	}
+
+	public void Block.checkNames(PrintStream err, SymbolTable symbols) {
+		for (int i = 0; i < getNumChild(); ++i) {
+			getChild(i).checkNames(err, symbols);
+		}
+	}
+
+	public void WhileStmt.checkNames(PrintStream err, SymbolTable symbols) {
+		getCondition().checkNames(err, symbols.push());
+		getCodeBlock().checkNames(err, symbols);
+	}
+
+	public void IfStmt.checkNames(PrintStream err, SymbolTable symbols) {
+		getCondition().checkNames(err, symbols.push());
+		getCodeBlock().checkNames(err, symbols);
+		if (hasElse()) {
+			getElse().checkNames(err, symbols);
+		}
+	}
+
+	public void FuncCall.checkNames(PrintStream err, SymbolTable symbols) {
+		getName().checkNames(err, symbols.push());
+		for(Expr e : getExprList()) {
+			e.checkNames(err, symbols);
+		}
+	}
+
 	public void IdDecl.checkNames(PrintStream err, SymbolTable symbols) {
 		if (!symbols.declare(getID())) {
 			err.format("Error at line %d: symbol \'%s\' is already declared!", getLine(), getID());
