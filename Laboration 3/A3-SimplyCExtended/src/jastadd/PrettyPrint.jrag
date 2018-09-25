@@ -23,12 +23,13 @@ aspect PrettyPrint {
 		getName().prettyPrint(out, ind);
 		out.print("(");
 		if (hasParameter()) {
-			int i;
-			for (i = 0; i < getNumParameter(); ++i) {
+			for (int i = 0; i < getNumParameter(); ++i) {
+				out.print("int ");
 				getParameter(i).prettyPrint(out, ind);
-				out.print(", ");
+				if (i != (getNumParameter() - 1)) {
+					out.print(", ");
+				}
 			}
-			getParameter(i).prettyPrint(out, ind);
 		}
 		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
