@@ -26,3 +26,9 @@ Implement MSN analysis for SimpliC
    is that is is easy to keep track of but it would require lots of state
    variables. Also new methods would be needed to return the values
 2. It would be easier to use state variables
+
+Implement name analysis and error checking
+1. You can never redeclare a variable but shadowing is allowed if variable is
+   declared in another statement
+2. No, because they are passed for a reason
+3. ?
