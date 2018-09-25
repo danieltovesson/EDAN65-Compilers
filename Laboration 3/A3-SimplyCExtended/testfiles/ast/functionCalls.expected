@@ -16,9 +16,9 @@ Program
               IdUse ID="a"
               FuncCall
                 Id ID="read"
-                Opt
+                List
             Assignment
               IdUse ID="b"
               FuncCall
                 Id ID="read"
-                Opt
+                List

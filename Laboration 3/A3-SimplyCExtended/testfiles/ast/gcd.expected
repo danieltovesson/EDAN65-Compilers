@@ -59,12 +59,11 @@ Program
             Return
               FuncCall
                 Id ID="gcd2"
-                Opt
-                  List
+                List
+                  IdUse ID="b"
+                  Mod
+                    IdUse ID="a"
                     IdUse ID="b"
-                    Mod
-                      IdUse ID="a"
-                      IdUse ID="b"
     Function
       Id ID="main"
       List
@@ -81,42 +80,38 @@ Program
               IdUse ID="a"
               FuncCall
                 Id ID="read"
-                Opt
+                List
             Assignment
               IdUse ID="b"
               FuncCall
                 Id ID="read"
-                Opt
+                List
             Print
               FuncCall
                 Id ID="gcd1"
-                Opt
-                  List
-                    IdUse ID="a"
-                    IdUse ID="b"
+                List
+                  IdUse ID="a"
+                  IdUse ID="b"
             Print
               FuncCall
                 Id ID="gcd2"
-                Opt
-                  List
-                    IdUse ID="a"
-                    IdUse ID="b"
+                List
+                  IdUse ID="a"
+                  IdUse ID="b"
             Declaration
               IdDecl ID="diff"
               Opt
                 Sub
                   FuncCall
                     Id ID="gcd1"
-                    Opt
-                      List
-                        IdUse ID="a"
-                        IdUse ID="b"
+                    List
+                      IdUse ID="a"
+                      IdUse ID="b"
                   FuncCall
                     Id ID="gcd2"
-                    Opt
-                      List
-                        IdUse ID="a"
-                        IdUse ID="b"
+                    List
+                      IdUse ID="a"
+                      IdUse ID="b"
             Print
               IdUse ID="diff"
             Return

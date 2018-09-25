@@ -25,7 +25,7 @@ Program
                 Add
                   FuncCall
                     Id ID="read"
-                    Opt
+                    List
                   FuncCall
                     Id ID="read"
-                    Opt
+                    List
