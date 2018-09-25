@@ -31,16 +31,15 @@ aspect PrettyPrint {
 			getParameter(i).prettyPrint(out, ind);
 		}
 		out.print(")");
-		getCodeBlock().prettyPrint(out, ind + "  ");
-		out.println(ind);
+		getCodeBlock().prettyPrint(out, ind);
 	}
 
 	public void Block.prettyPrint(PrintStream out, String ind) {
 		out.println(" {");
 		for (int i = 0; i < getNumChild(); ++i) {
-			getChild(i).prettyPrint(out, ind);
+			getChild(i).prettyPrint(out, ind + "	");
 		}
-		out.print("}");
+		out.println(ind + "}");
 	}
 
 	public void Declaration.prettyPrint(PrintStream out, String ind) {
@@ -54,6 +53,7 @@ aspect PrettyPrint {
 	}
 
 	public void Assignment.prettyPrint(PrintStream out, String ind) {
+		out.print(ind);
 		getName().prettyPrint(out, ind);
 		out.print(" = ");
 		getValue().prettyPrint(out, ind);
@@ -69,7 +69,7 @@ aspect PrettyPrint {
 	}
 
 	public void IfStmt.prettyPrint(PrintStream out, String ind) {
-		out.print(ind + "if(");
+		out.print(ind + "if (");
 		getCondition().prettyPrint(out, ind);
 		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
@@ -85,6 +85,7 @@ aspect PrettyPrint {
 	}
 
 	public void Print.prettyPrint(PrintStream out, String ind) {
+		out.print(ind);
 		getPrint().prettyPrint(out, ind);
 	}
 
