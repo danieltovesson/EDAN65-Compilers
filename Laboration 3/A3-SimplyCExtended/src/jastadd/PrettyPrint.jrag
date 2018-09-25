@@ -32,6 +32,7 @@ aspect PrettyPrint {
 		}
 		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
+		out.println();
 	}
 
 	public void Block.prettyPrint(PrintStream out, String ind) {
@@ -39,7 +40,7 @@ aspect PrettyPrint {
 		for (int i = 0; i < getNumChild(); ++i) {
 			getChild(i).prettyPrint(out, ind + "	");
 		}
-		out.println(ind + "}");
+		out.print(ind + "}");
 	}
 
 	public void Declaration.prettyPrint(PrintStream out, String ind) {
@@ -61,11 +62,11 @@ aspect PrettyPrint {
 	}
 
 	public void WhileStmt.prettyPrint(PrintStream out, String ind) {
-		out.print(ind + "while(");
+		out.print(ind + "while (");
 		getCondition().prettyPrint(out, ind);
-		out.println(") {");
+		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
-		out.println(ind + "}");
+		out.println();
 	}
 
 	public void IfStmt.prettyPrint(PrintStream out, String ind) {
@@ -74,8 +75,10 @@ aspect PrettyPrint {
 		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
 		if (hasElse()) {
+			out.print(" else");
 			getElse().prettyPrint(out, ind);
 		}
+		out.println();
 	}
 
 	public void Return.prettyPrint(PrintStream out, String ind) {
@@ -86,12 +89,14 @@ aspect PrettyPrint {
 
 	public void Print.prettyPrint(PrintStream out, String ind) {
 		out.print(ind);
+		out.print("print(");
 		getPrint().prettyPrint(out, ind);
+		out.println(");");
 	}
 
 	public void FuncCall.prettyPrint(PrintStream out, String ind) {
 		getName().prettyPrint(out, ind);
-		getExpr().prettyPrint(out, ind);
+		out.print("()");
 	}
 
 	public void Mul.prettyPrint(PrintStream out, String ind) {
