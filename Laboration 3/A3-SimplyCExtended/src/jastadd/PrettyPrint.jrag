@@ -46,8 +46,10 @@ aspect PrettyPrint {
 	public void Declaration.prettyPrint(PrintStream out, String ind) {
 		out.print(ind + "int ");
 		getName().prettyPrint(out, ind);
-		out.print(" = ");
-		getAssignment().prettyPrint(out, ind);
+		if (hasAssignment()) {
+			out.print(" = ");
+			getAssignment().prettyPrint(out, ind);
+		}
 		out.println(";");
 	}
 
@@ -69,10 +71,11 @@ aspect PrettyPrint {
 	public void IfStmt.prettyPrint(PrintStream out, String ind) {
 		out.print(ind + "if(");
 		getCondition().prettyPrint(out, ind);
-		out.println(") {");
+		out.print(")");
 		getCodeBlock().prettyPrint(out, ind);
-		out.println(ind + "}");
-		getElse().prettyPrint(out, ind);
+		if (hasElse()) {
+			getElse().prettyPrint(out, ind);
+		}
 	}
 
 	public void Return.prettyPrint(PrintStream out, String ind) {
