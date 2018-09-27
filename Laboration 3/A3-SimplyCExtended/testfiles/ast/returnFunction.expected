@@ -1,7 +1,7 @@
 Program
   List
     Function
-      Id ID="a"
+      IdDecl ID="a"
       List
       Block
         Opt
@@ -15,7 +15,7 @@ Program
             Return
               IdUse ID="a"
     Function
-      Id ID="b"
+      IdDecl ID="b"
       List
       Block
         Opt
@@ -23,7 +23,7 @@ Program
             Return
               IntValue INTEGER="2"
     Function
-      Id ID="b"
+      IdDecl ID="b"
       List
       Block
         Opt

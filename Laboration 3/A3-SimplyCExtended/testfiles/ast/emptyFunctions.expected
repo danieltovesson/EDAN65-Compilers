@@ -1,12 +1,12 @@
 Program
   List
     Function
-      Id ID="a"
+      IdDecl ID="a"
       List
       Block
         Opt
     Function
-      Id ID="b"
+      IdDecl ID="b"
       List
       Block
         Opt

@@ -1,7 +1,7 @@
 Program
   List
     Function
-      Id ID="a"
+      IdDecl ID="a"
       List
       Block
         Opt
@@ -15,10 +15,10 @@ Program
             Assignment
               IdUse ID="a"
               FuncCall
-                Id ID="read"
+                IdUse ID="read"
                 List
             Assignment
               IdUse ID="b"
               FuncCall
-                Id ID="read"
+                IdUse ID="read"
                 List

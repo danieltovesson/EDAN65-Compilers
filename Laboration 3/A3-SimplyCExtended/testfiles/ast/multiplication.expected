@@ -1,7 +1,7 @@
 Program
   List
     Function
-      Id ID="a"
+      IdDecl ID="a"
       List
       Block
         Opt

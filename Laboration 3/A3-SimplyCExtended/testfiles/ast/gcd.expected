@@ -1,7 +1,7 @@
 Program
   List
     Function
-      Id ID="gcd1"
+      IdDecl ID="gcd1"
       List
         IdDecl ID="a"
         IdDecl ID="b"
@@ -39,7 +39,7 @@ Program
             Return
               IdUse ID="a"
     Function
-      Id ID="gcd2"
+      IdDecl ID="gcd2"
       List
         IdDecl ID="a"
         IdDecl ID="b"
@@ -58,14 +58,14 @@ Program
               Opt
             Return
               FuncCall
-                Id ID="gcd2"
+                IdUse ID="gcd2"
                 List
                   IdUse ID="b"
                   Mod
                     IdUse ID="a"
                     IdUse ID="b"
     Function
-      Id ID="main"
+      IdDecl ID="main"
       List
       Block
         Opt
@@ -79,22 +79,22 @@ Program
             Assignment
               IdUse ID="a"
               FuncCall
-                Id ID="read"
+                IdUse ID="read"
                 List
             Assignment
               IdUse ID="b"
               FuncCall
-                Id ID="read"
+                IdUse ID="read"
                 List
             Print
               FuncCall
-                Id ID="gcd1"
+                IdUse ID="gcd1"
                 List
                   IdUse ID="a"
                   IdUse ID="b"
             Print
               FuncCall
-                Id ID="gcd2"
+                IdUse ID="gcd2"
                 List
                   IdUse ID="a"
                   IdUse ID="b"
@@ -103,12 +103,12 @@ Program
               Opt
                 Sub
                   FuncCall
-                    Id ID="gcd1"
+                    IdUse ID="gcd1"
                     List
                       IdUse ID="a"
                       IdUse ID="b"
                   FuncCall
-                    Id ID="gcd2"
+                    IdUse ID="gcd2"
                     List
                       IdUse ID="a"
                       IdUse ID="b"
