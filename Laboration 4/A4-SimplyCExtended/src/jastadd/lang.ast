@@ -34,3 +34,5 @@ Id ::= <ID>;
 IdDecl ::= <ID>;
 IdUse:Expr ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
+
+UnknownDecl : IdDecl;
