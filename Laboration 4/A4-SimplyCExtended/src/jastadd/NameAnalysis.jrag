@@ -105,10 +105,10 @@ aspect NameAnalysis {
 
 aspect CircularDefinitions {
 	/* Identify circular definitions in let expressions */
-	// syn boolean IdUse.isCircular() = inExprOf(decl());
-	// inh boolean IdUse.inExprOf(IdDecl decl);
+	syn boolean IdUse.isCircular() = inExprOf(decl());
+	inh boolean IdUse.inExprOf(IdDecl decl);
 	// inh boolean Binding.inExprOf(IdDecl decl);
 	// eq Binding.getExpr().inExprOf(IdDecl decl)
 	// 	= getIdDecl() == decl || inExprOf(decl);
-	// eq Program.getChild().inExprOf(IdDecl decl) = false;
+	eq Program.getChild().inExprOf(IdDecl decl) = false;
 }
