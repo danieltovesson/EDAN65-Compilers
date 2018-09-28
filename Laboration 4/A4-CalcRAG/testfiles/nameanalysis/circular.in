@@ -1,0 +1,5 @@
+let a =
+  let b = 2.0 in a * b end
+in
+  a * 3.0
+end
