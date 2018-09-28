@@ -1,0 +1,80 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+              Opt
+            Assignment
+              IdUse ID="a"
+              IntValue INTEGER="2"
+            IfStmt
+              Lesser
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt
+            IfStmt
+              Greater
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt
+            IfStmt
+              LesserEqual
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt
+            IfStmt
+              GreaterEqual
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt
+            IfStmt
+              NotEqual
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt
+            IfStmt
+              Equal
+                IdUse ID="a"
+                IntValue INTEGER="2"
+              Block
+                Opt
+                  List
+                    Assignment
+                      IdUse ID="a"
+                      IntValue INTEGER="3"
+              Opt

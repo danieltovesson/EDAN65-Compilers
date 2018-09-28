@@ -1,0 +1,24 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      Block
+        Opt
+          List
+            Declaration
+              IdDecl ID="a"
+              Opt
+            Declaration
+              IdDecl ID="b"
+              Opt
+            Assignment
+              IdUse ID="b"
+              Mul
+                IntValue INTEGER="2"
+                IntValue INTEGER="2"
+            Assignment
+              IdUse ID="a"
+              Mul
+                IdUse ID="b"
+                IntValue INTEGER="2"

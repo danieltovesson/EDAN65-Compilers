@@ -1,0 +1,14 @@
+int a() {
+	int a;
+	a = 2;
+	return a;
+}
+int b() {
+	return 2;
+}
+int b() {
+	int a;
+	a = 2;
+	return a + 2;
+}
+
