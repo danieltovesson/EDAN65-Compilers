@@ -1,127 +1,38 @@
-import java.util.Set;
-import java.util.HashSet;
-
 aspect NameAnalysis {
-	public class SymbolTable {
-		private static final SymbolTable BOTTOM = new SymbolTable() {
-			@Override
-			public boolean declare(String name) {
-				throw new UnsupportedOperationException(
-						"can not add name to bottom of name stack");
+	syn IdDecl IdUse.decl() = lookup(getID());
+	inh IdDecl IdUse.lookup(String name);
+
+	eq Let.getExpr().lookup(String name) {
+		IdDecl decl = localLookup(name, getNumBinding()-1);
+		return !decl.isUnknown() ? decl : lookup(name);
+	}
+	eq Program.getChild().lookup(String name) = unknownDecl();
+	inh IdDecl Let.lookup(String name);
+
+	syn IdDecl Let.localLookup(String name, int until) {
+		for (int i = 0; i <= until; i++) {
+			if (getBinding(i).getIdDecl().getID().equals(name)) {
+				return getBinding(i).getIdDecl();
 			}
-			@Override
-			public boolean lookup(String name) {
-				return false;
-			}
-		};
-
-		private final SymbolTable tail;
-		private final Set<String> names = new HashSet<String>();
-
-		public SymbolTable() {
-			tail = BOTTOM;
 		}
-
-		public SymbolTable(SymbolTable tail) {
-			this.tail = tail;
-		}
-
-		/**
-		 * Attempt to add a new name to the symbol table.
-		 * @return true if name was not already declared
-		 */
-		public boolean declare(String name) {
-			return names.add(name);
-		}
-
-		/**
-		 * @return true if name has been declared
-		 */
-		public boolean lookup(String name) {
-			return names.contains(name) || tail.lookup(name);
-		}
-
-		/**
-		 * Push a new table on the stack.
-		 * @return the new top of the stack
-		 */
-		public SymbolTable push() {
-			return new SymbolTable(this);
-		}
+		return unknownDecl();
 	}
 
-	/**
-	 * @param err where to write error messages
-	 */
-	public void Program.checkNames(PrintStream err) {
-		SymbolTable symbols = new SymbolTable();
-		checkNames(err, symbols);
+	eq Let.getBinding(int index).lookup(String name) {
+		IdDecl decl = localLookup(name, index);
+		return !decl.isUnknown() ? decl : lookup(name);
 	}
 
-	/**
-	 * @param err where to write error messages
-	 * @param symbols symbol table
-	 */
-	public void ASTNode.checkNames(PrintStream err, SymbolTable symbols) {
-		for (int i = 0; i < getNumChild(); ++i) {
-			getChild(i).checkNames(err, symbols);
-		}
-	}
+	inh IdDecl IdDecl.lookup(String name);
+	syn boolean IdDecl.isMultiDeclared() = lookup(getID()) != this;
+}
 
-	public void Function.checkNames(PrintStream err, SymbolTable symbols) {
-		getName().checkNames(err, symbols);
-		symbols = symbols.push();
-		for (IdDecl id : getParameterList()) {
-			id.checkNames(err, symbols);
-		}
-		getCodeBlock().checkNames(err, symbols);
-	}
-
-	public void Block.checkNames(PrintStream err, SymbolTable symbols) {
-		for (int i = 0; i < getNumChild(); ++i) {
-			getChild(i).checkNames(err, symbols);
-		}
-	}
-
-	public void WhileStmt.checkNames(PrintStream err, SymbolTable symbols) {
-		getCondition().checkNames(err, symbols);
-		getCodeBlock().checkNames(err, symbols.push());
-	}
-
-	public void IfStmt.checkNames(PrintStream err, SymbolTable symbols) {
-		getCondition().checkNames(err, symbols);
-		getCodeBlock().checkNames(err, symbols.push());
-		if (hasElse()) {
-			getElse().checkNames(err, symbols.push());
-		}
-	}
-
-	public void Id.checkNames(PrintStream err, SymbolTable symbols) {
-		if (!symbols.declare(getID())) {
-			err.format("Error at line %d: symbol \'%s\' is already declared!", getLine(), getID());
-			err.println();
-		}
-	}
-
-	public void IdDecl.checkNames(PrintStream err, SymbolTable symbols) {
-		if (!symbols.declare(getID())) {
-			err.format("Error at line %d: symbol \'%s\' is already declared!", getLine(), getID());
-			err.println();
-		}
-	}
-
-	public void IdUse.checkNames(PrintStream err, SymbolTable symbols) {
-		if (!symbols.lookup(getID())) {
-			err.format("Error at line %d: symbol \'%s\' has not been declared before this use!", getLine(), getID());
-			err.println();
-		}
-	}
-
-	/**
-	 * Helper method
-	 * @return line number of this token
-	 */
-	public int ASTNode.getLine() {
-		return getLine(getStart());
-	}
+aspect CircularDefinitions {
+	/* Identify circular definitions in let expressions */
+	syn boolean IdUse.isCircular() = inExprOf(decl());
+	inh boolean IdUse.inExprOf(IdDecl decl);
+	inh boolean Binding.inExprOf(IdDecl decl);
+	eq Binding.getExpr().inExprOf(IdDecl decl)
+		= getIdDecl() == decl || inExprOf(decl);
+	eq Program.getChild().inExprOf(IdDecl decl) = false;
 }
