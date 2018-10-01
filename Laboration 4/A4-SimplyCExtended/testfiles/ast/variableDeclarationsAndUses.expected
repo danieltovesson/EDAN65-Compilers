@@ -8,13 +8,11 @@ Program
           List
             Declaration
               IdDecl ID="x"
-              Opt
             Declaration
               IdDecl ID="y"
-              Opt
-            Assignment
+            ReAssignment
               IdUse ID="x"
               IntValue INTEGER="5"
-            Assignment
+            ReAssignment
               IdUse ID="y"
               IdUse ID="x"

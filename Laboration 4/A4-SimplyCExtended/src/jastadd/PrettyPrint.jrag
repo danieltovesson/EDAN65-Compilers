@@ -47,14 +47,18 @@ aspect PrettyPrint {
 	public void Declaration.prettyPrint(PrintStream out, String ind) {
 		out.print(ind + "int ");
 		getName().prettyPrint(out, ind);
-		if (hasAssignment()) {
-			out.print(" = ");
-			getAssignment().prettyPrint(out, ind);
-		}
 		out.println(";");
 	}
 
 	public void Assignment.prettyPrint(PrintStream out, String ind) {
+		out.print(ind + "int ");
+		getName().prettyPrint(out, ind);
+		out.print(" = ");
+		getValue().prettyPrint(out, ind);
+		out.println(";");
+	}
+
+	public void ReAssignment.prettyPrint(PrintStream out, String ind) {
 		out.print(ind);
 		getName().prettyPrint(out, ind);
 		out.print(" = ");

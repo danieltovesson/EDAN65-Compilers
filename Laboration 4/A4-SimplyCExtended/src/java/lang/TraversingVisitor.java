@@ -37,6 +37,9 @@ public abstract class TraversingVisitor implements lang.ast.Visitor {
 	public Object visit(Assignment node, Object data) {
 		return visitChildren(node, data);
 	}
+	public Object visit(ReAssignment node, Object data) {
+		return visitChildren(node, data);
+	}
 	public Object visit(WhileStmt node, Object data) {
 		return visitChildren(node, data);
 	}

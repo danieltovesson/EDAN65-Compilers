@@ -5,8 +5,9 @@ Block ::= [Statement:Stmt];
 Function ::= Name:IdDecl Parameter:IdDecl* CodeBlock:Block;
 
 abstract Stmt;
-Declaration:Stmt ::= Name:IdDecl [Assignment:Expr];
-Assignment:Stmt ::= Name:IdUse Value:Expr;
+Declaration:Stmt ::= Name:IdDecl;
+Assignment:Stmt ::= Name:IdDecl Value:Expr;
+ReAssignment:Stmt ::= Name:IdUse Value:Expr;
 WhileStmt:Stmt ::= Condition:Expr CodeBlock:Block;
 IfStmt:Stmt ::= Condition:Expr CodeBlock:Block [Else:Block];
 Return:Stmt ::= Return:Expr;

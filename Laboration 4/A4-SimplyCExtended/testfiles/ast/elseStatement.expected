@@ -8,8 +8,7 @@ Program
           List
             Declaration
               IdDecl ID="a"
-              Opt
-            Assignment
+            ReAssignment
               IdUse ID="a"
               IntValue INTEGER="2"
             IfStmt
@@ -19,13 +18,13 @@ Program
               Block
                 Opt
                   List
-                    Assignment
+                    ReAssignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
               Opt
                 Block
                   Opt
                     List
-                      Assignment
+                      ReAssignment
                         IdUse ID="a"
                         IntValue INTEGER="2"

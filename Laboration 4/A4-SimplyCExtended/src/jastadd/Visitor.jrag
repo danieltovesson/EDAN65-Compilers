@@ -11,6 +11,7 @@ aspect Visitor {
 		public Object visit(Block node, Object data);
 		public Object visit(Declaration node, Object data);
 		public Object visit(Assignment node, Object data);
+		public Object visit(ReAssignment node, Object data);
 		public Object visit(WhileStmt node, Object data);
 		public Object visit(IfStmt node, Object data);
 		public Object visit(Return node, Object data);
@@ -55,6 +56,9 @@ aspect Visitor {
 		return visitor.visit(this, data);
 	}
 	public Object Assignment.accept(Visitor visitor, Object data) {
+		return visitor.visit(this, data);
+	}
+	public Object ReAssignment.accept(Visitor visitor, Object data) {
 		return visitor.visit(this, data);
 	}
 	public Object WhileStmt.accept(Visitor visitor, Object data) {

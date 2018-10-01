@@ -6,26 +6,22 @@ Program
       Block
         Opt
           List
-            Declaration
+            Assignment
               IdDecl ID="a"
-              Opt
-                IntValue INTEGER="2"
-            Declaration
+              IntValue INTEGER="2"
+            Assignment
               IdDecl ID="b"
-              Opt
-                Add
-                  IntValue INTEGER="2"
-                  IdUse ID="a"
+              Add
+                IntValue INTEGER="2"
+                IdUse ID="a"
             Declaration
               IdDecl ID="c"
-              Opt
-            Declaration
+            Assignment
               IdDecl ID="d"
-              Opt
-                Add
-                  FuncCall
-                    IdUse ID="read"
-                    List
-                  FuncCall
-                    IdUse ID="read"
-                    List
+              Add
+                FuncCall
+                  IdUse ID="read"
+                  List
+                FuncCall
+                  IdUse ID="read"
+                  List

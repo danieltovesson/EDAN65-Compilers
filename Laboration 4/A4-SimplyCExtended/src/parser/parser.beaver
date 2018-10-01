@@ -21,6 +21,7 @@
 %typeof stmt = "Stmt";
 %typeof declaration = "Declaration";
 %typeof assignment = "Assignment";
+%typeof reAssignment = "ReAssignment";
 %typeof whileStmt = "WhileStmt";
 %typeof ifStmt = "IfStmt";
 %typeof return = "Return";
@@ -72,17 +73,18 @@ exprList			= expr.a {: return new List().add(a); :}
 
 stmt =					declaration
 								| assignment
+								| reAssignment
 								| whileStmt
 								| ifStmt
 								| return
 								| print
 								;
 
-declaration = 	INT idDecl.a SEMI {: return new Declaration(a, new Opt()); :}
-								| INT idDecl.a ASSIGN expr.b SEMI {: return new Declaration(a, new Opt(b)); :}
-								;
+declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
 
-assignment = 		idUse.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+assignment = 		INT idDecl.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+
+reAssignment = 	idUse.a ASSIGN expr.b SEMI {: return new ReAssignment(a, b); :} ;
 
 whileStmt =			WHILE LPARA expr.a RPARA block.b {: return new WhileStmt(a, b); :} ;
 

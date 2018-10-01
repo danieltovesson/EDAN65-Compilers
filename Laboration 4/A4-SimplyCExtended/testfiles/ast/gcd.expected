@@ -22,7 +22,7 @@ Program
                       Block
                         Opt
                           List
-                            Assignment
+                            ReAssignment
                               IdUse ID="a"
                               Sub
                                 IdUse ID="a"
@@ -31,7 +31,7 @@ Program
                         Block
                           Opt
                             List
-                              Assignment
+                              ReAssignment
                                 IdUse ID="b"
                                 Sub
                                   IdUse ID="b"
@@ -72,16 +72,14 @@ Program
           List
             Declaration
               IdDecl ID="a"
-              Opt
             Declaration
               IdDecl ID="b"
-              Opt
-            Assignment
+            ReAssignment
               IdUse ID="a"
               FuncCall
                 IdUse ID="read"
                 List
-            Assignment
+            ReAssignment
               IdUse ID="b"
               FuncCall
                 IdUse ID="read"
@@ -98,20 +96,19 @@ Program
                 List
                   IdUse ID="a"
                   IdUse ID="b"
-            Declaration
+            Assignment
               IdDecl ID="diff"
-              Opt
-                Sub
-                  FuncCall
-                    IdUse ID="gcd1"
-                    List
-                      IdUse ID="a"
-                      IdUse ID="b"
-                  FuncCall
-                    IdUse ID="gcd2"
-                    List
-                      IdUse ID="a"
-                      IdUse ID="b"
+              Sub
+                FuncCall
+                  IdUse ID="gcd1"
+                  List
+                    IdUse ID="a"
+                    IdUse ID="b"
+                FuncCall
+                  IdUse ID="gcd2"
+                  List
+                    IdUse ID="a"
+                    IdUse ID="b"
             Print
               IdUse ID="diff"
             Return

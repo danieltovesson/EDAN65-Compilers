@@ -8,16 +8,14 @@ Program
           List
             Declaration
               IdDecl ID="a"
-              Opt
             Declaration
               IdDecl ID="b"
-              Opt
-            Assignment
+            ReAssignment
               IdUse ID="a"
               FuncCall
                 IdUse ID="read"
                 List
-            Assignment
+            ReAssignment
               IdUse ID="b"
               FuncCall
                 IdUse ID="read"

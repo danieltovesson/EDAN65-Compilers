@@ -8,8 +8,7 @@ Program
           List
             Declaration
               IdDecl ID="a"
-              Opt
-            Assignment
+            ReAssignment
               IdUse ID="a"
               IntValue INTEGER="2"
             WhileStmt
@@ -19,6 +18,6 @@ Program
               Block
                 Opt
                   List
-                    Assignment
+                    ReAssignment
                       IdUse ID="a"
                       IntValue INTEGER="3"
