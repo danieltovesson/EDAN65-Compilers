@@ -9,17 +9,13 @@ import beaver.Parser.Exception;
 import lang.ast.Program;
 import lang.ast.LangParser;
 import lang.ast.LangScanner;
+import lang.ast.ErrorMessage;
 
 /**
- * Dumps the parsed Abstract Syntax Tree of a Calc program.
+ * Computes the maximum statement nesting depth for a Calc program.
  */
 public class Compiler {
-	/**
-	 * Entry point
-	 * @param args
-	 */
-
-  public static Object DrAST_root_node; //Enable debugging with DrAST
+	public static Object DrAST_root_node; // Enable debugging with DrAST.
 
 	public static void main(String[] args) {
 		try {
@@ -35,8 +31,15 @@ public class Compiler {
 			LangScanner scanner = new LangScanner(new FileReader(filename));
 			LangParser parser = new LangParser();
 			Program program = (Program) parser.parse(scanner);
-      DrAST_root_node = program; // Enable debugging with DrAST
-			System.out.println(program.dumpTree());
+			program.prettyPrint(System.out);
+			if (!program.errors().isEmpty()) {
+				System.err.println();
+				System.err.println("Errors: ");
+				for (ErrorMessage e: program.errors()) {
+					System.err.println("- " + e);
+				}
+			}
+			DrAST_root_node = program; // Enable debugging with DrAST.
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
 			System.exit(1);
@@ -48,7 +51,7 @@ public class Compiler {
 	}
 
 	private static void printUsage() {
-		System.err.println("Usage: DumpTree FILE");
-		System.err.println("  where FILE is the file to be parsed");
+		System.err.println("Usage: Compiler FILE");
+		System.err.println("    where FILE is the file to be compiled");
 	}
 }
