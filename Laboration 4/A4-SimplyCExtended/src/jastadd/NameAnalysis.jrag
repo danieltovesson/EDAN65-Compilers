@@ -1,4 +1,3 @@
-// Function, Block, WhileStmt, IfStmt
 aspect NameAnalysis {
 	/*******************************************
 	ID USE
@@ -33,69 +32,56 @@ aspect NameAnalysis {
 		return unknownDecl();
 	}
 
-	// eq Program.getChild().lookupFunction(String name) {
-  //   for (Function function : getFunctionList()) {
-  //     IdDecl decl = function.getName();
-  //     if (decl.getID().equals(name)) {
-  //       return decl;
-  //     }
-  //   }
-  //   return unknownDecl();
-  // }
-
 	/*******************************************
 	STATEMENT
 	*******************************************/
 
-	// inh IdDecl Stmt.lookup(String name);
-	// syn IdDecl Stmt.localLookup(String name) = unknownDecl();
-	//
- 	// syn IdDecl Declaration.localLookup(String name) {
-	// 	return getName().getID().equals(name) ? getName() : unknownDecl();
- 	// }
-	//
- 	// syn IdDecl Assignment.localLookup(String name) {
-	// 	return getName().getID().equals(name) ? getName() : unknownDecl();
- 	// }
+	inh IdDecl Stmt.lookup(String name);
+	syn IdDecl Stmt.localLookup(String name) = unknownDecl();
+
+ 	syn IdDecl Declaration.localLookup(String name) {
+		return getName().getID().equals(name) ? getName() : unknownDecl();
+ 	}
+
+ 	syn IdDecl Assignment.localLookup(String name) {
+		return getName().getID().equals(name) ? getName() : unknownDecl();
+ 	}
 
 	/*******************************************
 	FUNCTION
 	*******************************************/
 
-	// inh IdDecl Function.lookup(String name);
-	// inh IdDecl Function.lookupFunction(String name);
-	//
+	inh IdDecl Function.lookup(String name);
+
 	// syn IdDecl Function.localLookup(String name, int until) {
-  //   for(int i = 0; i <= until; i++) {
-  //     IdDecl decl =  getCodeBlock(i).localLookup(name);
-  //     if(decl.getID().equals(name)) {
-  //       return decl;
-  //     }
-  //   }
-  //   for(int i = 0; i < getNumParameter(); i++) {
-  //     if(getParameter(i).getID().equals(name)) {
+	// 	IdDecl decl =  getCodeBlock().localLookup(name);
+	// 	if (decl.getID().equals(name)) {
+	// 		return decl;
+	// 	}
+  //   for (int i = 0; i < getNumParameter(); i++) {
+  //     if (getParameter(i).getID().equals(name)) {
   //       return getParameter(i);
   //     }
   //   }
   //   return unknownDecl();
   // }
 
-	// eq Function.getCodeBlock(int index).lookup(String name) {
+	// eq Function.getCodeBlock().lookup(String name) {
 	//  IdDecl decl = lookupFunction(name);
-	//  if(!decl.isUnknown()) {
+	//  if (!decl.isUnknown()) {
 	// 	 return decl;
 	//  }
-	//  decl = localLookup(name, index);
+	//  decl = localLookup(name);
 	//  return !decl.isUnknown() ? decl : lookup(name);
  // }
 
 //  eq Function.getParameter(int index).lookup(String name) {
 //     IdDecl decl = lookupFunction(name);
-//     if(!decl.isUnknown()) {
+//     if (!decl.isUnknown()) {
 //       return decl;
 //     }
-//     for(int i = 0; i <= index; i++) {
-//       if(getParameter(i).getID().equals(name)) {
+//     for (int i = 0; i <= index; i++) {
+//       if (getParameter(i).getID().equals(name)) {
 //         return getParameter(i);
 //       }
 //     }
@@ -105,8 +91,8 @@ aspect NameAnalysis {
 
 aspect CircularDefinitions {
 	/* Identify circular definitions in let expressions */
-	syn boolean IdUse.isCircular() = inExprOf(decl());
 	inh boolean IdUse.inExprOf(IdDecl decl);
+	syn boolean IdUse.isCircular() = inExprOf(decl());
 	// inh boolean Binding.inExprOf(IdDecl decl);
 	// eq Binding.getExpr().inExprOf(IdDecl decl)
 	// 	= getIdDecl() == decl || inExprOf(decl);
