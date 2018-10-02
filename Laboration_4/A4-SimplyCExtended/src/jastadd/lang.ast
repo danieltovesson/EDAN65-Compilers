@@ -1,6 +1,6 @@
 Program ::= Function*;
 
-Block ::= [Statement:Stmt];
+Block ::= Statement:Stmt*;
 
 Function ::= Name:IdDecl Parameter:IdDecl* CodeBlock:Block;
 

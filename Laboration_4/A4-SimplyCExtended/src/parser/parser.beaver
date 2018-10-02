@@ -55,9 +55,7 @@ function = 			INT idDecl.a LPARA RPARA block.b {: return new Function(a, new Lis
 								| INT idDecl.a LPARA parameterList.b RPARA block.c {: return new Function(a, b, c); :}
 								;
 
-block =					LBRACKET RBRACKET {: return new	Block(); :}
-								| LBRACKET stmtList.a RBRACKET {: return new Block(new Opt(a)); :}
-								;
+block =					LBRACKET stmtList.a RBRACKET {: return new Block(a); :} ;
 
 functionList =	function.a {: return new List().add(a); :}
 								| functionList.a function.b {: return a.add(b); :}

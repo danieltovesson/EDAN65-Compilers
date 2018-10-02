@@ -4,19 +4,18 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            Declaration
-              IdDecl ID="b"
-            ReAssignment
-              IdUse ID="a"
-              FuncCall
-                IdUse ID="read"
-                List
-            ReAssignment
-              IdUse ID="b"
-              FuncCall
-                IdUse ID="read"
-                List
+        List
+          Declaration
+            IdDecl ID="a"
+          Declaration
+            IdDecl ID="b"
+          ReAssignment
+            IdUse ID="a"
+            FuncCall
+              IdUse ID="read"
+              List
+          ReAssignment
+            IdUse ID="b"
+            FuncCall
+              IdUse ID="read"
+              List
