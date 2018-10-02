@@ -9,7 +9,7 @@
 	}
 :};
 
-%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, PRINT, WHILE, ELSE, INT, IF, ID, INTEGER;
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, WHILE, ELSE, INT, IF, ID, INTEGER;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -24,8 +24,8 @@
 %typeof reAssignment = "ReAssignment";
 %typeof whileStmt = "WhileStmt";
 %typeof ifStmt = "IfStmt";
+%typeof functionStmt = "FunctionStmt";
 %typeof return = "Return";
-%typeof print = "Print";
 %typeof stmtList = "List";
 
 %typeof expr = "Expr";
@@ -75,8 +75,8 @@ stmt =					declaration
 								| reAssignment
 								| whileStmt
 								| ifStmt
+								| functionStmt
 								| return
-								| print
 								;
 
 declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
@@ -91,9 +91,9 @@ ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b, new Opt());
 								| IF LPARA expr.a RPARA block.b ELSE block.c {: return new IfStmt(a, b, new Opt(c)); :}
 								;
 
-return = 				RETURN expr.a SEMI {: return new Return(a); :} ;
+functionStmt =	funcCall.a SEMI {: return new FunctionStmt(a); :} ;
 
-print =					PRINT LPARA expr.a RPARA SEMI {: return new Print(a); :} ;
+return = 				RETURN expr.a SEMI {: return new Return(a); :} ;
 
 stmtList =			stmt.a {: return new List().add(a); :}
 								| stmtList.a stmt.b {: return a.add(b); :}

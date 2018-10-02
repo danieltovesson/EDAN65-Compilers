@@ -86,17 +86,16 @@ aspect PrettyPrint {
 		out.println();
 	}
 
+	public void FunctionStmt.prettyPrint(PrintStream out, String ind) {
+		out.print(ind);
+		getName().prettyPrint(out, ind);
+		out.println(";");
+	}
+
 	public void Return.prettyPrint(PrintStream out, String ind) {
 		out.print(ind + "return ");
 		getReturn().prettyPrint(out, ind);
 		out.println(";");
-	}
-
-	public void Print.prettyPrint(PrintStream out, String ind) {
-		out.print(ind);
-		out.print("print(");
-		getPrint().prettyPrint(out, ind);
-		out.println(");");
 	}
 
 	public void FuncCall.prettyPrint(PrintStream out, String ind) {

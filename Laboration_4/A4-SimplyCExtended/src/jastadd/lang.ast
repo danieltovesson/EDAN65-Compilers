@@ -10,8 +10,8 @@ Assignment:Stmt ::= Name:IdDecl Value:Expr;
 ReAssignment:Stmt ::= Name:IdUse Value:Expr;
 WhileStmt:Stmt ::= Condition:Expr CodeBlock:Block;
 IfStmt:Stmt ::= Condition:Expr CodeBlock:Block [Else:Block];
+FunctionStmt:Stmt ::= Name:FuncCall;
 Return:Stmt ::= Return:Expr;
-Print:Stmt ::= Print:Expr;
 
 abstract Expr;
 abstract BinExpr:Expr ::= Left:Expr Right:Expr;
@@ -35,4 +35,4 @@ IdDecl ::= <ID>;
 IdUse:Expr ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
 
-UnknownDecl : IdDecl;
+UnknownDecl:IdDecl;

@@ -23,10 +23,16 @@ aspect NameAnalysis {
 	*******************************************/
 
 	eq Program.getChild().lookup(String name) {
-    for (Function function : getFunctionList()) {
-    	IdDecl decl = function.getName();
-      if (decl.getID().equals(name)) {
-      	return decl;
+		for (Function function : getPredefinedFunctions()) {
+			IdDecl decl = function.getName();
+			if (decl.getID().equals(name)) {
+				return decl;
+			}
+		}
+		for (Function function : getFunctionList()) {
+			IdDecl decl = function.getName();
+			if (decl.getID().equals(name)) {
+				return decl;
 			}
 		}
 		return unknownDecl();

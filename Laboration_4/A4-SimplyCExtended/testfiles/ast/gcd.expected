@@ -77,18 +77,24 @@ Program
             FuncCall
               IdUse ID="read"
               List
-          Print
+          FunctionStmt
             FuncCall
-              IdUse ID="gcd1"
+              IdUse ID="print"
               List
-                IdUse ID="a"
-                IdUse ID="b"
-          Print
+                FuncCall
+                  IdUse ID="gcd1"
+                  List
+                    IdUse ID="a"
+                    IdUse ID="b"
+          FunctionStmt
             FuncCall
-              IdUse ID="gcd2"
+              IdUse ID="print"
               List
-                IdUse ID="a"
-                IdUse ID="b"
+                FuncCall
+                  IdUse ID="gcd2"
+                  List
+                    IdUse ID="a"
+                    IdUse ID="b"
           Assignment
             IdDecl ID="diff"
             Sub
@@ -102,7 +108,10 @@ Program
                 List
                   IdUse ID="a"
                   IdUse ID="b"
-          Print
-            IdUse ID="diff"
+          FunctionStmt
+            FuncCall
+              IdUse ID="print"
+              List
+                IdUse ID="diff"
           Return
             IntValue INTEGER="0"

@@ -10,5 +10,8 @@ Program
           ReAssignment
             IdUse ID="a"
             IntValue INTEGER="2"
-          Print
-            IdUse ID="a"
+          FunctionStmt
+            FuncCall
+              IdUse ID="print"
+              List
+                IdUse ID="a"
