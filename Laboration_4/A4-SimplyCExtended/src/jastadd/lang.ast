@@ -31,7 +31,6 @@ GreaterEqual:BinExpr;
 NotEqual:BinExpr;
 Equal:BinExpr;
 
-Id ::= <ID>;
 IdDecl ::= <ID>;
 IdUse:Expr ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
