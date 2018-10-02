@@ -4,35 +4,32 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            ReAssignment
-              IdUse ID="a"
-              IntValue INTEGER="2"
-            Return
-              IdUse ID="a"
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          Return
+            IdUse ID="a"
     Function
       IdDecl ID="b"
       List
       Block
-        Opt
-          List
-            Return
-              IntValue INTEGER="2"
+        List
+          Return
+            IntValue INTEGER="2"
     Function
       IdDecl ID="b"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            ReAssignment
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          Return
+            Add
               IdUse ID="a"
               IntValue INTEGER="2"
-            Return
-              Add
-                IdUse ID="a"
-                IntValue INTEGER="2"
