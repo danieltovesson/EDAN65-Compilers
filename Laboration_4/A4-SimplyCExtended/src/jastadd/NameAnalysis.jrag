@@ -62,12 +62,8 @@ aspect NameAnalysis {
 	}
 
 	eq Function.getParameter(int index).lookup(String name) {
-		for (int i = 0; i <= index; i++) {
-  		if (getParameter(i).getID().equals(name)) {
-      	return getParameter(i);
-    	}
-  	}
-		return lookup(name);
+		IdDecl decl = localLookup(name, index);
+		return !decl.isUnknown() ? decl : lookup(name);
 	}
 
 	/*******************************************
@@ -92,12 +88,12 @@ aspect NameAnalysis {
 }
 
 aspect CircularDefinitions {
-	inh boolean IdUse.inExprOf(IdDecl decl);
-	syn boolean IdUse.isCircular() = inExprOf(decl());
+	inh boolean IdUse.inExpr(IdDecl decl);
+	syn boolean IdUse.isCircular() = inExpr(decl());
 
 	inh boolean Stmt.inExpr(IdDecl decl);
 	eq Assignment.getValue().inExpr(IdDecl decl) = getName() == decl || inExpr(decl);
-	//eq ReAssignment.getValue().inExpr(IdDecl decl) = getName() == decl || inExpr(decl);
+	eq ReAssignment.getValue().inExpr(IdDecl decl) = getName().getID() == decl.getID() || inExpr(decl);
 
-	eq Program.getChild().inExprOf(IdDecl decl) = false;
+	eq Program.getChild().inExpr(IdDecl decl) = false;
 }
