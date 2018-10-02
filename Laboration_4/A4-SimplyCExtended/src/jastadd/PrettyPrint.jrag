@@ -183,10 +183,6 @@ aspect PrettyPrint {
 		out.print(getINTEGER());
 	}
 
-	public void Id.prettyPrint(PrintStream out, String ind) {
-		out.print(getID());
-	}
-
 	public void IdDecl.prettyPrint(PrintStream out, String ind) {
 		out.print(getID());
 	}
