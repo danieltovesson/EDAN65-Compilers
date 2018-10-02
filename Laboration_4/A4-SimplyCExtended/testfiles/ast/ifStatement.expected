@@ -4,21 +4,19 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            ReAssignment
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          IfStmt
+            Equal
               IdUse ID="a"
               IntValue INTEGER="2"
-            IfStmt
-              Equal
-                IdUse ID="a"
-                IntValue INTEGER="2"
-              Block
-                Opt
-                  List
-                    ReAssignment
-                      IdUse ID="a"
-                      IntValue INTEGER="3"
-              Opt
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt

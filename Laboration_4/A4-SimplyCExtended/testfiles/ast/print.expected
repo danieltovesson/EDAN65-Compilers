@@ -4,12 +4,11 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            ReAssignment
-              IdUse ID="a"
-              IntValue INTEGER="2"
-            Print
-              IdUse ID="a"
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          Print
+            IdUse ID="a"
