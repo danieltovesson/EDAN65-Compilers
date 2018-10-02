@@ -4,27 +4,24 @@ Program
       IdDecl ID="main"
       List
       Block
-        Opt
-          List
-            Assignment
-              IdDecl ID="a"
+        List
+          Assignment
+            IdDecl ID="a"
+            IntValue INTEGER="0"
+          IfStmt
+            NotEqual
+              IdUse ID="a"
               IntValue INTEGER="0"
-            IfStmt
-              NotEqual
-                IdUse ID="a"
-                IntValue INTEGER="0"
+            Block
+              List
+                Assignment
+                  IdDecl ID="b"
+                  IntValue INTEGER="2"
+                Return
+                  IdUse ID="b"
+            Opt
               Block
-                Opt
-                  List
-                    Assignment
-                      IdDecl ID="b"
-                      IntValue INTEGER="2"
-                    Return
-                      IdUse ID="b"
-              Opt
-                Block
-                  Opt
-                    List
-                      ReAssignment
-                        IdUse ID="b"
-                        IntValue INTEGER="3"
+                List
+                  ReAssignment
+                    IdUse ID="b"
+                    IntValue INTEGER="3"

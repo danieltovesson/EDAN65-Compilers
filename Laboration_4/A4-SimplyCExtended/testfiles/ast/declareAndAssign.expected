@@ -4,24 +4,23 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
-          List
-            Assignment
-              IdDecl ID="a"
+        List
+          Assignment
+            IdDecl ID="a"
+            IntValue INTEGER="2"
+          Assignment
+            IdDecl ID="b"
+            Add
               IntValue INTEGER="2"
-            Assignment
-              IdDecl ID="b"
-              Add
-                IntValue INTEGER="2"
-                IdUse ID="a"
-            Declaration
-              IdDecl ID="c"
-            Assignment
-              IdDecl ID="d"
-              Add
-                FuncCall
-                  IdUse ID="read"
-                  List
-                FuncCall
-                  IdUse ID="read"
-                  List
+              IdUse ID="a"
+          Declaration
+            IdDecl ID="c"
+          Assignment
+            IdDecl ID="d"
+            Add
+              FuncCall
+                IdUse ID="read"
+                List
+              FuncCall
+                IdUse ID="read"
+                List

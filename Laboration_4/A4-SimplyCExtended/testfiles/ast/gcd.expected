@@ -6,110 +6,103 @@ Program
         IdDecl ID="a"
         IdDecl ID="b"
       Block
-        Opt
-          List
-            WhileStmt
-              NotEqual
-                IdUse ID="a"
-                IdUse ID="b"
-              Block
-                Opt
-                  List
-                    IfStmt
-                      Greater
-                        IdUse ID="a"
-                        IdUse ID="b"
-                      Block
-                        Opt
-                          List
-                            ReAssignment
-                              IdUse ID="a"
-                              Sub
-                                IdUse ID="a"
-                                IdUse ID="b"
-                      Opt
-                        Block
-                          Opt
-                            List
-                              ReAssignment
-                                IdUse ID="b"
-                                Sub
-                                  IdUse ID="b"
-                                  IdUse ID="a"
-            Return
+        List
+          WhileStmt
+            NotEqual
               IdUse ID="a"
+              IdUse ID="b"
+            Block
+              List
+                IfStmt
+                  Greater
+                    IdUse ID="a"
+                    IdUse ID="b"
+                  Block
+                    List
+                      ReAssignment
+                        IdUse ID="a"
+                        Sub
+                          IdUse ID="a"
+                          IdUse ID="b"
+                  Opt
+                    Block
+                      List
+                        ReAssignment
+                          IdUse ID="b"
+                          Sub
+                            IdUse ID="b"
+                            IdUse ID="a"
+          Return
+            IdUse ID="a"
     Function
       IdDecl ID="gcd2"
       List
         IdDecl ID="a"
         IdDecl ID="b"
       Block
-        Opt
-          List
-            IfStmt
-              Equal
+        List
+          IfStmt
+            Equal
+              IdUse ID="b"
+              IntValue INTEGER="0"
+            Block
+              List
+                Return
+                  IdUse ID="a"
+            Opt
+          Return
+            FuncCall
+              IdUse ID="gcd2"
+              List
                 IdUse ID="b"
-                IntValue INTEGER="0"
-              Block
-                Opt
-                  List
-                    Return
-                      IdUse ID="a"
-              Opt
-            Return
-              FuncCall
-                IdUse ID="gcd2"
-                List
+                Mod
+                  IdUse ID="a"
                   IdUse ID="b"
-                  Mod
-                    IdUse ID="a"
-                    IdUse ID="b"
     Function
       IdDecl ID="main"
       List
       Block
-        Opt
-          List
-            Declaration
-              IdDecl ID="a"
-            Declaration
-              IdDecl ID="b"
-            ReAssignment
-              IdUse ID="a"
-              FuncCall
-                IdUse ID="read"
-                List
-            ReAssignment
-              IdUse ID="b"
-              FuncCall
-                IdUse ID="read"
-                List
-            Print
+        List
+          Declaration
+            IdDecl ID="a"
+          Declaration
+            IdDecl ID="b"
+          ReAssignment
+            IdUse ID="a"
+            FuncCall
+              IdUse ID="read"
+              List
+          ReAssignment
+            IdUse ID="b"
+            FuncCall
+              IdUse ID="read"
+              List
+          Print
+            FuncCall
+              IdUse ID="gcd1"
+              List
+                IdUse ID="a"
+                IdUse ID="b"
+          Print
+            FuncCall
+              IdUse ID="gcd2"
+              List
+                IdUse ID="a"
+                IdUse ID="b"
+          Assignment
+            IdDecl ID="diff"
+            Sub
               FuncCall
                 IdUse ID="gcd1"
                 List
                   IdUse ID="a"
                   IdUse ID="b"
-            Print
               FuncCall
                 IdUse ID="gcd2"
                 List
                   IdUse ID="a"
                   IdUse ID="b"
-            Assignment
-              IdDecl ID="diff"
-              Sub
-                FuncCall
-                  IdUse ID="gcd1"
-                  List
-                    IdUse ID="a"
-                    IdUse ID="b"
-                FuncCall
-                  IdUse ID="gcd2"
-                  List
-                    IdUse ID="a"
-                    IdUse ID="b"
-            Print
-              IdUse ID="diff"
-            Return
-              IntValue INTEGER="0"
+          Print
+            IdUse ID="diff"
+          Return
+            IntValue INTEGER="0"
