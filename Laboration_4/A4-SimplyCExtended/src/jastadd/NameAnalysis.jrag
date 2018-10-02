@@ -32,16 +32,6 @@ aspect NameAnalysis {
 		return unknownDecl();
 	}
 
-	eq Program.getChild().lookupFunction(String name) {
-    for (Function function : getFunctionList()) {
-      IdDecl decl = function.getName();
-      if (decl.getID().equals(name)) {
-        return decl;
-      }
-    }
-    return unknownDecl();
-  }
-
 	/*******************************************
 	STATEMENT
 	*******************************************/
@@ -62,14 +52,7 @@ aspect NameAnalysis {
 	*******************************************/
 
 	inh IdDecl Function.lookup(String name);
-	inh IdDecl Function.lookupFunction(String name);
 	syn IdDecl Function.localLookup(String name, int until) {
-		for (int i = 0; i <= until; i++) {
-    	IdDecl decl =  getCodeBlock().getStatement(i).localLookup(name);
-      if (decl.getID().equals(name)) {
-        return decl;
-      }
-    }
     for (int i = 0; i < getNumParameter(); i++) {
       if (getParameter(i).getID().equals(name)) {
         return getParameter(i);
@@ -77,18 +60,6 @@ aspect NameAnalysis {
     }
     return unknownDecl();
   }
-
-	eq Function.getCodeBlock().lookup(String name) {
-		for (int i = 0; i < getCodeBlock().getNumStatement(); i++) {
-			IdDecl decl = lookupFunction(name);
-			if (!decl.isUnknown()) {
-				return decl;
-		 	}
-			decl = localLookup(name, i);
-			return !decl.isUnknown() ? decl : lookup(name);
-		}
-		return unknownDecl();
- }
 
  	eq Function.getParameter(int index).lookup(String name) {
     for (int i = 0; i <= index; i++) {
@@ -98,6 +69,26 @@ aspect NameAnalysis {
     }
     return lookup(name);
   }
+
+	/*******************************************
+	BLOCK
+	*******************************************/
+
+	inh IdDecl Block.lookup(String name);
+	syn IdDecl Block.localLookup(String name, int until) {
+		for (int i = 0; i <= until; i++) {
+    	IdDecl decl = getStatement(i).localLookup(name);
+      if (decl.getID().equals(name)) {
+        return decl;
+      }
+    }
+    return unknownDecl();
+  }
+
+	eq Block.getStatement(int index).lookup(String name) {
+    IdDecl decl = localLookup(name, index);
+    return !decl.isUnknown() ? decl : lookup(name);
+ }
 }
 
 aspect CircularDefinitions {

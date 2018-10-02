@@ -1,5 +1,5 @@
 int a() {
-  return b(); // error: b is not yet declared
+  return b();
 }
 int b() {
   return 1;
