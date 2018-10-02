@@ -4,7 +4,7 @@ Program
       IdDecl ID="a"
       List
       Block
-´       List
+        List
           Declaration
             IdDecl ID="a"
           ReAssignment

@@ -15,8 +15,7 @@ Program
               IdUse ID="a"
               IntValue INTEGER="2"
             Block
-              Opt
-                List
-                  ReAssignment
-                    IdUse ID="a"
-                    IntValue INTEGER="3"
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"

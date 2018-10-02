@@ -5,11 +5,11 @@ Program
       List
         IdDecl ID="a"
       Block
-        Opt
+        List
     Function
       IdDecl ID="b"
       List
         IdDecl ID="a"
         IdDecl ID="b"
       Block
-        Opt
+        List

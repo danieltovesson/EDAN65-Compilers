@@ -4,9 +4,9 @@ Program
       IdDecl ID="a"
       List
       Block
-        Opt
+        List
     Function
       IdDecl ID="b"
       List
       Block
-        Opt
+        List
