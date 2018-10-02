@@ -36,3 +36,8 @@ IdUse:Expr ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
 
 UnknownDecl:IdDecl;
+
+abstract Type;
+IntType: Type;
+BoolType: Type;
+UnknownType: Type;
