@@ -5,6 +5,7 @@ aspect Type {
 
   syn nta IntType Program.intType() = new IntType("<int>");
   inh IntType ASTNode.intType();
+  syn boolean Type.isIntType() = false;
 
   eq Program.getChild().intType() = intType();
   eq IntType.isIntType() = true;
@@ -15,6 +16,7 @@ aspect Type {
 
   syn nta BoolType Program.boolType() = new BoolType("<boolean>");
   inh BoolType ASTNode.boolType();
+  syn boolean Type.isBoolType() = false;
 
   eq Program.getChild().boolType() = boolType();
   eq BoolType.isBoolType() = true;
@@ -25,8 +27,8 @@ aspect Type {
 
   syn nta UnknownType Program.unknownType() = new UnknownType("<unknown>");
   inh UnknownType ASTNode.unknownType();
+  syn boolean Type.isUnknownType() = false;
 
   eq Program.getChild().unknownType() = unknownType();
   eq UnknownType.isUnknownType() = true;
-
 }

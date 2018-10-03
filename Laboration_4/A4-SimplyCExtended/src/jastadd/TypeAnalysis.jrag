@@ -5,51 +5,55 @@ aspect TypeAnalysis {
 
   syn Type Expr.type();
 
-  eq Type Mul.type() = {
+  eq Mul.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Div.type() = {
+  eq Div.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Mod.type() = {
+  eq Mod.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Add.type() = {
+  eq Add.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Sub.type() = {
+  eq Sub.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Lesser.type() = {
+  eq Lesser.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Type Greater.type() = {
+  eq Greater.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Type LesserEqual.type() = {
+  eq LesserEqual.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Type GreaterEqual.type() = {
+  eq GreaterEqual.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Type NotEqual.type() = {
+  eq NotEqual.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Type Equal.type() = {
+  eq Equal.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq Term.type() = intType();
+  eq FuncCall.type() = intType();
+
+  eq IdUse.type() = intType();
+
+  eq IntValue.type() = intType();
 
   /*******************************************
 	ID DECLARATION

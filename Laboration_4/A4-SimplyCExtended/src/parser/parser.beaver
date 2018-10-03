@@ -110,9 +110,9 @@ expr = 					prod
 								| equal
 								;
 
-term = 					intValue
+term = 					funcCall
 								| idUse
-								| funcCall
+								| intValue
 								;
 
 factor = 				term;
