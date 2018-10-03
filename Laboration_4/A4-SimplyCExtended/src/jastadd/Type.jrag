@@ -1,0 +1,32 @@
+aspect Type {
+  /*******************************************
+  INT TYPE
+  *******************************************/
+
+  syn nta IntType Program.intType() = new IntType("<int>");
+  inh IntType ASTNode.intType();
+
+  eq Program.getChild().intType() = intType();
+  eq IntType.isIntType() = true;
+
+  /*******************************************
+	BOOLEAN TYPE
+	*******************************************/
+
+  syn nta BoolType Program.boolType() = new BoolType("<boolean>");
+  inh BoolType ASTNode.boolType();
+
+  eq Program.getChild().boolType() = boolType();
+  eq BoolType.isBoolType() = true;
+
+  /*******************************************
+	UNKNOWN TYPE
+	*******************************************/
+
+  syn nta UnknownType Program.unknownType() = new UnknownType("<unknown>");
+  inh UnknownType ASTNode.unknownType();
+
+  eq Program.getChild().unknownType() = unknownType();
+  eq UnknownType.isUnknownType() = true;
+
+}

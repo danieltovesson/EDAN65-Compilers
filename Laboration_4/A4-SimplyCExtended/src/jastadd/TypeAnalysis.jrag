@@ -1,14 +1,3 @@
 aspect TypeAnalysis {
-  syn nta IntType Program.intType() = new IntType("<int>");
-
-  inh IntType ASTNode.intType();
-  eq Program.getChild().intType() = intType();
-
-  syn boolean IdDecl.isIntType() = false;
-  eq IntType.isIntType() = true;
-
-  syn nta BoolType Program.boolType() = new BoolType("<boolean>");
-
-  syn nta UnknownType Program.unknownType() = new UnknownType("<unknown>");
 
 }
