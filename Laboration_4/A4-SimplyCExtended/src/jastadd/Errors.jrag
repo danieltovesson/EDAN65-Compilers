@@ -66,4 +66,12 @@ aspect ErrorContributions {
 	FuncCall contributes error("type error '" + getName().getID() + "' is not a function")
 		when !isFunction()
 		to Program.errors() for program();
+
+	FuncCall contributes error("type error '" + getName().getID() + "' is not a variable")
+		when !isVariable()
+		to Program.errors() for program();
+
+	// IdUse contributes error("incorrect")
+	// 	when !isUsedCorrectly()
+	// 	to Program.errors() for program();
 }

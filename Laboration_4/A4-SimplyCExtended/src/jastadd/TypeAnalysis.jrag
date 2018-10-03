@@ -87,19 +87,27 @@ aspect TypeAnalysis {
   inh boolean IdDecl.isVariable();
   inh boolean IdDecl.isFunction();
 
-  syn boolean FuncCall.isFunction() {
-    IdDecl decl = getName().decl();
-    return decl.isUnknown() ? true : decl.isFunction();
-  }
+  syn boolean FuncCall.isVariable() = false;
+  syn boolean FuncCall.isFunction() = true;
+
+  syn boolean IdUse.isVariable() = true;
+  syn boolean IdUse.isFunction() = false;
+
+  inh boolean IdUse.variableExpected();
+  inh boolean IdUse.functionExpected();
+  eq FuncCall.getName().variableExpected() = false;
+  eq FuncCall.getName().functionExpected() = true;
+  eq IdUse.getID().variableExpected() = true;
+  eq IdUse.getID().functionExpected() = false;
+
+  syn boolean IdUse.isVariable() = variableExpected() == isVariable();
+  syn boolean IdUse.isFunction() = functionExpected() == isFunction();
 
   eq Function.getName().isVariable() = false;
   eq Function.getName().isFunction() = true;
 
-  eq Function.getParameter().isVariable() = true;
-  eq Function.getParameter().isFunction() = false;
-
-  eq FuncCall.getName().isVariable() = true;
-  eq FuncCall.getName().isFunction() = false;
+  eq FuncCall.getName().isVariable() = false;
+  eq FuncCall.getName().isFunction() = true;
 
   eq Declaration.getName().isVariable() = true;
   eq Declaration.getName().isFunction() = false;
