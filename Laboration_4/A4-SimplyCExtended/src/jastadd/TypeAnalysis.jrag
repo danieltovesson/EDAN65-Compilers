@@ -1,3 +1,47 @@
 aspect TypeAnalysis {
+  /*******************************************
+	EXPRESSIONS
+	*******************************************/
 
+  syn Type Expr.type();
+
+  eq Type Prod.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Type Sum.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Type Lesser.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Type Greater.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Type LesserEqual.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Type GreaterEqual.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Type NotEqual.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Type Equal.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Term.type() = intType();
+
+  /*******************************************
+	ID DECLARATION
+	*******************************************/
+
+  syn Type IdDecl.type() = intType();
 }
