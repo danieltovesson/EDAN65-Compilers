@@ -13,12 +13,12 @@ aspect Errors {
 			if (lineNumber == other.lineNumber) {
 				return message.compareTo(other.message);
 			}
-			return Integer.compare(lineNumber, other.lineNumber); 
+			return Integer.compare(lineNumber, other.lineNumber);
 		}
 		public String toString() {
 			return "Error at line " + lineNumber + ": " + message;
 		}
-	} 
+	}
 	protected ErrorMessage ASTNode.error(String message) {
 		return new ErrorMessage(message, getLine(getStart()));
 	}
@@ -41,5 +41,25 @@ aspect ErrorContributions {
 
 	IdUse contributes error("the definition of symbol '" + getID() + "' is circular")
 		when isCircular()
+		to Program.errors() for program();
+
+	Assignment contributes error("type error '" + getValue().type().getID() + "' found, expected '" + getValue().expectedType().getID())
+		when !getValue().type().compatiableType(getValue().expectedType())
+		to Program.errors() for program();
+
+	ReAssignment contributes error("type error '" + getValue().type().getID() + "' found, expected '" + getValue().expectedType().getID())
+		when !getValue().type().compatiableType(getValue().expectedType())
+		to Program.errors() for program();
+
+	WhileStmt contributes error("type error '" + getCondition().type().getID() + "' found, expected '" + getCondition().expectedType().getID())
+		when !getCondition().type().compatiableType(getCondition().expectedType())
+		to Program.errors() for program();
+
+	IfStmt contributes error("type error '" + getCondition().type().getID() + "' found, expected '" + getCondition().expectedType().getID())
+		when !getCondition().type().compatiableType(getCondition().expectedType())
+		to Program.errors() for program();
+
+	Return contributes error("type error '" + getReturn().type().getID() + "' found, expected '" + getReturn().expectedType().getID())
+		when !getReturn().type().compatiableType(getReturn().expectedType())
 		to Program.errors() for program();
 }

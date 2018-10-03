@@ -5,11 +5,23 @@ aspect TypeAnalysis {
 
   syn Type Expr.type();
 
-  eq Type Prod.type() = {
+  eq Type Mul.type() = {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
-  eq Type Sum.type() = {
+  eq Type Div.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Type Mod.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Type Add.type() = {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Type Sub.type() = {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
 
