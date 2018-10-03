@@ -44,22 +44,22 @@ aspect ErrorContributions {
 		to Program.errors() for program();
 
 	Assignment contributes error("type error '" + getValue().type().getID() + "' found, expected '" + getValue().expectedType().getID())
-		when !getValue().type().compatiableType(getValue().expectedType())
+		when !getValue().type().compatibleType(getValue().expectedType())
 		to Program.errors() for program();
 
 	ReAssignment contributes error("type error '" + getValue().type().getID() + "' found, expected '" + getValue().expectedType().getID())
-		when !getValue().type().compatiableType(getValue().expectedType())
+		when !getValue().type().compatibleType(getValue().expectedType())
 		to Program.errors() for program();
 
 	WhileStmt contributes error("type error '" + getCondition().type().getID() + "' found, expected '" + getCondition().expectedType().getID())
-		when !getCondition().type().compatiableType(getCondition().expectedType())
+		when !getCondition().type().compatibleType(getCondition().expectedType())
 		to Program.errors() for program();
 
 	IfStmt contributes error("type error '" + getCondition().type().getID() + "' found, expected '" + getCondition().expectedType().getID())
-		when !getCondition().type().compatiableType(getCondition().expectedType())
+		when !getCondition().type().compatibleType(getCondition().expectedType())
 		to Program.errors() for program();
 
 	Return contributes error("type error '" + getReturn().type().getID() + "' found, expected '" + getReturn().expectedType().getID())
-		when !getReturn().type().compatiableType(getReturn().expectedType())
+		when !getReturn().type().compatibleType(getReturn().expectedType())
 		to Program.errors() for program();
 }
