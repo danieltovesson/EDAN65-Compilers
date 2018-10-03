@@ -60,4 +60,23 @@ aspect TypeAnalysis {
 	*******************************************/
 
   syn Type IdDecl.type() = intType();
+
+  /*******************************************
+  EXPECTED TYPE
+  *******************************************/
+
+  inh Type Expr.expectedType();
+
+  eq Program.getChild().expectedType() = unknownType();
+  eq Assignment.getChild().expectedType() = intType();
+  eq ReAssignment.getChild().expectedType() = intType();
+  eq WhileStmt.getChild().expectedType() = boolType();
+  eq IfStmt.getChild().expectedType() = boolType();
+  eq Return.getChild().expectedType() = intType();
+
+  /*******************************************
+  COMPATIBLE TYPE
+  *******************************************/
+
+  syn boolean Type.compatibleType(Type type) = this == type;
 }
