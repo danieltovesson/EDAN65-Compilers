@@ -68,15 +68,45 @@ aspect TypeAnalysis {
   inh Type Expr.expectedType();
 
   eq Program.getChild().expectedType() = unknownType();
-  eq Assignment.getChild().expectedType() = intType();
-  eq ReAssignment.getChild().expectedType() = intType();
-  eq WhileStmt.getChild().expectedType() = boolType();
-  eq IfStmt.getChild().expectedType() = boolType();
-  eq Return.getChild().expectedType() = intType();
+  eq Assignment.getValue().expectedType() = intType();
+  eq ReAssignment.getValue().expectedType() = intType();
+  eq WhileStmt.getCondition().expectedType() = boolType();
+  eq IfStmt.getCondition().expectedType() = boolType();
+  eq Return.getReturn().expectedType() = intType();
 
   /*******************************************
   COMPATIBLE TYPE
   *******************************************/
 
   syn boolean Type.compatibleType(Type type) = this == type;
+
+  /*******************************************
+  IS FUNCTION OR VARIABLE
+  *******************************************/
+
+  inh boolean IdDecl.isVariable();
+  inh boolean IdDecl.isFunction();
+
+  syn boolean FuncCall.isFunction() {
+    IdDecl decl = getName().decl();
+    return decl.isUnknown() ? true : decl.isFunction();
+  }
+
+  eq Function.getName().isVariable() = false;
+  eq Function.getName().isFunction() = true;
+
+  eq Function.getParameter().isVariable() = true;
+  eq Function.getParameter().isFunction() = false;
+
+  eq FuncCall.getName().isVariable() = true;
+  eq FuncCall.getName().isFunction() = false;
+
+  eq Declaration.getName().isVariable() = true;
+  eq Declaration.getName().isFunction() = false;
+
+  eq Assignment.getName().isVariable() = true;
+  eq Assignment.getName().isFunction() = false;
+
+  eq ReAssignment.getName().isVariable() = true;
+  eq ReAssignment.getName().isFunction() = false;
 }

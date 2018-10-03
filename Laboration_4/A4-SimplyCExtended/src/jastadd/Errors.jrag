@@ -62,4 +62,8 @@ aspect ErrorContributions {
 	Return contributes error("type error '" + getReturn().type().getID() + "' found, expected '" + getReturn().expectedType().getID())
 		when !getReturn().type().compatibleType(getReturn().expectedType())
 		to Program.errors() for program();
+
+	FuncCall contributes error("type error '" + getName().getID() + "' is not a function")
+		when !isFunction()
+		to Program.errors() for program();
 }
