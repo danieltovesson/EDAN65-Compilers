@@ -1,0 +1,7 @@
+1. Name analysis, does not count for function parameters. Error in
+   functionParameters in but should be OK
+2. Circular expressions, does not work with reassignment. No error in
+   circularReAssignment.in but it should be
+3. Type analysis, does not throw error for variable use that reference to
+   function call. Look at varUseRefToFunc.in
+4. Type analysis, generates new error in IfElseStatement.in. Is this OK?
