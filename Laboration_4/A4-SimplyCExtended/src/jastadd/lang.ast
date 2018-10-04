@@ -36,6 +36,7 @@ IdUse:Expr ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
 
 UnknownDecl:IdDecl;
+UnknownFunction:Function;
 
 abstract Type ::= <ID>;
 IntType: Type;

@@ -1,0 +1,6 @@
+int main() {
+  int d = a(1);
+}
+int a(int b, int c) {
+  return 1;
+}

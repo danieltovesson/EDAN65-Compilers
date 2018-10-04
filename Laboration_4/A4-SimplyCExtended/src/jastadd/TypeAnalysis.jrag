@@ -98,4 +98,16 @@ aspect TypeAnalysis {
 
   syn boolean FuncCall.funcCallRefVarError() = getName().decl().isVariable();
   syn boolean ReAssignment.varUseRefToFuncError() = getName().decl().isFunction();
+
+  /*******************************************
+  CHECK NUMBER OF FUNCTION PARAMETERS
+  *******************************************/
+
+  inh Function IdDecl.function();
+
+  syn boolean FuncCall.correctNumParams() = getNumExpr() == getName().decl().function().getNumParameter();
+  syn Function IdUse.function() = decl().function();
+
+  eq Function.getName().function() = this;
+  eq Program.getChild().function() = unknownFunction();
 }

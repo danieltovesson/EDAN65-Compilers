@@ -31,4 +31,15 @@ aspect Type {
 
   eq Program.getChild().unknownType() = unknownType();
   eq UnknownType.isUnknownType() = true;
+
+  /*******************************************
+	UNKNOWN FUNCTION
+	*******************************************/
+
+  syn nta UnknownFunction Program.unknownFunction() = new UnknownFunction(new IdDecl("<unknown-function>"), new List(), new Block());
+  inh UnknownFunction ASTNode.unknownFunction();
+  syn boolean Function.isUnknownFunction() = false;
+
+  eq Program.getChild().unknownFunction() = unknownFunction();
+  eq UnknownFunction.isUnknownFunction() = true;
 }

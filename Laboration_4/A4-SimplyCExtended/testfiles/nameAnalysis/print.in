@@ -1,3 +1,4 @@
 int main() {
-  print();
+  int a = 1;
+  print(a);
 }
