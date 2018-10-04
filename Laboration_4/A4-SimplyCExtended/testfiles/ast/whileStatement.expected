@@ -12,7 +12,8 @@ Program
             IntValue INTEGER="2"
           WhileStmt
             Equal
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List

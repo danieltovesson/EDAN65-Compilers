@@ -12,7 +12,8 @@ Program
             IntValue INTEGER="2"
           IfStmt
             Lesser
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List
@@ -22,7 +23,8 @@ Program
             Opt
           IfStmt
             Greater
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List
@@ -32,7 +34,8 @@ Program
             Opt
           IfStmt
             LesserEqual
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List
@@ -42,7 +45,8 @@ Program
             Opt
           IfStmt
             GreaterEqual
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List
@@ -52,7 +56,8 @@ Program
             Opt
           IfStmt
             NotEqual
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List
@@ -62,7 +67,8 @@ Program
             Opt
           IfStmt
             Equal
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"
             Block
               List

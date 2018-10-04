@@ -12,7 +12,8 @@ Program
             IdDecl ID="b"
             Add
               IntValue INTEGER="2"
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
           Declaration
             IdDecl ID="c"
           Assignment

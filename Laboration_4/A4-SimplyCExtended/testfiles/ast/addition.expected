@@ -17,5 +17,6 @@ Program
           ReAssignment
             IdUse ID="a"
             Add
-              IdUse ID="b"
+              IdUseExpr
+                IdUse ID="b"
               IntValue INTEGER="2"

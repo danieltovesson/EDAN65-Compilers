@@ -11,7 +11,8 @@ Program
             IdUse ID="a"
             IntValue INTEGER="2"
           Return
-            IdUse ID="a"
+            IdUseExpr
+              IdUse ID="a"
     Function
       IdDecl ID="b"
       List
@@ -31,5 +32,6 @@ Program
             IntValue INTEGER="2"
           Return
             Add
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="2"

@@ -10,7 +10,8 @@ Program
             IntValue INTEGER="0"
           IfStmt
             NotEqual
-              IdUse ID="a"
+              IdUseExpr
+                IdUse ID="a"
               IntValue INTEGER="0"
             Block
               List
@@ -18,7 +19,8 @@ Program
                   IdDecl ID="b"
                   IntValue INTEGER="2"
                 Return
-                  IdUse ID="b"
+                  IdUseExpr
+                    IdUse ID="b"
             Opt
               Block
                 List
