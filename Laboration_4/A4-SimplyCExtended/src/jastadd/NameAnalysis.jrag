@@ -58,8 +58,8 @@ aspect NameAnalysis {
 	*******************************************/
 
 	inh IdDecl Function.lookup(String name);
-	syn IdDecl Function.localLookup(String name, int until) {
-		for (int i = 0; i <= until; i++) {
+	syn IdDecl Function.localLookup(String name) {
+		for (int i = 0; i < getNumParameter(); i++) {
   		if (getParameter(i).getID().equals(name)) {
   			return getParameter(i);
 			}
@@ -67,8 +67,8 @@ aspect NameAnalysis {
 		return unknownDecl();
 	}
 
-	eq Function.getParameter(int index).lookup(String name) {
-		IdDecl decl = localLookup(name, index);
+	eq Function.getChild().lookup(String name) {
+		IdDecl decl = localLookup(name);
 		return !decl.isUnknown() ? decl : lookup(name);
 	}
 
@@ -84,7 +84,7 @@ aspect NameAnalysis {
         return decl;
       }
     }
-    return unknownDecl();
+    return lookup(name);
   }
 
 	eq Block.getStatement(int index).lookup(String name) {
