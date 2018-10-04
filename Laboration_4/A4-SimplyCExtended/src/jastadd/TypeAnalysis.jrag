@@ -87,18 +87,15 @@ aspect TypeAnalysis {
   inh boolean IdDecl.isVariable();
   inh boolean IdDecl.isFunction();
 
-  syn boolean IdUse.isVariable() = decl().isVariable();
-  syn boolean IdUse.isFunction() = decl().isFunction();
-
   eq Program.getChild().isVariable() = false;
   eq Program.getChild().isFunction() = true;
   eq Function.getName().isVariable() = false;
   eq Function.getName().isFunction() = true;
   eq Assignment.getName().isVariable() = true;
   eq Assignment.getName().isFunction() = false;
-	eq Declaration.getName().isVariable() = true;
+  eq Declaration.getName().isVariable() = true;
   eq Declaration.getName().isFunction() = false;
 
   syn boolean FuncCall.funcCallRefVarError() = getName().decl().isVariable();
-  syn boolean ReAssignment.varUseRefToFuncError() = getName().isFunction();
+  syn boolean ReAssignment.varUseRefToFuncError() = getName().decl().isFunction();
 }
