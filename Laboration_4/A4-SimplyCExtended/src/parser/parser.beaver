@@ -111,7 +111,7 @@ expr = 					prod
 								;
 
 term = 					funcCall
-								| idUse
+								| idUseExpr
 								| intValue
 								;
 
@@ -141,6 +141,8 @@ greaterEqual =	term.a GREATEREQUAL term.b {: return new GreaterEqual(a, b); :} ;
 notEqual =			term.a NOTEQUAL term.b {: return new NotEqual(a, b); :} ;
 
 equal =					term.a EQUAL term.b {: return new Equal(a, b); :} ;
+
+idUseExpr =			idUse.a {: return new IdUseExpr(a); :} ;
 
 idDecl = 				ID.a {: return new IdDecl(a); :} ;
 

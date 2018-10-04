@@ -5,6 +5,8 @@ aspect TypeAnalysis {
 
   syn Type Expr.type();
 
+  eq FuncCall.type() = intType();
+
   eq Mul.type() {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
   }
@@ -49,9 +51,7 @@ aspect TypeAnalysis {
     return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
   }
 
-  eq FuncCall.type() = intType();
-
-  eq IdUse.type() = intType();
+  eq IdUseExpr.type() = intType();
 
   eq IntValue.type() = intType();
 
@@ -86,18 +86,27 @@ aspect TypeAnalysis {
 
   inh boolean IdDecl.isVariable();
   inh boolean IdDecl.isFunction();
+  inh boolean IdUse.isVariable();
+  inh boolean IdUse.isFunction();
 
   eq Program.getChild().isVariable() = false;
-  eq Program.getChild().isFunction() = true;
+  eq Program.getChild().isFunction() = false;
   eq Function.getName().isVariable() = false;
   eq Function.getName().isFunction() = true;
   eq Assignment.getName().isVariable() = true;
   eq Assignment.getName().isFunction() = false;
+  eq ReAssignment.getName().isVariable() = true;
+  eq ReAssignment.getName().isFunction() = false;
   eq Declaration.getName().isVariable() = true;
   eq Declaration.getName().isFunction() = false;
+  eq FuncCall.getName().isVariable() = false;
+  eq FuncCall.getName().isFunction() = true;
+  eq IdUseExpr.getName().isVariable() = true;
+  eq IdUseExpr.getName().isFunction() = false;
 
   syn boolean FuncCall.funcCallRefVarError() = getName().decl().isVariable();
   syn boolean ReAssignment.varUseRefToFuncError() = getName().decl().isFunction();
+  syn boolean IdUse.varUseRefToFuncError() = isVariable() && decl().isFunction();
 
   /*******************************************
   CHECK NUMBER OF FUNCTION PARAMETERS

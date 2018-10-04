@@ -30,9 +30,10 @@ LesserEqual:BinExpr;
 GreaterEqual:BinExpr;
 NotEqual:BinExpr;
 Equal:BinExpr;
+IdUseExpr:Expr ::= Name:IdUse;
 
 IdDecl ::= <ID>;
-IdUse:Expr ::= <ID>;
+IdUse ::= <ID>;
 IntValue:Expr ::= <INTEGER>;
 
 UnknownDecl:IdDecl;

@@ -71,6 +71,10 @@ aspect ErrorContributions {
 		when varUseRefToFuncError()
 		to Program.errors() for program();
 
+	IdUse contributes error("type error '" + getID() + "' is not a variable")
+		when varUseRefToFuncError()
+		to Program.errors() for program();
+
 	FuncCall contributes error("type error '" + getName().getID() + "' does not have the correct number of parameters")
 		when !correctNumParams()
 		to Program.errors() for program();
