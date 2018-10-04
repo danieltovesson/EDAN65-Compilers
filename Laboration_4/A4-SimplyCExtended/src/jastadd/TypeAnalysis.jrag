@@ -87,34 +87,18 @@ aspect TypeAnalysis {
   inh boolean IdDecl.isVariable();
   inh boolean IdDecl.isFunction();
 
-  syn boolean FuncCall.isVariable() = false;
-  syn boolean FuncCall.isFunction() = true;
+  syn boolean IdUse.isVariable() = decl().isVariable();
+  syn boolean IdUse.isFunction() = decl().isFunction();
 
-  syn boolean IdUse.isVariable() = true;
-  syn boolean IdUse.isFunction() = false;
-
-  inh boolean IdUse.variableExpected();
-  inh boolean IdUse.functionExpected();
-  eq FuncCall.getName().variableExpected() = false;
-  eq FuncCall.getName().functionExpected() = true;
-  eq IdUse.getID().variableExpected() = true;
-  eq IdUse.getID().functionExpected() = false;
-
-  syn boolean IdUse.isVariable() = variableExpected() == isVariable();
-  syn boolean IdUse.isFunction() = functionExpected() == isFunction();
-
+  eq Program.getChild().isVariable() = false;
+  eq Program.getChild().isFunction() = true;
   eq Function.getName().isVariable() = false;
   eq Function.getName().isFunction() = true;
-
-  eq FuncCall.getName().isVariable() = false;
-  eq FuncCall.getName().isFunction() = true;
-
-  eq Declaration.getName().isVariable() = true;
-  eq Declaration.getName().isFunction() = false;
-
   eq Assignment.getName().isVariable() = true;
   eq Assignment.getName().isFunction() = false;
+	eq Declaration.getName().isVariable() = true;
+  eq Declaration.getName().isFunction() = false;
 
-  eq ReAssignment.getName().isVariable() = true;
-  eq ReAssignment.getName().isFunction() = false;
+  syn boolean FuncCall.funcCallRefVarError() = getName().decl().isVariable();
+  syn boolean ReAssignment.varUseRefToFuncError() = getName().isFunction();
 }

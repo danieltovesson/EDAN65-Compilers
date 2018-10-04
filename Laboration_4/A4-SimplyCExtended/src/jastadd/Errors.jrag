@@ -64,14 +64,10 @@ aspect ErrorContributions {
 		to Program.errors() for program();
 
 	FuncCall contributes error("type error '" + getName().getID() + "' is not a function")
-		when !isFunction()
+		when funcCallRefVarError()
 		to Program.errors() for program();
 
-	FuncCall contributes error("type error '" + getName().getID() + "' is not a variable")
-		when !isVariable()
+	ReAssignment contributes error("type error '" + getName().getID() + "' is not a variable")
+		when varUseRefToFuncError()
 		to Program.errors() for program();
-
-	// IdUse contributes error("incorrect")
-	// 	when !isUsedCorrectly()
-	// 	to Program.errors() for program();
 }
