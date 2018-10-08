@@ -3,7 +3,7 @@ import java.util.TreeSet;
 
 aspect Interpreter {
 	public class ActivationRecord {
-		protected final int value;
+		protected int value;
 
 		public int get() {
 			return value;
@@ -24,17 +24,78 @@ aspect Interpreter {
 	public int Function.eval(ActivationRecord actrec) {
 		if (lookup("main") == unknownDecl()) {
 			throw new RuntimeException();
-		} else{
+		} else {
 			for (Stmt stmt : getCodeBlock().getStatementList()) {
-					stmt.eval(actrec);
+				stmt.eval(actrec);
 			}
 		}
 		return 0;
 	}
-	public void Stmt.eval(ActivationRecord actrec) {
-		System.out.print("Statement evaluated.");
+	abstract public void Stmt.eval(ActivationRecord actrec);
+	public void Declaration.eval(ActivationRecord actrec) {
+		System.out.println("Declaration");
+	}
+	public void Assignment.eval(ActivationRecord actrec) {
+		System.out.println("Assignment");
+		System.out.println(getValue().eval(actrec));
+	}
+	public void ReAssignment.eval(ActivationRecord actrec) {
+		System.out.println("ReAssignment");
+	}
+	public void WhileStmt.eval(ActivationRecord actrec) {
+		System.out.println("WhileStmt");
+	}
+	public void IfStmt.eval(ActivationRecord actrec) {
+		System.out.println("IfStmt");
+	}
+	public void FunctionStmt.eval(ActivationRecord actrec) {
+		System.out.println("FunctionStmt");
+	}
+	public void Return.eval(ActivationRecord actrec) {
+		System.out.println("Return");
 	}
 	public int Expr.eval(ActivationRecord actrec) {
-		throw new RuntimeException();
+		System.out.println("Expr");
+		return 0;
+	}
+	public int Add.eval(ActivationRecord actrec) {
+		System.out.println("Add");
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+			System.out.println(leftVal);
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+			System.out.println(rightVal);
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal + rightVal;
+	}
+	public int Mul.eval(ActivationRecord actrec) {
+		System.out.println("Mul");
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+			System.out.println(leftVal);
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+			System.out.println(rightVal);
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal * rightVal;
 	}
 }
