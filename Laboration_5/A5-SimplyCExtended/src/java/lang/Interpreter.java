@@ -10,7 +10,6 @@ import lang.ast.Program;
 import lang.ast.LangParser;
 import lang.ast.LangScanner;
 import lang.ast.ErrorMessage;
-import lang.ast.ActivationRecord;
 
 /**
  * Computes the maximum statement nesting depth for a Calc program.
