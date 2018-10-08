@@ -3,7 +3,16 @@ import java.util.TreeSet;
 
 aspect Interpreter {
 	public class ActivationRecord {
+		protected final int value;
+
+		public int get() {
+			return value;
+		}
+		public void set(ActivationRecord actrec) {
+			value = actrec.value;
+		}
 	}
+
 	protected ActivationRecord ASTNode.create() {
 		return new ActivationRecord();
 	}
@@ -27,8 +36,5 @@ aspect Interpreter {
 	}
 	public int Expr.eval(ActivationRecord actrec) {
 		throw new RuntimeException();
-	}
-	public int Add.eval(ActivationRecord actrec){
-		return actrec.getLeft().eval(actrec) + actrec.getRight().eval(actrec);
 	}
 }
