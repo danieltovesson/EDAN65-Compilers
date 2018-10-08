@@ -2,16 +2,19 @@ import java.util.Set;
 import java.util.TreeSet;
 
 aspect Interpreter {
-	public class ActivationRecord {
-	}
 	protected ActivationRecord ASTNode.create() {
 		return new ActivationRecord();
 	}
 	public void Program.eval() {
-		throw new RuntimeException();
+		for (Function function : getFunctionList()) {
+			function.eval(create());
+		}
 	}
 	public int Function.eval(ActivationRecord actrec) {
-		throw new RuntimeException();
+		if (lookup("main") == unknownDecl()) {
+			throw new RuntimeException();
+		}
+		return 0;
 	}
 	public void Stmt.eval(ActivationRecord actrec) {
 		throw new RuntimeException();
