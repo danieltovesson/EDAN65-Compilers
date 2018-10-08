@@ -1,0 +1,122 @@
+aspect TypeAnalysis {
+  /*******************************************
+	EXPRESSIONS
+	*******************************************/
+
+  syn Type Expr.type();
+
+  eq FuncCall.type() = intType();
+
+  eq Mul.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Div.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Mod.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Add.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Sub.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? intType() : unknownType();
+  }
+
+  eq Lesser.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Greater.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq LesserEqual.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq GreaterEqual.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq NotEqual.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq Equal.type() {
+    return getLeft().type().isIntType() && getRight().type().isIntType() ? boolType() : unknownType();
+  }
+
+  eq IdUseExpr.type() = intType();
+
+  eq IntValue.type() = intType();
+
+  /*******************************************
+	ID DECLARATION
+	*******************************************/
+
+  syn Type IdDecl.type() = intType();
+
+  /*******************************************
+  EXPECTED TYPE
+  *******************************************/
+
+  inh Type Expr.expectedType();
+
+  eq Program.getChild().expectedType() = unknownType();
+  eq Assignment.getValue().expectedType() = intType();
+  eq ReAssignment.getValue().expectedType() = intType();
+  eq WhileStmt.getCondition().expectedType() = boolType();
+  eq IfStmt.getCondition().expectedType() = boolType();
+  eq Return.getReturn().expectedType() = intType();
+
+  /*******************************************
+  COMPATIBLE TYPE
+  *******************************************/
+
+  syn boolean Type.compatibleType(Type type) = this == type;
+
+  /*******************************************
+  IS FUNCTION OR VARIABLE
+  *******************************************/
+
+  inh boolean IdDecl.isVariable();
+  inh boolean IdDecl.isFunction();
+  inh boolean IdUse.isVariable();
+  inh boolean IdUse.isFunction();
+
+  eq Program.getChild().isVariable() = false;
+  eq Program.getChild().isFunction() = false;
+  eq Function.getName().isVariable() = false;
+  eq Function.getName().isFunction() = true;
+  eq Assignment.getName().isVariable() = true;
+  eq Assignment.getName().isFunction() = false;
+  eq ReAssignment.getName().isVariable() = true;
+  eq ReAssignment.getName().isFunction() = false;
+  eq Declaration.getName().isVariable() = true;
+  eq Declaration.getName().isFunction() = false;
+  eq FuncCall.getName().isVariable() = false;
+  eq FuncCall.getName().isFunction() = true;
+  eq IdUseExpr.getName().isVariable() = true;
+  eq IdUseExpr.getName().isFunction() = false;
+
+  syn boolean FuncCall.funcCallRefVarError() = getName().decl().isVariable();
+  syn boolean ReAssignment.varUseRefToFuncError() = getName().decl().isFunction();
+  syn boolean IdUse.varUseRefToFuncError() = isVariable() && decl().isFunction();
+
+  /*******************************************
+  CHECK NUMBER OF FUNCTION PARAMETERS
+  *******************************************/
+
+  inh Function IdDecl.function();
+
+  syn boolean FuncCall.correctNumParams() = getNumExpr() == getName().decl().function().getNumParameter();
+  syn Function IdUse.function() = decl().function();
+
+  eq Function.getName().function() = this;
+  eq Program.getChild().function() = unknownFunction();
+}

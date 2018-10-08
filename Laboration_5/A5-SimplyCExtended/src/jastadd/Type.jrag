@@ -1,0 +1,45 @@
+aspect Type {
+  /*******************************************
+  INT TYPE
+  *******************************************/
+
+  syn nta IntType Program.intType() = new IntType("<int>");
+  inh IntType ASTNode.intType();
+  syn boolean Type.isIntType() = false;
+
+  eq Program.getChild().intType() = intType();
+  eq IntType.isIntType() = true;
+
+  /*******************************************
+	BOOLEAN TYPE
+	*******************************************/
+
+  syn nta BoolType Program.boolType() = new BoolType("<boolean>");
+  inh BoolType ASTNode.boolType();
+  syn boolean Type.isBoolType() = false;
+
+  eq Program.getChild().boolType() = boolType();
+  eq BoolType.isBoolType() = true;
+
+  /*******************************************
+	UNKNOWN TYPE
+	*******************************************/
+
+  syn nta UnknownType Program.unknownType() = new UnknownType("<unknown>");
+  inh UnknownType ASTNode.unknownType();
+  syn boolean Type.isUnknownType() = false;
+
+  eq Program.getChild().unknownType() = unknownType();
+  eq UnknownType.isUnknownType() = true;
+
+  /*******************************************
+	UNKNOWN FUNCTION
+	*******************************************/
+
+  syn nta UnknownFunction Program.unknownFunction() = new UnknownFunction(new IdDecl("<unknown-function>"), new List(), new Block());
+  inh UnknownFunction ASTNode.unknownFunction();
+  syn boolean Function.isUnknownFunction() = false;
+
+  eq Program.getChild().unknownFunction() = unknownFunction();
+  eq UnknownFunction.isUnknownFunction() = true;
+}

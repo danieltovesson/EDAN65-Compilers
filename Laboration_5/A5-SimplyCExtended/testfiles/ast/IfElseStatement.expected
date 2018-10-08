@@ -1,0 +1,29 @@
+Program
+  List
+    Function
+      IdDecl ID="main"
+      List
+      Block
+        List
+          Assignment
+            IdDecl ID="a"
+            IntValue INTEGER="0"
+          IfStmt
+            NotEqual
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="0"
+            Block
+              List
+                Assignment
+                  IdDecl ID="b"
+                  IntValue INTEGER="2"
+                Return
+                  IdUseExpr
+                    IdUse ID="b"
+            Opt
+              Block
+                List
+                  ReAssignment
+                    IdUse ID="b"
+                    IntValue INTEGER="3"

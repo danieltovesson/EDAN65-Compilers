@@ -1,0 +1,151 @@
+%class "LangParser";
+%package "lang.ast";
+
+%embed {:
+	static public class SyntaxError extends RuntimeException { public SyntaxError(String msg) {super(msg);}}
+	// Disable syntax error recovery
+	protected void recoverFromError(Symbol token, TokenStream in) {
+		throw new SyntaxError("Cannot recover from the syntax error");
+	}
+:};
+
+%terminals LBRACKET, RBRACKET, LPARA, RPARA, LESSER, GREATER, LESSEREQUAL, GREATEREQUAL, NOTEQUAL, EQUAL, ASSIGN, MUL, DIV, MOD, PLUS, MINUS, SEMI, COMMA, RETURN, WHILE, ELSE, INT, IF, ID, INTEGER;
+
+%typeof program = "Program";
+%typeof function = "Function";
+%typeof block = "Block";
+%typeof functionList = "List";
+%typeof parameterList = "List";
+%typeof exprList = "List";
+
+%typeof stmt = "Stmt";
+%typeof declaration = "Declaration";
+%typeof assignment = "Assignment";
+%typeof reAssignment = "ReAssignment";
+%typeof whileStmt = "WhileStmt";
+%typeof ifStmt = "IfStmt";
+%typeof functionStmt = "FunctionStmt";
+%typeof return = "Return";
+%typeof stmtList = "List";
+
+%typeof expr = "Expr";
+%typeof term = "Expr";
+%typeof factor = "Expr";
+%typeof prod = "Expr";
+%typeof sum = "Expr";
+
+%typeof funcCall = "FuncCall";
+
+%typeof lesser = "Expr";
+%typeof greater = "Expr";
+%typeof lesserEqual = "Expr";
+%typeof greaterEqual = "Expr";
+%typeof notEqual = "Expr";
+%typeof equal = "Expr";
+
+%typeof idDecl = "IdDecl";
+%typeof idUse = "IdUse";
+%typeof intValue = "IntValue";
+
+%goal program;
+
+program = 			functionList.a {: return new Program(a); :} ;
+
+function = 			INT idDecl.a LPARA RPARA block.b {: return new Function(a, new List(), b); :}
+								| INT idDecl.a LPARA parameterList.b RPARA block.c {: return new Function(a, b, c); :}
+								;
+
+block =					LBRACKET RBRACKET {: return new Block(); :}
+								| LBRACKET stmtList.a RBRACKET {: return new Block(a); :} ;
+
+functionList =	function.a {: return new List().add(a); :}
+								| functionList.a function.b {: return a.add(b); :}
+								;
+
+parameterList =	INT idDecl.a {: return new List().add(a); :}
+								| parameterList.a COMMA INT idDecl.b {: return a.add(b); :}
+								;
+
+exprList			= expr.a {: return new List().add(a); :}
+								| exprList.a COMMA expr.b {: return a.add(b); :}
+								;
+
+stmt =					declaration
+								| assignment
+								| reAssignment
+								| whileStmt
+								| ifStmt
+								| functionStmt
+								| return
+								;
+
+declaration = 	INT idDecl.a SEMI {: return new Declaration(a); :} ;
+
+assignment = 		INT idDecl.a ASSIGN expr.b SEMI {: return new Assignment(a, b); :} ;
+
+reAssignment = 	idUse.a ASSIGN expr.b SEMI {: return new ReAssignment(a, b); :} ;
+
+whileStmt =			WHILE LPARA expr.a RPARA block.b {: return new WhileStmt(a, b); :} ;
+
+ifStmt =				IF LPARA expr.a RPARA block.b {: return new IfStmt(a, b, new Opt()); :}
+								| IF LPARA expr.a RPARA block.b ELSE block.c {: return new IfStmt(a, b, new Opt(c)); :}
+								;
+
+functionStmt =	funcCall.a SEMI {: return new FunctionStmt(a); :} ;
+
+return = 				RETURN expr.a SEMI {: return new Return(a); :} ;
+
+stmtList =			stmt.a {: return new List().add(a); :}
+								| stmtList.a stmt.b {: return a.add(b); :}
+								;
+
+expr = 					prod
+								| sum
+								| factor
+								| lesser
+								| greater
+								| lesserEqual
+								| greaterEqual
+								| notEqual
+								| equal
+								;
+
+term = 					funcCall
+								| idUseExpr
+								| intValue
+								;
+
+factor = 				term;
+
+prod = 					term.a MUL term.b {: return new Mul(a, b); :}
+								| term.a DIV term.b {: return new Div(a, b); :}
+								| term.a MOD term.b {: return new Mod(a, b); :}
+								;
+
+sum = 					term.a PLUS term.b {: return new Add(a, b); :}
+								| term.a MINUS term.b {: return new Sub(a, b); :}
+								;
+
+funcCall =			idUse.a LPARA RPARA {: return new FuncCall(a, new List()); :}
+ 								| idUse.a LPARA exprList.b RPARA {: return new FuncCall(a, b); :}
+								;
+
+lesser =				term.a LESSER term.b {: return new Lesser(a, b); :} ;
+
+greater =				term.a GREATER term.b {: return new Greater(a, b); :} ;
+
+lesserEqual =		term.a LESSEREQUAL term.b {: return new LesserEqual(a, b); :} ;
+
+greaterEqual =	term.a GREATEREQUAL term.b {: return new GreaterEqual(a, b); :} ;
+
+notEqual =			term.a NOTEQUAL term.b {: return new NotEqual(a, b); :} ;
+
+equal =					term.a EQUAL term.b {: return new Equal(a, b); :} ;
+
+idUseExpr =			idUse.a {: return new IdUseExpr(a); :} ;
+
+idDecl = 				ID.a {: return new IdDecl(a); :} ;
+
+idUse = 				ID.a {: return new IdUse(a); :} ;
+
+intValue = 			INTEGER.a {: return new IntValue(a); :} ;

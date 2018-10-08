@@ -1,0 +1,37 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      Block
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          Return
+            IdUseExpr
+              IdUse ID="a"
+    Function
+      IdDecl ID="b"
+      List
+      Block
+        List
+          Return
+            IntValue INTEGER="2"
+    Function
+      IdDecl ID="b"
+      List
+      Block
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          Return
+            Add
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"

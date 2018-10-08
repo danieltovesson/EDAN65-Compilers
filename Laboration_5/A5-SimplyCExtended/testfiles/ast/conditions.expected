@@ -1,0 +1,78 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      Block
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          IfStmt
+            Lesser
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
+          IfStmt
+            Greater
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
+          IfStmt
+            LesserEqual
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
+          IfStmt
+            GreaterEqual
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
+          IfStmt
+            NotEqual
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
+          IfStmt
+            Equal
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"
+            Opt
