@@ -13,13 +13,20 @@ aspect Interpreter {
 	public int Function.eval(ActivationRecord actrec) {
 		if (lookup("main") == unknownDecl()) {
 			throw new RuntimeException();
+		} else{
+			for (Stmt stmt : getCodeBlock().getStatementList()) {
+					stmt.eval(actrec);
+			}
 		}
 		return 0;
 	}
 	public void Stmt.eval(ActivationRecord actrec) {
-		throw new RuntimeException();
+		System.out.print("Statement evaluated.");
 	}
 	public int Expr.eval(ActivationRecord actrec) {
 		throw new RuntimeException();
+	}
+	public int Add.eval(ActivationRecord actrec){
+		return actrec.getLeft().eval(actrec) + actrec.getRight().eval(actrec);
 	}
 }
