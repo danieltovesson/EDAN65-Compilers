@@ -2,6 +2,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 aspect Interpreter {
+	public class ActivationRecord {
+	}
 	protected ActivationRecord ASTNode.create() {
 		return new ActivationRecord();
 	}
