@@ -30,7 +30,6 @@
 
 %typeof expr = "Expr";
 %typeof term = "Expr";
-%typeof factor = "Expr";
 %typeof prod = "Expr";
 %typeof sum = "Expr";
 
@@ -99,9 +98,7 @@ stmtList =			stmt.a {: return new List().add(a); :}
 								| stmtList.a stmt.b {: return a.add(b); :}
 								;
 
-expr = 					prod
-								| sum
-								| factor
+expr = 					sum
 								| lesser
 								| greater
 								| lesserEqual
@@ -115,15 +112,15 @@ term = 					funcCall
 								| intValue
 								;
 
-factor = 				term;
-
-prod = 					term.a MUL term.b {: return new Mul(a, b); :}
-								| term.a DIV term.b {: return new Div(a, b); :}
-								| term.a MOD term.b {: return new Mod(a, b); :}
+prod = 					prod.a MUL term.b {: return new Mul(a, b); :}
+								| prod.a DIV term.b {: return new Div(a, b); :}
+								| prod.a MOD term.b {: return new Mod(a, b); :}
+								| term
 								;
 
-sum = 					term.a PLUS term.b {: return new Add(a, b); :}
-								| term.a MINUS term.b {: return new Sub(a, b); :}
+sum = 					sum.a PLUS prod.b {: return new Add(a, b); :}
+								| sum.a MINUS prod.b {: return new Sub(a, b); :}
+								| prod
 								;
 
 funcCall =			idUse.a LPARA RPARA {: return new FuncCall(a, new List()); :}

@@ -1,0 +1,19 @@
+Program
+  List
+    Function
+      IdDecl ID="main"
+      List
+      Block
+        List
+          Assignment
+            IdDecl ID="a"
+            Add
+              IntValue INTEGER="1"
+              Mul
+                IntValue INTEGER="2"
+                IntValue INTEGER="3"
+          Assignment
+            IdDecl ID="b"
+            Mul
+              IntValue INTEGER="4"
+              IntValue INTEGER="5"
