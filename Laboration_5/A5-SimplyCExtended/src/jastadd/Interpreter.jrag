@@ -1,0 +1,26 @@
+import java.util.Set;
+import java.util.TreeSet;
+
+aspect Interpreter {
+	public class ActivationRecord {
+		public void eval(ActivationRecord test) {
+
+		}
+	}
+	protected ActivationRecord ASTNode.create() {
+		return new ActivationRecord();
+	}
+	public void Program.eval() {
+		System.out.println("Hej");
+		throw new RuntimeException();
+	}
+	public int Function.eval(ActivationRecord actrec) {
+		throw new RuntimeException();
+	}
+	public void Stmt.eval(ActivationRecord actrec) {
+		throw new RuntimeException();
+	}
+	public int Expr.eval(ActivationRecord actrec) {
+		throw new RuntimeException();
+	}
+}

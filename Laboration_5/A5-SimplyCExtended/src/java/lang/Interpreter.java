@@ -10,6 +10,7 @@ import lang.ast.Program;
 import lang.ast.LangParser;
 import lang.ast.LangScanner;
 import lang.ast.ErrorMessage;
+import lang.ast.ActivationRecord;
 
 /**
  * Computes the maximum statement nesting depth for a Calc program.
@@ -39,6 +40,7 @@ public class Interpreter {
 					System.err.println("- " + e);
 				}
 			}
+      program.eval();
 			DrAST_root_node = program; // Enable debugging with DrAST.
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
