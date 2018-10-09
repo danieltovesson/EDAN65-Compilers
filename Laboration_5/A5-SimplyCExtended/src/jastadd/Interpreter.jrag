@@ -1,15 +1,18 @@
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashMap;
 
 aspect Interpreter {
 	public class ActivationRecord {
 		protected int value;
+		protected HashMap variables;
 
-		public int get() {
-			return value;
+		public ActivationRecord() {
+			variables = new HashMap();
 		}
-		public void set(ActivationRecord actrec) {
-			value = actrec.value;
+		public void put(String variable, int value) {
+			variables.put(variable, value);
+		}
+		public int get(String variable) {
+			return (int) variables.get(variable);
 		}
 	}
 
@@ -29,15 +32,22 @@ aspect Interpreter {
 				stmt.eval(actrec);
 			}
 		}
-		return 0;
+		return -1;
 	}
 	abstract public void Stmt.eval(ActivationRecord actrec);
 	public void Declaration.eval(ActivationRecord actrec) {
+		actrec.put(getName().getID(), 0);
+		System.out.println(0);
 	}
 	public void Assignment.eval(ActivationRecord actrec) {
-		System.out.println(getValue().eval(actrec));
+		int value = getValue().eval(actrec);
+		actrec.put(getName().getID(), value);
+		System.out.println(value);
 	}
 	public void ReAssignment.eval(ActivationRecord actrec) {
+		int value = getValue().eval(actrec);
+		actrec.put(getName().getID(), value);
+		System.out.println(value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
 	}
@@ -56,8 +66,11 @@ aspect Interpreter {
 	public int Expr.eval(ActivationRecord actrec) {
 		int exprVal = 0;
 		if (this instanceof IntValue) {
-			IntValue expr = (IntValue) this;
-			exprVal = Integer.parseInt(expr.getINTEGER());
+			IntValue intValue = (IntValue) this;
+			exprVal = Integer.parseInt(intValue.getINTEGER());
+		} else if (this instanceof IdUseExpr) {
+			IdUseExpr idUseExpr = (IdUseExpr) this;
+			exprVal = actrec.get(idUseExpr.getName().getID());
 		}
 		return exprVal;
 	}
