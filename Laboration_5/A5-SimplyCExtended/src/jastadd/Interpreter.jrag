@@ -58,6 +58,66 @@ aspect Interpreter {
 		System.out.println("Expr");
 		return 0;
 	}
+	public int Mul.eval(ActivationRecord actrec) {
+		System.out.println("Mul");
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+			System.out.println(leftVal);
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+			System.out.println(rightVal);
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal * rightVal;
+	}
+	public int Div.eval(ActivationRecord actrec) {
+		System.out.println("Div");
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+			System.out.println(leftVal);
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+			System.out.println(rightVal);
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal / rightVal;
+	}
+	public int Mod.eval(ActivationRecord actrec) {
+		System.out.println("Mod");
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+			System.out.println(leftVal);
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+			System.out.println(rightVal);
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal % rightVal;
+	}
 	public int Add.eval(ActivationRecord actrec) {
 		System.out.println("Add");
 		int leftVal;
@@ -78,8 +138,8 @@ aspect Interpreter {
 		}
 		return leftVal + rightVal;
 	}
-	public int Mul.eval(ActivationRecord actrec) {
-		System.out.println("Mul");
+	public int Sub.eval(ActivationRecord actrec) {
+		System.out.println("Sub");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
@@ -96,6 +156,6 @@ aspect Interpreter {
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
-		return leftVal * rightVal;
+		return leftVal - rightVal;
 	}
 }
