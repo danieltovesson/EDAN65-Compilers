@@ -25,6 +25,9 @@ aspect Interpreter {
 		}
 	}
 	public int Function.eval(ActivationRecord actrec) {
+		for (int i = 0; i < getNumParameter(); i++) {
+  			System.out.println(lookup(getParameter(i).getID()));
+		}
 		if (lookup("main") == unknownDecl()) {
 			throw new RuntimeException();
 		} else {
@@ -86,6 +89,12 @@ aspect Interpreter {
 			exprVal = actrec.get(idUseExpr.getName().getID());
 		}
 		return exprVal;
+	}
+	public int FuncCall.eval(ActivationRecord actrec) {
+		for (Expr expr : getExprList()) {
+			expr.eval(actrec);
+		}
+		return 0;
 	}
 	public int Mul.eval(ActivationRecord actrec) {
 		int leftVal;
