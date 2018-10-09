@@ -33,23 +33,17 @@ aspect Interpreter {
 	}
 	abstract public void Stmt.eval(ActivationRecord actrec);
 	public void Declaration.eval(ActivationRecord actrec) {
-		System.out.println("Declaration");
 	}
 	public void Assignment.eval(ActivationRecord actrec) {
-		System.out.println("Assignment");
 		System.out.println(getValue().eval(actrec));
 	}
 	public void ReAssignment.eval(ActivationRecord actrec) {
-		System.out.println("ReAssignment");
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
-		System.out.println("WhileStmt");
 	}
 	public void IfStmt.eval(ActivationRecord actrec) {
-		System.out.println("IfStmt");
 	}
 	public void FunctionStmt.eval(ActivationRecord actrec) {
-		System.out.println("FunctionStmt");
 		if (lookup("print") != unknownDecl()) {
 			FuncCall fc = (FuncCall) this.getName();
 			for (Expr expr : fc.getExprList()) {
@@ -58,10 +52,8 @@ aspect Interpreter {
 		}
 	}
 	public void Return.eval(ActivationRecord actrec) {
-		System.out.println("Return");
 	}
 	public int Expr.eval(ActivationRecord actrec) {
-		System.out.println("Expr");
 		int exprVal = 0;
 		if (this instanceof IntValue) {
 			IntValue expr = (IntValue) this;
@@ -70,7 +62,6 @@ aspect Interpreter {
 		return exprVal;
 	}
 	public int Mul.eval(ActivationRecord actrec) {
-		System.out.println("Mul");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
@@ -88,7 +79,6 @@ aspect Interpreter {
 		return leftVal * rightVal;
 	}
 	public int Div.eval(ActivationRecord actrec) {
-		System.out.println("Div");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
@@ -106,7 +96,6 @@ aspect Interpreter {
 		return leftVal / rightVal;
 	}
 	public int Mod.eval(ActivationRecord actrec) {
-		System.out.println("Mod");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
@@ -124,7 +113,6 @@ aspect Interpreter {
 		return leftVal % rightVal;
 	}
 	public int Add.eval(ActivationRecord actrec) {
-		System.out.println("Add");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
@@ -142,7 +130,6 @@ aspect Interpreter {
 		return leftVal + rightVal;
 	}
 	public int Sub.eval(ActivationRecord actrec) {
-		System.out.println("Sub");
 		int leftVal;
 		int rightVal;
 		if (getLeft() instanceof IntValue) {
