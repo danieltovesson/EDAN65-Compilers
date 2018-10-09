@@ -1,0 +1,8 @@
+int main() {
+  while (2 == 1) {
+    int b = 2;
+  }
+  while (1 == 1) {
+    int b = 2;
+  }
+}

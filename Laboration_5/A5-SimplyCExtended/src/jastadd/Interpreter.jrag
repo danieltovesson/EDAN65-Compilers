@@ -50,8 +50,21 @@ aspect Interpreter {
 		System.out.println(value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
+		System.out.println(getCondition().eval(actrec));
+		for (Stmt stmt : getCodeBlock().getStatementList()) {
+			stmt.eval(actrec);
+		}
 	}
 	public void IfStmt.eval(ActivationRecord actrec) {
+		System.out.println(getCondition().eval(actrec));
+		for (Stmt stmt : getCodeBlock().getStatementList()) {
+			stmt.eval(actrec);
+		}
+		if (hasElse()) {
+			for (Stmt stmt : getElse().getStatementList()) {
+				stmt.eval(actrec);
+			}
+		}
 	}
 	public void FunctionStmt.eval(ActivationRecord actrec) {
 		if (lookup("print") != unknownDecl()) {
@@ -158,5 +171,53 @@ aspect Interpreter {
 			rightVal = getRight().eval(actrec);
 		}
 		return leftVal - rightVal;
+	}
+	public int Lesser.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal < rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int Greater.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal > rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int LesserEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal <= rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int GreaterEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal >= rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int NotEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal != rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int Equal.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal == rightVal) {
+			return 1;
+		}
+		return 0;
 	}
 }
