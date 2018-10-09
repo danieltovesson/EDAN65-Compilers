@@ -50,13 +50,24 @@ aspect Interpreter {
 	}
 	public void FunctionStmt.eval(ActivationRecord actrec) {
 		System.out.println("FunctionStmt");
+		if (lookup("print") != unknownDecl()) {
+			FuncCall fc = (FuncCall) this.getName();
+			for (Expr expr : fc.getExprList()) {
+				System.out.println(expr.eval(actrec));
+			}
+		}
 	}
 	public void Return.eval(ActivationRecord actrec) {
 		System.out.println("Return");
 	}
 	public int Expr.eval(ActivationRecord actrec) {
 		System.out.println("Expr");
-		return 0;
+		int exprVal = 0;
+		if (this instanceof IntValue) {
+			IntValue expr = (IntValue) this;
+			exprVal = Integer.parseInt(expr.getINTEGER());
+		}
+		return exprVal;
 	}
 	public int Mul.eval(ActivationRecord actrec) {
 		System.out.println("Mul");
@@ -65,14 +76,12 @@ aspect Interpreter {
 		if (getLeft() instanceof IntValue) {
 			IntValue left = (IntValue) getLeft();
 			leftVal = Integer.parseInt(left.getINTEGER());
-			System.out.println(leftVal);
 		} else {
 			leftVal = getLeft().eval(actrec);
 		}
 		if (getRight() instanceof IntValue) {
 			IntValue right = (IntValue) getRight();
 			rightVal = Integer.parseInt(right.getINTEGER());
-			System.out.println(rightVal);
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
@@ -85,14 +94,12 @@ aspect Interpreter {
 		if (getLeft() instanceof IntValue) {
 			IntValue left = (IntValue) getLeft();
 			leftVal = Integer.parseInt(left.getINTEGER());
-			System.out.println(leftVal);
 		} else {
 			leftVal = getLeft().eval(actrec);
 		}
 		if (getRight() instanceof IntValue) {
 			IntValue right = (IntValue) getRight();
 			rightVal = Integer.parseInt(right.getINTEGER());
-			System.out.println(rightVal);
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
@@ -105,14 +112,12 @@ aspect Interpreter {
 		if (getLeft() instanceof IntValue) {
 			IntValue left = (IntValue) getLeft();
 			leftVal = Integer.parseInt(left.getINTEGER());
-			System.out.println(leftVal);
 		} else {
 			leftVal = getLeft().eval(actrec);
 		}
 		if (getRight() instanceof IntValue) {
 			IntValue right = (IntValue) getRight();
 			rightVal = Integer.parseInt(right.getINTEGER());
-			System.out.println(rightVal);
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
@@ -125,14 +130,12 @@ aspect Interpreter {
 		if (getLeft() instanceof IntValue) {
 			IntValue left = (IntValue) getLeft();
 			leftVal = Integer.parseInt(left.getINTEGER());
-			System.out.println(leftVal);
 		} else {
 			leftVal = getLeft().eval(actrec);
 		}
 		if (getRight() instanceof IntValue) {
 			IntValue right = (IntValue) getRight();
 			rightVal = Integer.parseInt(right.getINTEGER());
-			System.out.println(rightVal);
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
@@ -145,14 +148,12 @@ aspect Interpreter {
 		if (getLeft() instanceof IntValue) {
 			IntValue left = (IntValue) getLeft();
 			leftVal = Integer.parseInt(left.getINTEGER());
-			System.out.println(leftVal);
 		} else {
 			leftVal = getLeft().eval(actrec);
 		}
 		if (getRight() instanceof IntValue) {
 			IntValue right = (IntValue) getRight();
 			rightVal = Integer.parseInt(right.getINTEGER());
-			System.out.println(rightVal);
 		} else {
 			rightVal = getRight().eval(actrec);
 		}
