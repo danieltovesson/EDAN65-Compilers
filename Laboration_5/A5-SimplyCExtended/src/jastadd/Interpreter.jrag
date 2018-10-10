@@ -21,16 +21,17 @@ aspect Interpreter {
 	}
 	public void Program.eval() {
 		for (Function function : getFunctionList()) {
-			function.eval(create());
+			if (function.getName().getID().equals("main")) {
+				function.eval(create());
+			} else {
+				function.eval(null);
+			}
 		}
 	}
 	public int Function.eval(ActivationRecord actrec) {
-		for (int i = 0; i < getNumParameter(); i++) {
-  			System.out.println(lookup(getParameter(i).getID()));
-		}
 		if (lookup("main") == unknownDecl()) {
 			throw new RuntimeException();
-		} else {
+		} else if (actrec != null) {
 			for (Stmt stmt : getCodeBlock().getStatementList()) {
 				stmt.eval(actrec);
 			}
@@ -78,6 +79,7 @@ aspect Interpreter {
 		}
 	}
 	public void Return.eval(ActivationRecord actrec) {
+		System.out.println(getReturn().eval(actrec));
 	}
 	public int Expr.eval(ActivationRecord actrec) {
 		int exprVal = 0;
@@ -91,10 +93,16 @@ aspect Interpreter {
 		return exprVal;
 	}
 	public int FuncCall.eval(ActivationRecord actrec) {
-		for (Expr expr : getExprList()) {
-			expr.eval(actrec);
+		Function function = (Function) getName().decl().function();
+		String[] parameters = new String[function.getNumParameter()];
+		for (int i = 0; i < function.getNumParameter(); i++) {
+  			parameters[i] = function.getParameter(i).getID();
 		}
-		return 0;
+		ActivationRecord funcCallActRec = create();
+		for (int i = 0; i < getNumExpr(); i++) {
+			funcCallActRec.put(parameters[i], getExpr(i).eval(actrec));
+		}
+		return function.eval(funcCallActRec);
 	}
 	public int Mul.eval(ActivationRecord actrec) {
 		int leftVal;
