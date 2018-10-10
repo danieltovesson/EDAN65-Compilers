@@ -14,6 +14,9 @@ aspect Interpreter {
 		public int get(String variable) {
 			return (int) variables.get(variable);
 		}
+		public boolean shouldReturn() {
+			return variables.get("return") != null;
+		}
 	}
 
 	protected ActivationRecord ASTNode.create() {
@@ -34,6 +37,9 @@ aspect Interpreter {
 		} else if (actrec != null) {
 			for (Stmt stmt : getCodeBlock().getStatementList()) {
 				stmt.eval(actrec);
+				if (actrec.shouldReturn()) {
+					return actrec.get("return");
+				}
 			}
 		}
 		return -1;
@@ -57,16 +63,25 @@ aspect Interpreter {
 		System.out.println(getCondition().eval(actrec));
 		for (Stmt stmt : getCodeBlock().getStatementList()) {
 			stmt.eval(actrec);
+			if (actrec.shouldReturn()) {
+				return;
+			}
 		}
 	}
 	public void IfStmt.eval(ActivationRecord actrec) {
 		System.out.println(getCondition().eval(actrec));
 		for (Stmt stmt : getCodeBlock().getStatementList()) {
 			stmt.eval(actrec);
+			if (actrec.shouldReturn()) {
+				return;
+			}
 		}
 		if (hasElse()) {
 			for (Stmt stmt : getElse().getStatementList()) {
 				stmt.eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
 			}
 		}
 	}
@@ -79,7 +94,7 @@ aspect Interpreter {
 		}
 	}
 	public void Return.eval(ActivationRecord actrec) {
-		System.out.println(getReturn().eval(actrec));
+		actrec.put("return", getReturn().eval(actrec));
 	}
 	public int Expr.eval(ActivationRecord actrec) {
 		int exprVal = 0;
