@@ -60,23 +60,29 @@ aspect Interpreter {
 		System.out.println(value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
-		System.out.println(getCondition().eval(actrec));
-		for (Stmt stmt : getCodeBlock().getStatementList()) {
-			stmt.eval(actrec);
-			if (actrec.shouldReturn()) {
-				return;
+		int conditionValue = getCondition().eval(actrec);
+		while (conditionValue == 1) {
+			conditionValue = getCondition().eval(actrec);
+			System.out.println("Condition: " + conditionValue);
+			for (Stmt stmt : getCodeBlock().getStatementList()) {
+				stmt.eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
 			}
 		}
 	}
 	public void IfStmt.eval(ActivationRecord actrec) {
-		System.out.println(getCondition().eval(actrec));
-		for (Stmt stmt : getCodeBlock().getStatementList()) {
-			stmt.eval(actrec);
-			if (actrec.shouldReturn()) {
-				return;
+		int conditionValue = getCondition().eval(actrec);
+		System.out.println("Condition: " + conditionValue);
+		if (conditionValue == 1) {
+			for (Stmt stmt : getCodeBlock().getStatementList()) {
+				stmt.eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
 			}
-		}
-		if (hasElse()) {
+		} else if (hasElse()) {
 			for (Stmt stmt : getElse().getStatementList()) {
 				stmt.eval(actrec);
 				if (actrec.shouldReturn()) {
@@ -86,11 +92,13 @@ aspect Interpreter {
 		}
 	}
 	public void FunctionStmt.eval(ActivationRecord actrec) {
-		if (lookup("print") != unknownDecl()) {
-			FuncCall fc = (FuncCall) this.getName();
+		FuncCall fc = (FuncCall) this.getName();
+		if (fc.getName().getID().equals("print")) {
 			for (Expr expr : fc.getExprList()) {
 				System.out.println(expr.eval(actrec));
 			}
+		} else {
+			fc.eval(create());
 		}
 	}
 	public void Return.eval(ActivationRecord actrec) {
