@@ -46,17 +46,17 @@ aspect Interpreter {
 	}
 	abstract public void Stmt.eval(ActivationRecord actrec);
 	public void Declaration.eval(ActivationRecord actrec) {
-		actrec.put(getName().getID(), 0);
+		actrec.put(getName().uniqueName(), 0);
 		System.out.println("Declaration: " + getName().uniqueName() + " = 0");
 	}
 	public void Assignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
-		actrec.put(getName().getID(), value);
+		actrec.put(getName().uniqueName(), value);
 		System.out.println("Assignment: " + getName().uniqueName() + " = " + value);
 	}
 	public void ReAssignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
-		actrec.put(getName().getID(), value);
+		actrec.put(getName().decl().uniqueName(), value);
 		System.out.println("ReAssignment: " + getName().decl().uniqueName() + " = " + value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
@@ -111,7 +111,7 @@ aspect Interpreter {
 			exprVal = Integer.parseInt(intValue.getINTEGER());
 		} else if (this instanceof IdUseExpr) {
 			IdUseExpr idUseExpr = (IdUseExpr) this;
-			exprVal = actrec.get(idUseExpr.getName().getID());
+			exprVal = actrec.get(idUseExpr.getName().decl().uniqueName());
 		}
 		return exprVal;
 	}
@@ -119,7 +119,7 @@ aspect Interpreter {
 		Function function = (Function) getName().decl().function();
 		String[] parameters = new String[function.getNumParameter()];
 		for (int i = 0; i < function.getNumParameter(); i++) {
-  			parameters[i] = function.getParameter(i).getID();
+  			parameters[i] = function.getParameter(i).uniqueName();
 		}
 		ActivationRecord funcCallActRec = create();
 		for (int i = 0; i < getNumExpr(); i++) {

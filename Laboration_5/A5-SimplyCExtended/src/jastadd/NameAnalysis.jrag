@@ -101,6 +101,9 @@ aspect NameAnalysis {
 	inh String Stmt.uniqueId();
 	inh String Block.appendIndex();
 
+	eq Program.unknownDecl().appendIndex() = "";
+	eq Function.getName().appendIndex() = "";
+	eq Function.getParameter(int index).appendIndex() = "";
 	eq Declaration.getName().appendIndex() = uniqueId();
 	eq Assignment.getName().appendIndex() = uniqueId();
 	eq Block.getStatement(int index).uniqueId() = appendIndex() + Integer.toString(index) + "_";
