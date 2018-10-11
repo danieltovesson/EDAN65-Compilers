@@ -128,6 +128,21 @@ aspect NameAnalysis {
 	coll Set<Function> Function.functionCalls() [new HashSet<Function>()] with add root Program;
 	FuncCall contributes getName().decl().function()
 		to Function.functionCalls() for enclosingFunction();
+
+	/*******************************************
+	REACHABILITY
+	*******************************************/
+
+	syn HashSet<Function> Function.reachable() circular [new HashSet<Function>()];
+ 	eq Function.reachable() {
+	  HashSet<Function> reachable = new HashSet<Function>();
+	  for (Function f : functionCalls()) {
+	    Function fc = f.getName().function();
+	    reachable.add(f);
+	    reachable.addAll(f.reachable());
+	  }
+	  return reachable;
+ }
 }
 
 aspect CircularDefinitions {

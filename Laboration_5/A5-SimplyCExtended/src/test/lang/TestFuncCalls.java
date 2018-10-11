@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import java.util.HashSet;
 
 import lang.ast.*;
 
@@ -35,6 +36,19 @@ public class TestFuncCalls {
 				for (Function fc : f.functionCalls()) {
 					System.out.println("\t" +  fc.getName().getID());
 				}
+			}
+			for (Function f : program.getFunctions()) {
+				System.out.print(f.getName().getID() + " = {");
+				HashSet<Function> reachable = f.reachable();
+				int size = reachable.size();
+				for (Function f1 : reachable) {
+					if (--size == 0)
+						System.out.print(f1.getName().getID());
+					else
+						System.out.print(f1.getName().getID() + ", ");
+				}
+
+				System.out.println("}");
 			}
       File outFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".out"));
       File expectedFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".expected"));
