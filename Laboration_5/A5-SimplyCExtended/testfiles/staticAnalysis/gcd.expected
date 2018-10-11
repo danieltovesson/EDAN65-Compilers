@@ -1,0 +1,50 @@
+Declaration: 0_a = 0
+Declaration: 1_b = 0
+ReAssignment: 0_a = 24
+ReAssignment: 1_b = 20
+While condition: 1
+If condition: 1
+ReAssignment: a = 4
+While condition: 1
+If condition: 0
+ReAssignment: b = 16
+While condition: 1
+If condition: 0
+ReAssignment: b = 12
+While condition: 1
+If condition: 0
+ReAssignment: b = 8
+While condition: 1
+If condition: 0
+ReAssignment: b = 4
+While condition: 0
+If condition: 0
+ReAssignment: b = 0
+Print: 4
+If condition: 0
+If condition: 0
+If condition: 1
+Print: 4
+While condition: 1
+If condition: 1
+ReAssignment: a = 4
+While condition: 1
+If condition: 0
+ReAssignment: b = 16
+While condition: 1
+If condition: 0
+ReAssignment: b = 12
+While condition: 1
+If condition: 0
+ReAssignment: b = 8
+While condition: 1
+If condition: 0
+ReAssignment: b = 4
+While condition: 0
+If condition: 0
+ReAssignment: b = 0
+If condition: 0
+If condition: 0
+If condition: 1
+Assignment: 6_diff = 0
+Print: 0
