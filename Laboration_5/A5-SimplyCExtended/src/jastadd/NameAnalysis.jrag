@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 aspect NameAnalysis {
 	/*******************************************
 	ID USE
@@ -112,6 +114,20 @@ aspect NameAnalysis {
 	eq IfStmt.getCodeBlock().appendIndex() = uniqueId();
 	eq IfStmt.getElse().appendIndex() = uniqueId();
 	eq WhileStmt.getCodeBlock().appendIndex() = uniqueId();
+
+	/*******************************************
+	FUNCTION CALLS
+	*******************************************/
+
+	inh Function Block.enclosingFunctionLookup();
+	eq Function.getCodeBlock().enclosingFunctionLookup() = this;
+
+	inh Function FuncCall.enclosingFunctionLookup();
+	syn Function FuncCall.enclosingFunction() = enclosingFunctionLookup();
+
+	coll Set<Function> Function.functionCalls() [new HashSet<Function>()] with add root Program;
+	FuncCall contributes getName().decl().function()
+		to Function.functionCalls() for enclosingFunction();
 }
 
 aspect CircularDefinitions {
