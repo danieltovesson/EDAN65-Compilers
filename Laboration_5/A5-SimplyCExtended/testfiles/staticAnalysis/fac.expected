@@ -1,6 +1,6 @@
-Condition: 0
-Condition: 0
-Condition: 0
-Condition: 0
-Condition: 1
-120
+If condition: 0
+If condition: 0
+If condition: 0
+If condition: 0
+If condition: 1
+Print: 120

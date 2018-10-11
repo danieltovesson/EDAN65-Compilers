@@ -47,23 +47,23 @@ aspect Interpreter {
 	abstract public void Stmt.eval(ActivationRecord actrec);
 	public void Declaration.eval(ActivationRecord actrec) {
 		actrec.put(getName().getID(), 0);
-		System.out.println(0);
+		System.out.println("Declaration: " + getName().getID() + " = 0");
 	}
 	public void Assignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
 		actrec.put(getName().getID(), value);
-		System.out.println(value);
+		System.out.println("Assignment: " + getName().getID() + " = " + value);
 	}
 	public void ReAssignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
 		actrec.put(getName().getID(), value);
-		System.out.println(value);
+		System.out.println("ReAssignment: " + getName().getID() + " = " + value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
 		int conditionValue = getCondition().eval(actrec);
 		while (conditionValue == 1) {
 			conditionValue = getCondition().eval(actrec);
-			System.out.println("Condition: " + conditionValue);
+			System.out.println("While condition: " + conditionValue);
 			for (Stmt stmt : getCodeBlock().getStatementList()) {
 				stmt.eval(actrec);
 				if (actrec.shouldReturn()) {
@@ -74,7 +74,7 @@ aspect Interpreter {
 	}
 	public void IfStmt.eval(ActivationRecord actrec) {
 		int conditionValue = getCondition().eval(actrec);
-		System.out.println("Condition: " + conditionValue);
+		System.out.println("If condition: " + conditionValue);
 		if (conditionValue == 1) {
 			for (Stmt stmt : getCodeBlock().getStatementList()) {
 				stmt.eval(actrec);
@@ -95,7 +95,7 @@ aspect Interpreter {
 		FuncCall fc = (FuncCall) this.getName();
 		if (fc.getName().getID().equals("print")) {
 			for (Expr expr : fc.getExprList()) {
-				System.out.println(expr.eval(actrec));
+				System.out.println("Print: " + expr.eval(actrec));
 			}
 		} else {
 			fc.eval(create());

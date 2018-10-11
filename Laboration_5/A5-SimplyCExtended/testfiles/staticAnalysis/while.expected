@@ -1,9 +1,9 @@
-3
-Condition: 1
-2
-Condition: 1
-1
-Condition: 1
-0
-Condition: 0
--1
+Assignment: b = 3
+While condition: 1
+ReAssignment: b = 2
+While condition: 1
+ReAssignment: b = 1
+While condition: 1
+ReAssignment: b = 0
+While condition: 0
+ReAssignment: b = -1

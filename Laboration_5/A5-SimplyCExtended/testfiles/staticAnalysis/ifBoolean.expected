@@ -1,18 +1,18 @@
-Condition: 1
-1
-Condition: 1
-2
-Condition: 1
-1
-Condition: 1
-2
-Condition: 1
-1
-Condition: 1
-2
-Condition: 0
-Condition: 0
-Condition: 0
-Condition: 0
-Condition: 0
-Condition: 0
+If condition: 1
+Assignment: a = 1
+If condition: 1
+Assignment: b = 2
+If condition: 1
+Assignment: a = 1
+If condition: 1
+Assignment: b = 2
+If condition: 1
+Assignment: a = 1
+If condition: 1
+Assignment: b = 2
+If condition: 0
+If condition: 0
+If condition: 0
+If condition: 0
+If condition: 0
+If condition: 0
