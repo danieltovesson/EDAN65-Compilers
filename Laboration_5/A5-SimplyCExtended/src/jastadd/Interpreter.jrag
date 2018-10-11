@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 aspect Interpreter {
 	public class ActivationRecord {
@@ -94,9 +95,16 @@ aspect Interpreter {
 	public void FunctionStmt.eval(ActivationRecord actrec) {
 		FuncCall fc = (FuncCall) this.getName();
 		if (fc.getName().getID().equals("print")) {
-			for (Expr expr : fc.getExprList()) {
-				System.out.println("Print: " + expr.eval(actrec));
+			System.out.println("Print: " + fc.getExpr(0).eval(actrec));
+		} else if (fc.getName().getID().equals("read")) {
+			Scanner sc = new Scanner(System.in);
+    	int value = 0;
+			try {
+				value = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("You must specify a integer! Using default fallback 0");
 			}
+			System.out.println("Read: " + value);
 		} else {
 			fc.eval(create());
 		}
@@ -116,6 +124,18 @@ aspect Interpreter {
 		return exprVal;
 	}
 	public int FuncCall.eval(ActivationRecord actrec) {
+		if (getName().getID().equals("print")) {
+			return -1;
+		} else if (getName().getID().equals("read")) {
+			Scanner sc = new Scanner(System.in);
+			int value = 0;
+			try {
+				value = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("You must specify a integer! Using default fallback 0");
+			}
+			return value;
+		}
 		Function function = (Function) getName().decl().function();
 		String[] parameters = new String[function.getNumParameter()];
 		for (int i = 0; i < function.getNumParameter(); i++) {
