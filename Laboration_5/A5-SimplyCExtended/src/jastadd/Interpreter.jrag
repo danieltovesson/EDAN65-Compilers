@@ -35,8 +35,8 @@ aspect Interpreter {
 		if (lookup("main") == unknownDecl()) {
 			throw new RuntimeException();
 		} else if (actrec != null) {
-			for (Stmt stmt : getCodeBlock().getStatementList()) {
-				stmt.eval(actrec);
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
 				if (actrec.shouldReturn()) {
 					return actrec.get("return");
 				}
@@ -47,25 +47,25 @@ aspect Interpreter {
 	abstract public void Stmt.eval(ActivationRecord actrec);
 	public void Declaration.eval(ActivationRecord actrec) {
 		actrec.put(getName().getID(), 0);
-		System.out.println("Declaration: " + getName().getID() + " = 0");
+		System.out.println("Declaration: " + getName().uniqueName() + " = 0");
 	}
 	public void Assignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
 		actrec.put(getName().getID(), value);
-		System.out.println("Assignment: " + getName().getID() + " = " + value);
+		System.out.println("Assignment: " + getName().uniqueName() + " = " + value);
 	}
 	public void ReAssignment.eval(ActivationRecord actrec) {
 		int value = getValue().eval(actrec);
 		actrec.put(getName().getID(), value);
-		System.out.println("ReAssignment: " + getName().getID() + " = " + value);
+		System.out.println("ReAssignment: " + getName().decl().uniqueName() + " = " + value);
 	}
 	public void WhileStmt.eval(ActivationRecord actrec) {
 		int conditionValue = getCondition().eval(actrec);
 		while (conditionValue == 1) {
 			conditionValue = getCondition().eval(actrec);
 			System.out.println("While condition: " + conditionValue);
-			for (Stmt stmt : getCodeBlock().getStatementList()) {
-				stmt.eval(actrec);
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
 				if (actrec.shouldReturn()) {
 					return;
 				}
@@ -76,15 +76,15 @@ aspect Interpreter {
 		int conditionValue = getCondition().eval(actrec);
 		System.out.println("If condition: " + conditionValue);
 		if (conditionValue == 1) {
-			for (Stmt stmt : getCodeBlock().getStatementList()) {
-				stmt.eval(actrec);
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
 				if (actrec.shouldReturn()) {
 					return;
 				}
 			}
 		} else if (hasElse()) {
-			for (Stmt stmt : getElse().getStatementList()) {
-				stmt.eval(actrec);
+			for (int i = 0; i <  getElse().getNumStatement(); i++) {
+				getElse().getStatement(i).eval(actrec);
 				if (actrec.shouldReturn()) {
 					return;
 				}

@@ -11,6 +11,8 @@ aspect NameAnalysis {
 	*******************************************/
 
 	inh IdDecl IdDecl.lookup(String name);
+	inh String IdDecl.appendIndex();
+	syn String IdDecl.uniqueName() = appendIndex() + getID();
 
 	/*******************************************
 	IS MULTI DECLARED
@@ -91,6 +93,22 @@ aspect NameAnalysis {
 		IdDecl decl = localLookup(name, index);
 		return !decl.isUnknown() ? decl : lookup(name);
 	}
+
+	/*******************************************
+	VARIABLE SHADOWING
+	*******************************************/
+
+	inh String Stmt.uniqueId();
+	inh String Block.appendIndex();
+
+	eq Declaration.getName().appendIndex() = uniqueId();
+	eq Assignment.getName().appendIndex() = uniqueId();
+	eq Block.getStatement(int index).uniqueId() = appendIndex() + Integer.toString(index) + "_";
+
+	eq Function.getCodeBlock().appendIndex() = "";
+	eq IfStmt.getCodeBlock().appendIndex() = uniqueId();
+	eq IfStmt.getElse().appendIndex() = uniqueId();
+	eq WhileStmt.getCodeBlock().appendIndex() = uniqueId();
 }
 
 aspect CircularDefinitions {
