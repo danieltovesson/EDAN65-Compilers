@@ -4,35 +4,122 @@
  */
 aspect CodeGen {
 
-	public void Program.genCode(PrintStream out) {
-		out.println(".global _start");
-		out.println(".data");
-		out.println("buf: .skip 1024");
-		out.println();
-		out.println(".text");
-		out.println("_start:");
-	}
+  public void Program.genCode(PrintStream out) {
+    out.println(".global _start");
+    out.println(".data");
+    out.println("buf: .skip 1024");
+    out.println();
+    out.println(".text");
+    out.println("_start:");
 
-	/**
-	 * Address of local variable variable in the current stack frame.
-	 */
-	syn String IdDecl.address() = "-"+(localIndex()*8)+"(%rbp)";
+    for (Function function: getFunctionList()) {
+      function.genCode(out);
+    }
 
-	/**
-	 * Local variable counting.
-	 */
-	syn int ASTNode.numLocals() = lastNode().localIndex() - localIndex();
+    // Call sys_exit:
+    out.println("	movq $0, %rdi");
+    out.println("	movq $60, %rax");
+    out.println("	syscall");
+  }
 
-	/**
-	 * Local variable numbering.
-	 */
-	syn int ASTNode.localIndex() = prevNode().localIndex();
-	eq Program.localIndex() = 0;
-	eq IdDecl.localIndex() = prevNode().localIndex() + 1;
+  public void Function.genCode(PrintStream out) {
+    out.println("	" + getName().getID() + ":");
+    out.println("		pushq %rbp");
+    out.println("		movq %rsp, %rbp");
+    out.println("		subq $4, %rsp"); // (NUM PARAMETERS + NUM VARS) * 4
 
-	inh ASTNode ASTNode.prevNode();
-	eq ASTNode.getChild(int i).prevNode() = prevNode(i);
-	syn ASTNode ASTNode.lastNode() = prevNode(getNumChild());
-	syn ASTNode ASTNode.prevNode(int i) = i>0 ? getChild(i-1).lastNode() : this;
+    for (Stmt stmt : getCodeBlock().getStatementList()) {
+      stmt.genCode(out);
+    }
+
+    out.println("		movq %rbp, %rsp");
+    out.println("		popq %rbp");
+    out.println("		ret");
+  }
+
+  abstract void Stmt.genCode(PrintStream out);
+  public void Declaration.genCode(PrintStream out) {
+  }
+  public void Assignment.genCode(PrintStream out) {
+  }
+  public void ReAssignment.genCode(PrintStream out) {
+  }
+  public void WhileStmt.genCode(PrintStream out) {
+  }
+  public void IfStmt.genCode(PrintStream out) {
+  }
+  public void FunctionStmt.genCode(PrintStream out) {
+  }
+  public void Return.genCode(PrintStream out) {
+    int returnValue = getReturn().genCode(out);
+    out.println("		 movq $" + returnValue + ", -4(%rbp)");
+    out.println("		 movq -4(%rbp), %rax");
+  }
+
+  abstract int Expr.genCode(PrintStream out);
+  public int FuncCall.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Mul.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Div.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Mod.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Add.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Sub.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Lesser.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Greater.genCode(PrintStream out) {
+    return -1;
+  }
+  public int LesserEqual.genCode(PrintStream out) {
+    return -1;
+  }
+  public int GreaterEqual.genCode(PrintStream out) {
+    return -1;
+  }
+  public int NotEqual.genCode(PrintStream out) {
+    return -1;
+  }
+  public int Equal.genCode(PrintStream out) {
+    return -1;
+  }
+  public int IdUseExpr.genCode(PrintStream out) {
+    return -1;
+  }
+  public int IntValue.genCode(PrintStream out) {
+    return Integer.parseInt(getINTEGER());
+  }
+
+  /**
+   * Address of local variable variable in the current stack frame.
+   */
+  syn String IdDecl.address() = "-"+(localIndex()*8)+"(%rbp)";
+
+  /**
+   * Local variable counting.
+   */
+  syn int ASTNode.numLocals() = lastNode().localIndex() - localIndex();
+
+  /**
+   * Local variable numbering.
+   */
+  syn int ASTNode.localIndex() = prevNode().localIndex();
+  eq Program.localIndex() = 0;
+  eq IdDecl.localIndex() = prevNode().localIndex() + 1;
+
+  inh ASTNode ASTNode.prevNode();
+  eq ASTNode.getChild(int i).prevNode() = prevNode(i);
+  syn ASTNode ASTNode.lastNode() = prevNode(getNumChild());
+  syn ASTNode ASTNode.prevNode(int i) = i>0 ? getChild(i-1).lastNode() : this;
 
 }
