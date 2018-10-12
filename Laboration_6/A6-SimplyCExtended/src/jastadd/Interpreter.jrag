@@ -1,0 +1,283 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+aspect Interpreter {
+	public class ActivationRecord {
+		protected int value;
+		protected HashMap variables;
+
+		public ActivationRecord() {
+			variables = new HashMap();
+		}
+		public void put(String variable, int value) {
+			variables.put(variable, value);
+		}
+		public int get(String variable) {
+			return (int) variables.get(variable);
+		}
+		public boolean shouldReturn() {
+			return variables.get("return") != null;
+		}
+	}
+
+	protected ActivationRecord ASTNode.create() {
+		return new ActivationRecord();
+	}
+	public void Program.eval() {
+		for (Function function : getFunctionList()) {
+			if (function.getName().getID().equals("main")) {
+				function.eval(create());
+			} else {
+				function.eval(null);
+			}
+		}
+	}
+	public int Function.eval(ActivationRecord actrec) {
+		if (lookup("main") == unknownDecl()) {
+			throw new RuntimeException();
+		} else if (actrec != null) {
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
+				if (actrec.shouldReturn()) {
+					return actrec.get("return");
+				}
+			}
+		}
+		return -1;
+	}
+	abstract public void Stmt.eval(ActivationRecord actrec);
+	public void Declaration.eval(ActivationRecord actrec) {
+		actrec.put(getName().uniqueName(), 0);
+		System.out.println("Declaration: " + getName().uniqueName() + " = 0");
+	}
+	public void Assignment.eval(ActivationRecord actrec) {
+		int value = getValue().eval(actrec);
+		actrec.put(getName().uniqueName(), value);
+		System.out.println("Assignment: " + getName().uniqueName() + " = " + value);
+	}
+	public void ReAssignment.eval(ActivationRecord actrec) {
+		int value = getValue().eval(actrec);
+		actrec.put(getName().decl().uniqueName(), value);
+		System.out.println("ReAssignment: " + getName().decl().uniqueName() + " = " + value);
+	}
+	public void WhileStmt.eval(ActivationRecord actrec) {
+		int conditionValue = getCondition().eval(actrec);
+		while (conditionValue == 1) {
+			conditionValue = getCondition().eval(actrec);
+			System.out.println("While condition: " + conditionValue);
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
+			}
+		}
+	}
+	public void IfStmt.eval(ActivationRecord actrec) {
+		int conditionValue = getCondition().eval(actrec);
+		System.out.println("If condition: " + conditionValue);
+		if (conditionValue == 1) {
+			for (int i = 0; i <  getCodeBlock().getNumStatement(); i++) {
+				getCodeBlock().getStatement(i).eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
+			}
+		} else if (hasElse()) {
+			for (int i = 0; i <  getElse().getNumStatement(); i++) {
+				getElse().getStatement(i).eval(actrec);
+				if (actrec.shouldReturn()) {
+					return;
+				}
+			}
+		}
+	}
+	public void FunctionStmt.eval(ActivationRecord actrec) {
+		FuncCall fc = (FuncCall) this.getName();
+		if (fc.getName().getID().equals("print")) {
+			System.out.println("Print: " + fc.getExpr(0).eval(actrec));
+		} else if (fc.getName().getID().equals("read")) {
+			Scanner sc = new Scanner(System.in);
+    	int value = 0;
+			try {
+				value = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("You must specify a integer! Using default fallback 0");
+			}
+			System.out.println("Read: " + value);
+		} else {
+			fc.eval(create());
+		}
+	}
+	public void Return.eval(ActivationRecord actrec) {
+		actrec.put("return", getReturn().eval(actrec));
+	}
+	public int Expr.eval(ActivationRecord actrec) {
+		int exprVal = 0;
+		if (this instanceof IntValue) {
+			IntValue intValue = (IntValue) this;
+			exprVal = Integer.parseInt(intValue.getINTEGER());
+		} else if (this instanceof IdUseExpr) {
+			IdUseExpr idUseExpr = (IdUseExpr) this;
+			exprVal = actrec.get(idUseExpr.getName().decl().uniqueName());
+		}
+		return exprVal;
+	}
+	public int FuncCall.eval(ActivationRecord actrec) {
+		if (getName().getID().equals("print")) {
+			return -1;
+		} else if (getName().getID().equals("read")) {
+			Scanner sc = new Scanner(System.in);
+			int value = 0;
+			try {
+				value = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("You must specify a integer! Using default fallback 0");
+			}
+			return value;
+		}
+		Function function = (Function) getName().decl().function();
+		String[] parameters = new String[function.getNumParameter()];
+		for (int i = 0; i < function.getNumParameter(); i++) {
+  			parameters[i] = function.getParameter(i).uniqueName();
+		}
+		ActivationRecord funcCallActRec = create();
+		for (int i = 0; i < getNumExpr(); i++) {
+			funcCallActRec.put(parameters[i], getExpr(i).eval(actrec));
+		}
+		return function.eval(funcCallActRec);
+	}
+	public int Mul.eval(ActivationRecord actrec) {
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal * rightVal;
+	}
+	public int Div.eval(ActivationRecord actrec) {
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal / rightVal;
+	}
+	public int Mod.eval(ActivationRecord actrec) {
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal % rightVal;
+	}
+	public int Add.eval(ActivationRecord actrec) {
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal + rightVal;
+	}
+	public int Sub.eval(ActivationRecord actrec) {
+		int leftVal;
+		int rightVal;
+		if (getLeft() instanceof IntValue) {
+			IntValue left = (IntValue) getLeft();
+			leftVal = Integer.parseInt(left.getINTEGER());
+		} else {
+			leftVal = getLeft().eval(actrec);
+		}
+		if (getRight() instanceof IntValue) {
+			IntValue right = (IntValue) getRight();
+			rightVal = Integer.parseInt(right.getINTEGER());
+		} else {
+			rightVal = getRight().eval(actrec);
+		}
+		return leftVal - rightVal;
+	}
+	public int Lesser.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal < rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int Greater.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal > rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int LesserEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal <= rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int GreaterEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal >= rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int NotEqual.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal != rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+	public int Equal.eval(ActivationRecord actrec) {
+		int leftVal = getLeft().eval(actrec);
+		int rightVal = getRight().eval(actrec);
+		if (leftVal == rightVal) {
+			return 1;
+		}
+		return 0;
+	}
+}

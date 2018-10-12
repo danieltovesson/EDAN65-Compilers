@@ -1,0 +1,9 @@
+Assignment: 0_b = 3
+While condition: 1
+ReAssignment: 0_b = 2
+While condition: 1
+ReAssignment: 0_b = 1
+While condition: 1
+ReAssignment: 0_b = 0
+While condition: 0
+ReAssignment: 0_b = -1

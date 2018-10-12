@@ -1,0 +1,22 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      Block
+        List
+          Declaration
+            IdDecl ID="a"
+          ReAssignment
+            IdUse ID="a"
+            IntValue INTEGER="2"
+          WhileStmt
+            Equal
+              IdUseExpr
+                IdUse ID="a"
+              IntValue INTEGER="2"
+            Block
+              List
+                ReAssignment
+                  IdUse ID="a"
+                  IntValue INTEGER="3"

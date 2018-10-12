@@ -1,0 +1,10 @@
+fac
+	fac
+f
+	print
+	fac
+main
+	f
+fac = {fac}
+f = {print, fac}
+main = {print, fac, f}

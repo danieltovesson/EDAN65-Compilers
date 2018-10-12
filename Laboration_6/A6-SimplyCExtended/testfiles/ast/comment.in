@@ -1,0 +1,5 @@
+int a() {
+  // This is a comment
+  int a;
+  a = 1;
+}
