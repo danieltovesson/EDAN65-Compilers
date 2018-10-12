@@ -1,0 +1,38 @@
+/**
+ * Simple code generation for the Calc language (EDAN65 course labs).
+ * @author Jesper Öqvist
+ */
+aspect CodeGen {
+
+	public void Program.genCode(PrintStream out) {
+		out.println(".global _start");
+		out.println(".data");
+		out.println("buf: .skip 1024");
+		out.println();
+		out.println(".text");
+		out.println("_start:");
+	}
+
+	/**
+	 * Address of local variable variable in the current stack frame.
+	 */
+	syn String IdDecl.address() = "-"+(localIndex()*8)+"(%rbp)";
+
+	/**
+	 * Local variable counting.
+	 */
+	syn int ASTNode.numLocals() = lastNode().localIndex() - localIndex();
+
+	/**
+	 * Local variable numbering.
+	 */
+	syn int ASTNode.localIndex() = prevNode().localIndex();
+	eq Program.localIndex() = 0;
+	eq IdDecl.localIndex() = prevNode().localIndex() + 1;
+
+	inh ASTNode ASTNode.prevNode();
+	eq ASTNode.getChild(int i).prevNode() = prevNode(i);
+	syn ASTNode ASTNode.lastNode() = prevNode(getNumChild());
+	syn ASTNode ASTNode.prevNode(int i) = i>0 ? getChild(i-1).lastNode() : this;
+
+}

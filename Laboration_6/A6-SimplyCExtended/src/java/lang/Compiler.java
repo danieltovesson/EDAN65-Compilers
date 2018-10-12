@@ -14,7 +14,7 @@ import lang.ast.ErrorMessage;
 /**
  * Computes the maximum statement nesting depth for a Calc program.
  */
-public class Interpreter {
+public class Compiler {
 	public static Object DrAST_root_node; // Enable debugging with DrAST.
 
 	public static void main(String[] args) {
@@ -31,16 +31,16 @@ public class Interpreter {
 			LangScanner scanner = new LangScanner(new FileReader(filename));
 			LangParser parser = new LangParser();
 			Program program = (Program) parser.parse(scanner);
-			program.prettyPrint(System.out);
+			DrAST_root_node = program; //Enable debugging with DrAST
 			if (!program.errors().isEmpty()) {
 				System.err.println();
 				System.err.println("Errors: ");
 				for (ErrorMessage e: program.errors()) {
 					System.err.println("- " + e);
 				}
+			} else {
+				program.genCode(System.out);
 			}
-      program.eval();
-			DrAST_root_node = program; // Enable debugging with DrAST.
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
 			System.exit(1);
