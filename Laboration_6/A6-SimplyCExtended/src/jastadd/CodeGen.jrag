@@ -12,29 +12,33 @@ aspect CodeGen {
     out.println(".text");
     out.println("_start:");
 
+    //calling main function.
+    out.println("call main");
+
+    //maybe we should be using the predefined helpmethods???
+
+    // Call sys_exit:
+    out.println("\t movq $0, %rdi");
+    out.println("\t movq $60, %rax");
+    out.println("\t syscall");
+
     for (Function function: getFunctionList()) {
       function.genCode(out);
     }
-
-    // Call sys_exit:
-    out.println("	movq $0, %rdi");
-    out.println("	movq $60, %rax");
-    out.println("	syscall");
   }
 
   public void Function.genCode(PrintStream out) {
-    out.println("	" + getName().getID() + ":");
-    out.println("		pushq %rbp");
-    out.println("		movq %rsp, %rbp");
-    out.println("		subq $4, %rsp"); // (NUM PARAMETERS + NUM VARS) * 4
+    out.println(getName().getID() + ":");
+    out.println("\t pushq %rbp");
+    out.println("\t movq %rsp, %rbp");
+    out.println("\t subq $" + (getCodeBlock().numLocals()*8) + ", %rsp");
+    getCodeBlock().genCode(out);
+  }
 
-    for (Stmt stmt : getCodeBlock().getStatementList()) {
+  public void Block.genCode(PrintStream out) {
+    for (Stmt stmt : getStatementList()) {
       stmt.genCode(out);
     }
-
-    out.println("		movq %rbp, %rsp");
-    out.println("		popq %rbp");
-    out.println("		ret");
   }
 
   abstract void Stmt.genCode(PrintStream out);
@@ -51,53 +55,55 @@ aspect CodeGen {
   public void FunctionStmt.genCode(PrintStream out) {
   }
   public void Return.genCode(PrintStream out) {
-    int returnValue = getReturn().genCode(out);
-    out.println("		 movq $" + returnValue + ", -4(%rbp)");
-    out.println("		 movq -4(%rbp), %rax");
+    getReturn().genCode(out);
+    out.println("\t movq %rbp, %rsp");
+		out.println("\t popq %rbp");
+		out.println("\t ret");
+		out.println();
   }
 
-  abstract int Expr.genCode(PrintStream out);
-  public int FuncCall.genCode(PrintStream out) {
-    return -1;
+  abstract void Expr.genCode(PrintStream out);
+  public void FuncCall.genCode(PrintStream out) {
+
   }
-  public int Mul.genCode(PrintStream out) {
-    return -1;
+  public void Mul.genCode(PrintStream out) {
+
   }
-  public int Div.genCode(PrintStream out) {
-    return -1;
+  public void Div.genCode(PrintStream out) {
+
   }
-  public int Mod.genCode(PrintStream out) {
-    return -1;
+  public void Mod.genCode(PrintStream out) {
+
   }
-  public int Add.genCode(PrintStream out) {
-    return -1;
+  public void Add.genCode(PrintStream out) {
+
   }
-  public int Sub.genCode(PrintStream out) {
-    return -1;
+  public void Sub.genCode(PrintStream out) {
+
   }
-  public int Lesser.genCode(PrintStream out) {
-    return -1;
+  public void Lesser.genCode(PrintStream out) {
+
   }
-  public int Greater.genCode(PrintStream out) {
-    return -1;
+  public void Greater.genCode(PrintStream out) {
+
   }
-  public int LesserEqual.genCode(PrintStream out) {
-    return -1;
+  public void LesserEqual.genCode(PrintStream out) {
+
   }
-  public int GreaterEqual.genCode(PrintStream out) {
-    return -1;
+  public void GreaterEqual.genCode(PrintStream out) {
+
   }
-  public int NotEqual.genCode(PrintStream out) {
-    return -1;
+  public void NotEqual.genCode(PrintStream out) {
+
   }
-  public int Equal.genCode(PrintStream out) {
-    return -1;
+  public void Equal.genCode(PrintStream out) {
+
   }
-  public int IdUseExpr.genCode(PrintStream out) {
-    return -1;
+  public void IdUseExpr.genCode(PrintStream out) {
+
   }
-  public int IntValue.genCode(PrintStream out) {
-    return Integer.parseInt(getINTEGER());
+  public void IntValue.genCode(PrintStream out) {
+    out.println("\t movq $" + Integer.parseInt(getINTEGER()) + ", %rax");
   }
 
   /**

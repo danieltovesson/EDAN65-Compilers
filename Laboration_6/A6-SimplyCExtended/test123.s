@@ -5,9 +5,9 @@ buf: .skip 1024
 .text
 _start:
 call main
-	 movq $0, %rdi
-	 movq $60, %rax
-	 syscall
+        movq $0, %rdi
+        movq $60, %rax
+        syscall
 main:
 	 pushq %rbp
 	 movq %rsp, %rbp
@@ -16,4 +16,5 @@ main:
 	 movq %rbp, %rsp
 	 popq %rbp
 	 ret
+
 

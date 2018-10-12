@@ -88,7 +88,7 @@ public class TestCodeGeneration {
 
 		return inputStreamToString(process.getInputStream());
 	}
-	
+
 	private String inputStreamToString(InputStream is) {
 		StringBuilder sb = new StringBuilder();
 		try {
