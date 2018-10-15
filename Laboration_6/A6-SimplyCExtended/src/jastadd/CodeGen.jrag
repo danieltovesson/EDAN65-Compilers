@@ -2,6 +2,8 @@
  * Simple code generation for the Calc language (EDAN65 course labs).
  * @author Jesper Öqvist
  */
+import java.util.Collections;
+
 aspect CodeGen {
 
   public void Program.genCode(PrintStream out) {
@@ -11,16 +13,15 @@ aspect CodeGen {
     out.println();
     out.println(".text");
     out.println("_start:");
-
+    out.println();
     //calling main function.
     out.println("call main");
 
-    //maybe we should be using the predefined helpmethods???
-
     // Call sys_exit:
-    out.println("\t movq $0, %rdi");
-    out.println("\t movq $60, %rax");
-    out.println("\t syscall");
+    out.println("movq $0, %rdi");
+    out.println("movq $60, %rax");
+    out.println("syscall");
+    out.println();
 
     for (Function function: getFunctionList()) {
       function.genCode(out);
@@ -45,6 +46,10 @@ aspect CodeGen {
   public void Declaration.genCode(PrintStream out) {
   }
   public void Assignment.genCode(PrintStream out) {
+    out.print("\t movq ");
+    getValue().genCode(out);
+    out.print(", " + getName().address());
+    out.println();
   }
   public void ReAssignment.genCode(PrintStream out) {
   }
@@ -53,11 +58,15 @@ aspect CodeGen {
   public void IfStmt.genCode(PrintStream out) {
   }
   public void FunctionStmt.genCode(PrintStream out) {
+    getName().genCode(out);
   }
   public void Return.genCode(PrintStream out) {
+    out.print("\t movq ");
     getReturn().genCode(out);
+    out.print(", %rax");
+    out.println();
     out.println("\t movq %rbp, %rsp");
-		out.println("\t popq %rbp");
+    out.println("\t popq %rbp");
 		out.println("\t ret");
 		out.println();
   }
@@ -65,6 +74,20 @@ aspect CodeGen {
   abstract void Expr.genCode(PrintStream out);
   public void FuncCall.genCode(PrintStream out) {
 
+    for (int i = 0; i < getNumExpr(); i++) {
+      Expr expr = getExpr(i);
+      out.print("\t movq ");
+      expr.genCode(out);
+      out.print(", " + (-8)*(i+1) + "(%rbp)");
+      out.println();
+    }
+
+    for (int i = getNumExpr()-1; i >= 0; i--) {
+      Expr expr = getExpr(i);
+      out.println("\t pushq " + (-8)*(i+1) + "(%rbp)");
+    }
+    out.println("\t call " + getName().getID());
+    out.println("\t addq $" + getNumExpr()*8 + ", %rsp");
   }
   public void Mul.genCode(PrintStream out) {
 
@@ -76,7 +99,8 @@ aspect CodeGen {
 
   }
   public void Add.genCode(PrintStream out) {
-
+    //test code, has to be implemented.
+    out.print("$3");
   }
   public void Sub.genCode(PrintStream out) {
 
@@ -100,10 +124,13 @@ aspect CodeGen {
 
   }
   public void IdUseExpr.genCode(PrintStream out) {
-
+    getName().genCode(out);
+  }
+  public void IdUse.genCode(PrintStream out) {
+    out.print(decl().address());
   }
   public void IntValue.genCode(PrintStream out) {
-    out.println("\t movq $" + Integer.parseInt(getINTEGER()) + ", %rax");
+    out.print("$" + Integer.parseInt(getINTEGER()));
   }
 
   /**
