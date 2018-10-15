@@ -17,7 +17,7 @@ import lang.ast.Program;
 @RunWith(Parameterized.class)
 public class TestNameAnalysis {
 	/** Directory where the test input files are stored. */
-	private static final File TEST_DIRECTORY = new File("testfiles/nameanalysis");
+	private static final File TEST_DIRECTORY = new File("testfiles/nameAnalysis");
 
 	private final String filename;
 	public TestNameAnalysis(String testFile) {

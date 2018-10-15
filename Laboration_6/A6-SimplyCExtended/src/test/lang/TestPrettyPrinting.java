@@ -18,7 +18,7 @@ import lang.ast.*;
 @RunWith(Parameterized.class)
 public class TestPrettyPrinting {
 	/** Directory where the test input files are stored. */
-	private static final File TEST_DIRECTORY = new File("testfiles/prettyprint");
+	private static final File TEST_DIRECTORY = new File("testfiles/prettyPrint");
 
 	private final String filename;
 	public TestPrettyPrinting(String testFile) {
