@@ -1,0 +1,10 @@
+int main() {
+  print(f());
+  return 1;
+}
+int f() {
+  if (2 == 2) {
+    return 3;
+  }
+  return 2;
+}
