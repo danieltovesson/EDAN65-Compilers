@@ -110,7 +110,7 @@ aspect NameAnalysis {
 	eq Assignment.getName().appendIndex() = uniqueId();
 	eq Block.getStatement(int index).uniqueId() = appendIndex() + Integer.toString(index) + "_";
 
-	eq Function.getCodeBlock().appendIndex() = "";
+	eq Function.getCodeBlock().appendIndex() = getName().getID();
 	eq IfStmt.getCodeBlock().appendIndex() = uniqueId();
 	eq IfStmt.getElse().appendIndex() = uniqueId();
 	eq WhileStmt.getCodeBlock().appendIndex() = uniqueId();

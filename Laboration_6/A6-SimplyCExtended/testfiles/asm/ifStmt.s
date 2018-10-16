@@ -20,106 +20,106 @@ main:
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jge if0_
+	 jge ifmain0_
 	 movq $1, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi0_
-if0_:
-fi0_:
+	 jmp fimain0_
+ifmain0_:
+fimain0_:
 	 movq $1, %rax
 	 pushq %rax
 	 movq $2, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jle if1_
+	 jle ifmain1_
 	 movq $1, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi1_
-if1_:
+	 jmp fimain1_
+ifmain1_:
 	 movq $2, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-fi1_:
+fimain1_:
 	 movq $1, %rax
 	 pushq %rax
 	 movq $1, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jg if2_
+	 jg ifmain2_
 	 movq $3, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi2_
-if2_:
-fi2_:
+	 jmp fimain2_
+ifmain2_:
+fimain2_:
 	 movq $2, %rax
 	 pushq %rax
 	 movq $2, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jl if3_
+	 jl ifmain3_
 	 movq $4, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi3_
-if3_:
-fi3_:
+	 jmp fimain3_
+ifmain3_:
+fimain3_:
 	 movq $1, %rax
 	 pushq %rax
 	 movq $2, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 je if4_
+	 je ifmain4_
 	 movq $5, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi4_
-if4_:
-fi4_:
+	 jmp fimain4_
+ifmain4_:
+fimain4_:
 	 movq $1, %rax
 	 pushq %rax
 	 movq $1, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jne if5_
+	 jne ifmain5_
 	 movq $6, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi5_
-if5_:
-fi5_:
+	 jmp fimain5_
+ifmain5_:
+fimain5_:
 	 movq $1, %rax
 	 pushq %rax
 	 movq $2, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jne if6_
+	 jne ifmain6_
 	 movq $6, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp fi6_
-if6_:
+	 jmp fimain6_
+ifmain6_:
 	 movq $7, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-fi6_:
+fimain6_:
 	 movq $1, %rax
 	 movq %rbp, %rsp
 	 popq %rbp

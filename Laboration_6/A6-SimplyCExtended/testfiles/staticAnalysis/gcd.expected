@@ -1,7 +1,7 @@
-Declaration: 0_a = 0
-Declaration: 1_b = 0
-ReAssignment: 0_a = 24
-ReAssignment: 1_b = 20
+Declaration: main0_a = 0
+Declaration: main1_b = 0
+ReAssignment: main0_a = 24
+ReAssignment: main1_b = 20
 While condition: 1
 If condition: 1
 ReAssignment: a = 4
@@ -46,5 +46,5 @@ ReAssignment: b = 0
 If condition: 0
 If condition: 0
 If condition: 1
-Assignment: 6_diff = 0
+Assignment: main6_diff = 0
 Print: 0

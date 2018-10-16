@@ -14,24 +14,44 @@ main:
 	 pushq %rbp
 	 movq %rsp, %rbp
 	 subq $8, %rsp
-whilemain0_:
 	 movq $1, %rax
 	 pushq %rax
-	 movq $0, %rax
+	 movq $1, %rax
 	 movq %rax, %rbx
 	 popq %rax
 	 cmpq %rbx, %rax
-	 jge end_whilemain0_
+	 jne ifmain0_
+	 call f
+	 addq $0, %rsp
+	 pushq %rax
+	 call print
+	 addq $8, %rsp
+	 jmp fimain0_
+ifmain0_:
+fimain0_:
+	 movq $1, %rax
+	 movq %rbp, %rsp
+	 popq %rbp
+	 ret
+
+f:
+	 pushq %rbp
+	 movq %rsp, %rbp
+	 subq $8, %rsp
+	 movq $2, %rax
+	 pushq %rax
+	 movq $2, %rax
+	 movq %rax, %rbx
+	 popq %rax
+	 cmpq %rbx, %rax
+	 jne iff0_
 	 movq $2, %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
-	 jmp whilemain0_
-end_whilemain0_:
-	 movq $3, %rax
-	 pushq %rax
-	 call print
-	 addq $8, %rsp
+	 jmp fif0_
+iff0_:
+fif0_:
 	 movq $1, %rax
 	 movq %rbp, %rsp
 	 popq %rbp

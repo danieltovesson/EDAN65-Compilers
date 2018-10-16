@@ -1,15 +1,15 @@
 If condition: 1
-Assignment: 0_0_a = 1
+Assignment: main0_0_a = 1
 If condition: 1
-Assignment: 1_0_b = 2
+Assignment: main1_0_b = 2
 If condition: 1
-Assignment: 2_0_a = 1
+Assignment: main2_0_a = 1
 If condition: 1
-Assignment: 3_0_b = 2
+Assignment: main3_0_b = 2
 If condition: 1
-Assignment: 4_0_a = 1
+Assignment: main4_0_a = 1
 If condition: 1
-Assignment: 5_0_b = 2
+Assignment: main5_0_b = 2
 If condition: 0
 If condition: 0
 If condition: 0

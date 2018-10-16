@@ -1,8 +1,8 @@
-Assignment: 0_i = 0
+Assignment: main0_i = 0
 If condition: 1
-Assignment: 1_0_i = 1
+Assignment: main1_0_i = 1
 If condition: 1
-Assignment: 1_1_0_i = 2
+Assignment: main1_1_0_i = 2
 Print: 2
 Print: 1
 Print: 0

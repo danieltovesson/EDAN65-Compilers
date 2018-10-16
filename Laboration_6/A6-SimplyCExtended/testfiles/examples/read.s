@@ -13,22 +13,11 @@ syscall
 main:
 	 pushq %rbp
 	 movq %rsp, %rbp
-	 subq $8, %rsp
-whilemain0_:
-	 movq $1, %rax
-	 pushq %rax
-	 movq $0, %rax
-	 movq %rax, %rbx
-	 popq %rax
-	 cmpq %rbx, %rax
-	 jge end_whilemain0_
-	 movq $2, %rax
-	 pushq %rax
-	 call print
-	 addq $8, %rsp
-	 jmp whilemain0_
-end_whilemain0_:
-	 movq $3, %rax
+	 subq $16, %rsp
+	 call read
+	 addq $0, %rsp
+	 movq %rax, -16(%rbp)
+	 movq -16(%rbp), %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
