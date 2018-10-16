@@ -155,6 +155,14 @@ aspect CodeGen {
   public void WhileStmt.genCode(PrintStream out) {
   }
   public void IfStmt.genCode(PrintStream out) {
+    getCondition().genConditionalJump(out, "if" + uniqueId());
+    getCodeBlock().genCode(out);
+    out.println("\t jmp fi" + uniqueId());
+    out.println("if" + uniqueId() + ":");
+    if (hasElse()) {
+      getElse().genCode(out);
+    }
+    out.println("fi" + uniqueId() + ":");
   }
   public void FunctionStmt.genCode(PrintStream out) {
     getName().genCode(out);
@@ -222,22 +230,22 @@ aspect CodeGen {
     out.println("\t subq %rbx, %rax");
   }
   public void Lesser.genCode(PrintStream out) {
-
+    out.print("\t jge");
   }
   public void Greater.genCode(PrintStream out) {
-
+    out.print("\t jle");
   }
   public void LesserEqual.genCode(PrintStream out) {
-
+    out.print("\t jg");
   }
   public void GreaterEqual.genCode(PrintStream out) {
-
+    out.print("\t jl");
   }
   public void NotEqual.genCode(PrintStream out) {
-
+    out.print("\t je");
   }
   public void Equal.genCode(PrintStream out) {
-
+    out.print("\t jne");
   }
   public void IdUseExpr.genCode(PrintStream out) {
     getName().genCode(out);
@@ -250,6 +258,19 @@ aspect CodeGen {
   }
   public void IntValue.genCode(PrintStream out) {
     out.println("\t movq $" + getINTEGER() + ", %rax");
+  }
+  public void Expr.genConditionalJump(PrintStream out, String jumpLabel) {
+  }
+  public void BinExpr.genConditionalJump(PrintStream out, String jumpLabel) {
+    getLeft().genCode(out);
+		out.println("\t pushq %rax");
+		getRight().genCode(out);
+		out.println("\t movq %rax, %rbx");
+    out.println("\t popq %rax");
+    out.println("\t cmpq %rbx, %rax");
+    genCode(out);
+    out.print(" " + jumpLabel);
+    out.println();
   }
 
   /**
