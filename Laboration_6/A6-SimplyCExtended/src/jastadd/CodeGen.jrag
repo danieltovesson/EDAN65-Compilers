@@ -47,11 +47,8 @@ aspect CodeGen {
   public void Declaration.genCode(PrintStream out) {
   }
   public void Assignment.genCode(PrintStream out) {
-    out.print("\t movq ");
     getValue().genCode(out);
-    out.print(", ");
     getName().genCode(out);
-    out.println();
   }
   public void ReAssignment.genCode(PrintStream out) {
   }
@@ -63,10 +60,7 @@ aspect CodeGen {
     getName().genCode(out);
   }
   public void Return.genCode(PrintStream out) {
-    out.print("\t movq ");
     getReturn().genCode(out);
-    out.print(", %rax");
-    out.println();
     out.println("\t movq %rbp, %rsp");
     out.println("\t popq %rbp");
 		out.println("\t ret");
@@ -78,10 +72,8 @@ aspect CodeGen {
     // Move stack base pointer
     for (int i = 0; i < getNumExpr(); i++) {
       Expr expr = getExpr(i);
-      out.print("\t movq ");
       expr.genCode(out);
-      out.print(", " + (-8)*(i+1) + "(%rbp)");
-      out.println();
+      out.println("\t movq %rax, " + getName().decl().address());
     }
     // Push arguments on the stack in reverse order
     for (int i = (getNumExpr() - 1); i >= 0; i--) {
@@ -101,8 +93,13 @@ aspect CodeGen {
 
   }
   public void Add.genCode(PrintStream out) {
-    //test code, has to be implemented.
-    out.print("$3");
+    getLeft().genCode(out);
+		out.println("        pushq %rax");
+		getRight().genCode(out);
+		out.println("        movq %rax, %rbx");
+		out.println("        popq %rax");
+		out.println("        movq $0, %rdx");
+		out.println("        addq %rbx");
   }
   public void Sub.genCode(PrintStream out) {
 
@@ -128,11 +125,14 @@ aspect CodeGen {
   public void IdUseExpr.genCode(PrintStream out) {
     getName().genCode(out);
   }
+  public void IdDecl.genCode(PrintStream out) {
+    out.println("\t movq " + address() + ", %rax");
+  }
   public void IdUse.genCode(PrintStream out) {
-    out.print(decl().address());
+    out.println("\t movq " + decl().address() + ", %rax");
   }
   public void IntValue.genCode(PrintStream out) {
-    out.print("$" + Integer.parseInt(getINTEGER()));
+    out.println("\t movq $" + getINTEGER() + ", %rax");
   }
 
   /**
