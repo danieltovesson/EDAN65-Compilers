@@ -1,0 +1,10 @@
+int main() {
+  int a = 2;
+  f(a);
+  return 1;
+}
+int f(int a) {
+  a = 3;
+  print(a);
+  return 1;
+}

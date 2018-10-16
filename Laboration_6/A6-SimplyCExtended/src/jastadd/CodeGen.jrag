@@ -144,18 +144,19 @@ aspect CodeGen {
 
   abstract void Stmt.genCode(PrintStream out);
   public void Declaration.genCode(PrintStream out) {
+    out.println("\t movq $0, " + getName().address());
   }
   public void Assignment.genCode(PrintStream out) {
-    out.println("Assignment");
-    // getValue().genCode(out);
-    // getName().genCode(out);
+    getValue().genCode(out);
+    out.println("\t movq %rax, " + getName().address());
   }
   public void ReAssignment.genCode(PrintStream out) {
+    getValue().genCode(out);
+    out.println("\t movq %rax, " + getName().decl().address());
   }
   public void WhileStmt.genCode(PrintStream out) {
     out.println("while" + uniqueId() + ":");
     getCondition().genConditionalJump(out, "end_while" + uniqueId());
-    //out.println("\t jmp end_while" + uniqueId());
     getCodeBlock().genCode(out);
     out.println("\t jmp while" + uniqueId());
     out.println("end_while" + uniqueId() + ":");
