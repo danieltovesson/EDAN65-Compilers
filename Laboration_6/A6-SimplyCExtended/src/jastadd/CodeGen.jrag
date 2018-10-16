@@ -14,7 +14,8 @@ aspect CodeGen {
     out.println(".text");
     out.println("_start:");
     out.println();
-    //calling main function.
+
+    // Call main function
     out.println("call main");
 
     // Call sys_exit:
@@ -32,7 +33,7 @@ aspect CodeGen {
     out.println(getName().getID() + ":");
     out.println("\t pushq %rbp");
     out.println("\t movq %rsp, %rbp");
-    out.println("\t subq $" + (getCodeBlock().numLocals()*8) + ", %rsp");
+    out.println("\t subq $" + (getCodeBlock().numLocals() * 8) + ", %rsp");
     getCodeBlock().genCode(out);
   }
 
@@ -48,7 +49,8 @@ aspect CodeGen {
   public void Assignment.genCode(PrintStream out) {
     out.print("\t movq ");
     getValue().genCode(out);
-    out.print(", " + getName().address());
+    out.print(", ");
+    getName().genCode(out);
     out.println();
   }
   public void ReAssignment.genCode(PrintStream out) {
@@ -73,7 +75,7 @@ aspect CodeGen {
 
   abstract void Expr.genCode(PrintStream out);
   public void FuncCall.genCode(PrintStream out) {
-
+    // Move stack base pointer
     for (int i = 0; i < getNumExpr(); i++) {
       Expr expr = getExpr(i);
       out.print("\t movq ");
@@ -81,13 +83,13 @@ aspect CodeGen {
       out.print(", " + (-8)*(i+1) + "(%rbp)");
       out.println();
     }
-
-    for (int i = getNumExpr()-1; i >= 0; i--) {
+    // Push arguments on the stack in reverse order
+    for (int i = (getNumExpr() - 1); i >= 0; i--) {
       Expr expr = getExpr(i);
       out.println("\t pushq " + (-8)*(i+1) + "(%rbp)");
     }
     out.println("\t call " + getName().getID());
-    out.println("\t addq $" + getNumExpr()*8 + ", %rsp");
+    out.println("\t addq $" + (getNumExpr() * 8) + ", %rsp");
   }
   public void Mul.genCode(PrintStream out) {
 
