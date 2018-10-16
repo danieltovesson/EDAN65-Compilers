@@ -73,7 +73,7 @@ aspect CodeGen {
     for (int i = 0; i < getNumExpr(); i++) {
       Expr expr = getExpr(i);
       expr.genCode(out);
-      out.println("\t movq %rax, " + getName().decl().address());
+      out.println("\t movq %rax, " + (-8)*(i+1) + "(%rbp)");
     }
     // Push arguments on the stack in reverse order
     for (int i = (getNumExpr() - 1); i >= 0; i--) {
@@ -94,12 +94,12 @@ aspect CodeGen {
   }
   public void Add.genCode(PrintStream out) {
     getLeft().genCode(out);
-		out.println("        pushq %rax");
+		out.println("\t pushq %rax");
 		getRight().genCode(out);
-		out.println("        movq %rax, %rbx");
-		out.println("        popq %rax");
-		out.println("        movq $0, %rdx");
-		out.println("        addq %rbx");
+		out.println("\t movq %rax, %rbx");
+		out.println("\t popq %rax");
+		out.println("\t movq $0, %rdx");
+		out.println("\t addq $16, %rbx");
   }
   public void Sub.genCode(PrintStream out) {
 

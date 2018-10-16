@@ -14,8 +14,10 @@ main:
 	 pushq %rbp
 	 movq %rsp, %rbp
 	 subq $0, %rsp
-	 movq $1, -8(%rbp)
-	 movq $2, -16(%rbp)
+	 movq $1, %rax
+	 movq %rax, -8(%rbp)
+	 movq $2, %rax
+	 movq %rax, -16(%rbp)
 	 pushq -16(%rbp)
 	 pushq -8(%rbp)
 	 call f
@@ -29,9 +31,15 @@ f:
 	 pushq %rbp
 	 movq %rsp, %rbp
 	 subq $8, %rsp
-	 movq $3, -40(%rbp)
+	 movq 8(%rbp), %rax
+	 pushq %rax
+	 movq 16(%rbp), %rax
+	 movq %rax, %rbx
+	 popq %rax
+	 movq $0, %rdx
+	 addq $16, %rbx
+	 movq -40(%rbp), %rax
 	 movq -40(%rbp), %rax
 	 movq %rbp, %rsp
 	 popq %rbp
 	 ret
-
