@@ -110,6 +110,7 @@ expr = 					sum
 term = 					funcCall
 								| idUseExpr
 								| intValue
+								| LPARA expr.e RPARA {: return e; :}
 								;
 
 prod = 					prod.a MUL term.b {: return new Mul(a, b); :}

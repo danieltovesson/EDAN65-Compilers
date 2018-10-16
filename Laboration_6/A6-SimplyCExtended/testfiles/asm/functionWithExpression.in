@@ -1,0 +1,8 @@
+int main() {
+  f(3+(4/2)*3);
+  return 1;
+}
+int f(int a) {
+  print(a);
+  return 2;
+}
