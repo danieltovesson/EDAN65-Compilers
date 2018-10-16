@@ -153,6 +153,12 @@ aspect CodeGen {
   public void ReAssignment.genCode(PrintStream out) {
   }
   public void WhileStmt.genCode(PrintStream out) {
+    out.println("while" + uniqueId() + ":");
+    getCondition().genConditionalJump(out, "end_while" + uniqueId());
+    //out.println("\t jmp end_while" + uniqueId());
+    getCodeBlock().genCode(out);
+    out.println("\t jmp while" + uniqueId());
+    out.println("end_while" + uniqueId() + ":");
   }
   public void IfStmt.genCode(PrintStream out) {
     getCondition().genConditionalJump(out, "if" + uniqueId());
