@@ -294,7 +294,7 @@ aspect CodeGen {
    * Local variable numbering.
    */
   syn int ASTNode.localIndex() = prevNode().localIndex();
-  eq Program.localIndex() = 0;
+  eq Function.localIndex() = 0;
   eq IdDecl.localIndex() = prevNode().localIndex() + 1;
 
   inh ASTNode ASTNode.prevNode();

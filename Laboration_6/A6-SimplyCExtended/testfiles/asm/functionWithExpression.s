@@ -44,8 +44,8 @@ f:
 	 movq %rsp, %rbp
 	 subq $16, %rsp
 	 movq 16(%rbp), %rax
-	 movq %rax, -24(%rbp)
-	 movq -24(%rbp), %rax
+	 movq %rax, -16(%rbp)
+	 movq -16(%rbp), %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp

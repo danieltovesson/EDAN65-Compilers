@@ -30,10 +30,10 @@ f:
 	 movq %rsp, %rbp
 	 subq $16, %rsp
 	 movq 16(%rbp), %rax
-	 movq %rax, -32(%rbp)
+	 movq %rax, -16(%rbp)
 	 movq $3, %rax
-	 movq %rax, -32(%rbp)
-	 movq -32(%rbp), %rax
+	 movq %rax, -16(%rbp)
+	 movq -16(%rbp), %rax
 	 pushq %rax
 	 call print
 	 addq $8, %rsp
